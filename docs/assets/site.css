@@ -322,6 +322,8 @@
   .app .kind { font-family: var(--font-mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
   .app p { font-size: 14.5px; color: var(--muted); line-height: 1.68; }
   .app p strong { color: var(--ink-2); font-weight: 500; }
+  /* A third application in a two-column grid would sit alone in half a row. */
+  .app.wide { grid-column: 1 / -1; }
 
   table { width: 100%; border-collapse: collapse; font-size: 14px; }
   .tablewrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 4px; background: var(--surface); margin-top: 22px; }

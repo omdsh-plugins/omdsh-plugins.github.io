@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="omdsh-plugins — DeepSeek Harness 的插件集合：11 个插件、2 个应用、1 份注册表，全部在 harness 之外，全部只用它已经开好的接缝。">
+<meta name="description" content="omdsh-plugins — DeepSeek Harness 的插件集合：11 个插件、3 个应用、1 份注册表，全部在 harness 之外，全部只用它已经开好的接缝。">
 <meta name="color-scheme" content="light dark">
 <title>omdsh-plugins</title>
 
@@ -20,7 +20,7 @@
       <a href="#idea"><span class="zh">理念</span><span class="en">Idea</span></a>
       <a href="#compose"><span class="zh">组成</span><span class="en">Compose</span></a>
       <a href="#catalog"><span class="zh">插件 11</span><span class="en">Plugins 11</span></a>
-      <a href="#apps"><span class="zh">应用 2</span><span class="en">Apps 2</span></a>
+      <a href="#apps"><span class="zh">应用 3</span><span class="en">Apps 3</span></a>
       <a href="#registry"><span class="zh">注册表</span><span class="en">Registry</span></a>
       <a href="#conventions"><span class="zh">公约</span><span class="en">Conventions</span></a>
       <a href="#install"><span class="zh">安装</span><span class="en">Install</span></a>
@@ -45,8 +45,8 @@
         <h1>omdsh<span class="slash">-</span>plugins</h1>
 
         <p class="thesis">
-          <span class="zh">11 个插件、2 个应用、1 份注册表 —— 全部在 harness 之外，全部只用它已经开好的接缝。</span>
-          <span class="en">Eleven plugins, two applications, one registry — all outside the harness, all built on seams it already publishes.</span>
+          <span class="zh">11 个插件、3 个应用、1 份注册表 —— 全部在 harness 之外，全部只用它已经开好的接缝。</span>
+          <span class="en">Eleven plugins, three applications, one registry — all outside the harness, all built on seams it already publishes.</span>
         </p>
 
         <p class="lede">
@@ -56,7 +56,7 @@
 
         <div class="stats">
           <div class="stat"><b>11</b><span class="cap"><span class="zh">插件</span><span class="en">plugins</span></span></div>
-          <div class="stat"><b>2</b><span class="cap"><span class="zh">应用（桌面 · 终端）</span><span class="en">applications</span></span></div>
+          <div class="stat"><b>3</b><span class="cap"><span class="zh">应用（桌面 · 终端 · 网页）</span><span class="en">applications</span></span></div>
           <div class="stat"><b>4</b><span class="cap"><span class="zh">分类</span><span class="en">categories</span></span></div>
           <div class="stat"><b>0</b><span class="cap"><span class="zh">处 harness 改动</span><span class="en">harness edits</span></span></div>
         </div>
@@ -434,11 +434,11 @@
     <!-- ── apps ───────────────────────────────────────────────────────── -->
     <section id="apps">
       <div class="sec-head">
-        <div class="eyebrow"><span class="zh">应用 · 2 个仓库</span><span class="en">Applications · 2 repositories</span></div>
-        <h2><span class="zh">两个不是插件的仓库</span><span class="en">The two repositories that are not plugins</span></h2>
+        <div class="eyebrow"><span class="zh">应用 · 3 个仓库</span><span class="en">Applications · 3 repositories</span></div>
+        <h2><span class="zh">三个不是插件的仓库</span><span class="en">The three repositories that are not plugins</span></h2>
         <p class="intro">
-          <span class="zh">它们各自带着自己的 pnpm workspace、自己的 catalog 和一份 vendored 依赖，所以不在这个 workspace 的成员里，也不在注册表中 —— 它们不是 profile 图层。</span>
-          <span class="en">Each carries a pnpm workspace of its own, with its own catalog and a vendored dependency — which is why neither is a member of this workspace, and why neither appears in the registry: neither is a profile layer.</span>
+          <span class="zh">它们各自带着自己的 pnpm workspace、自己的 catalog 和自己的 lockfile，所以不在这个 workspace 的成员里，也不在注册表中 —— 它们不是 profile 图层，而是跑 profile 的地方。</span>
+          <span class="en">Each carries a pnpm workspace of its own, with its own catalog and lockfile — which is why none is a member of this workspace, and why none appears in the registry: none is a profile layer. They are where a profile runs.</span>
         </p>
       </div>
 
@@ -487,6 +487,39 @@
                 <tr><td class="m">Creator</td><td class="m">cordis</td><td class="dim"><span class="zh">Standard 加上自指的 Cordis 工具集与写 preset 的技能 —— 让智能体给你写另一个智能体</span><span class="en">Standard plus the self-referential Cordis toolset and a preset-authoring skill, for asking an agent to write you another agent</span></td></tr>
               </tbody>
             </table>
+          </div>
+        </div>
+
+        <div class="app wide">
+          <span class="kind"><span class="zh">macOS 应用打包器</span><span class="en">macOS application packager</span></span>
+          <h3>omdsh-webapp</h3>
+          <p>
+            <span class="zh"><code>dsh web</code> 从终端启动、打印一个 URL —— 于是用网页界面就意味着：服务活多久，终端就得开多久，还得去点那行地址。这个仓库把它写成一个可双击的 <strong>DSH Web.app</strong>：点 Dock 图标启动服务并打开页面，此后每一次触及它，都是把<strong>已经显示着它的那个标签页</strong>调到前台，而不是再开一个；退出时，停掉它自己启动的那个服务。</span>
+            <span class="en"><code>dsh web</code> starts from a terminal and prints a URL, so using the browser UI means keeping a terminal open for the server's lifetime and clicking a printed line. This repository writes a double-clickable <strong>DSH Web.app</strong> instead: the Dock icon starts the server and opens the page, and every activation afterwards raises <strong>the tab already showing it</strong> rather than opening another. Quitting stops the server it started.</span>
+          </p>
+          <p>
+            <span class="zh">它是一个启动器，不是 harness 的副本：烘焙进去的只有构建时解析到的 <code>dsh</code> 路径和一条 <code>PATH</code>——Finder 启动不继承任何环境，连登录 shell 的 <code>PATH</code> 都不继承。profile、它的插件、harness 版本，全都在启动时读取，所以升级 harness 不需要重新打包。它也因此不是 profile 图层：它包装的，就是你已经组好的那个 profile。</span>
+            <span class="en">It is a launcher, not a copy of the harness: all that is baked in is the <code>dsh</code> resolved at build time and a <code>PATH</code>, because a Finder launch inherits no environment at all — not even the login shell's. The profile, its plugins, and the harness release are read at launch, so upgrading the harness needs no rebuild. Which is also why it is no profile layer: what it wraps is the profile you already assembled.</span>
+          </p>
+          <div class="tablewrap">
+            <table>
+              <thead>
+                <tr>
+                  <th><span class="zh">当你</span><span class="en">When you</span></th>
+                  <th><span class="zh">它</span><span class="en">It</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td class="m"><span class="zh">启动它</span><span class="en">Launch it</span></td><td class="dim"><span class="zh">起 <code>dsh --profile web</code>，等它打印出 URL，然后打开那个 URL</span><span class="en">boots <code>dsh --profile web</code>, waits for the URL it prints, and opens that URL</span></td></tr>
+                <tr><td class="m"><span class="zh">再次触及它</span><span class="en">Reach it again</span></td><td class="dim"><span class="zh">调起已经显示该 URL 的标签页 —— 只问已经在运行的浏览器，所以绝不会拉起一个你已经关掉的</span><span class="en">raises the tab already showing that URL — only browsers that are already running are asked, so it never starts one you had closed</span></td></tr>
+                <tr><td class="m"><span class="zh">端口已被别的东西占着</span><span class="en">Something else holds the port</span></td><td class="dim"><span class="zh">呈现那个端口上的会话并就此让位，因为「到达它」正是这次点击要的</span><span class="en">surfaces the session on that port and steps aside, because reaching it is what the click asked for</span></td></tr>
+                <tr><td class="m"><span class="zh">退出它</span><span class="en">Quit it</span></td><td class="dim"><span class="zh">停掉<strong>它自己启动的</strong>服务，不留下被占用的端口</span><span class="en">stops the server it started, so no port is left held</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="card-foot" style="margin-top:auto">
+            <span class="chip">macOS 13+</span>
+            <span class="chip">swift shim · applescript · dmg</span>
           </div>
         </div>
       </div>

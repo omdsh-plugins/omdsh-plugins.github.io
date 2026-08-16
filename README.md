@@ -2,13 +2,13 @@
 
 English | [中文](README.zh.md)
 
-A collection of plugins for the [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) — modes for its web GUI, panels around the conversation, a way onto other machines, a keyboard map, a spend readout, and a hub that installs and configures the rest from inside Settings. Two applications to run them in, and a catalog so the hub can find them.
+A collection of plugins for the [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) — modes for its web GUI, panels around the conversation, a way onto other machines, a keyboard map, a spend readout, and a hub that installs and configures the rest from inside Settings. Three applications to run them in, and a catalog so the hub can find them.
 
 **Nothing here modifies the harness.** Every feature ships as an out-of-tree bundle that a profile composes over `dsh-base`, through seams the harness already publishes: a slot, a service, a settings namespace, a route. That constraint is the whole design — the harness stays a tracked fork that can follow upstream, and a plugin written next year installs into a profile assembled today without either knowing about the other.
 
 ## What is in here
 
-Eleven plugins, two applications, and one catalog.
+Eleven plugins, three applications, and one catalog.
 
 ### Modes — what the middle column is
 
@@ -47,8 +47,9 @@ Eleven plugins, two applications, and one catalog.
 |---|---|
 | [omdsh-desktop](https://github.com/omdsh-plugins/omdsh-desktop) | An Electron shell that supervises a harness runtime and adds the native surface around it — windows, menus, restart policy, boot screen. |
 | [omdsh-tui](https://github.com/omdsh-plugins/omdsh-tui) | An interactive terminal for the harness, shipped as an installable profile bundle. `omdsh-code` runs this in its column. |
+| [omdsh-webapp](https://github.com/omdsh-plugins/omdsh-webapp) | A packager that writes the web UI into a double-clickable macOS application: it starts a profile from the Dock, raises the tab already showing it, and stops the server when it quits. |
 
-Both carry pnpm workspaces of their own, which is why they are not members of this one.
+Each carries a pnpm workspace of its own, which is why none of them is a member of this one. None composes a layer into a profile either, so none appears in the catalog.
 
 ### Catalog
 
@@ -156,7 +157,7 @@ pnpm run check:registry     # registry.json matches the packages on disk
 pnpm run registry:build     # regenerate it
 ```
 
-`omdsh-desktop` and `omdsh-tui` are separate workspaces; run their commands from inside them.
+`omdsh-desktop`, `omdsh-tui` and `omdsh-webapp` are separate workspaces; run their commands from inside them.
 
 Most plugins also carry `harness:local <path>` and `harness:npm`, which switch their harness dependencies between a sibling checkout and the committed registry pin. `check:harness-pin` fails while anything is still linked — a `link:` specifier hard-codes one machine's layout and fails silently, so it must never reach a commit.
 

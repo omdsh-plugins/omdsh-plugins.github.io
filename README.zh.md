@@ -2,13 +2,13 @@
 
 [English](README.md) | 中文
 
-一组给 [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) 用的插件：网页版的几种模式、会话列周围的各种面板、一条通往别的机器的路、一份键盘映射、一个花费读数，以及一个能在设置里把其余这些装上、卸掉、配好的插件中心。外加两个用来跑它们的应用，和一份让插件中心找得到它们的目录清单。
+一组给 [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) 用的插件：网页版的几种模式、会话列周围的各种面板、一条通往别的机器的路、一份键盘映射、一个花费读数，以及一个能在设置里把其余这些装上、卸掉、配好的插件中心。外加三个用来跑它们的应用，和一份让插件中心找得到它们的目录清单。
 
 **这里没有一行改动落在 harness 上。** 每一个功能都以 out-of-tree bundle 的形式发布，由 profile 组合在 `dsh-base` 之上，走的全是 harness 本来就公开的接缝：一个槽位、一个服务、一个 settings 命名空间、一条路由。这条约束就是整个设计——harness 得以保持成一个能跟上游走的干净 fork，而明年才写出来的插件，装进今天组好的 profile 里时，两边谁也不需要知道对方。
 
 ## 这里都有什么
 
-十一个插件、两个应用、一份目录清单。
+十一个插件、三个应用、一份目录清单。
 
 ### 模式——中间那一列是什么
 
@@ -47,8 +47,9 @@
 |---|---|
 | [omdsh-desktop](https://github.com/omdsh-plugins/omdsh-desktop) | 一个 Electron 外壳，监督一个 harness 运行时，并在它周围补上原生的那一层——窗口、菜单、重启策略、启动画面。 |
 | [omdsh-tui](https://github.com/omdsh-plugins/omdsh-tui) | harness 的交互式终端，以可安装的 profile bundle 形式发布。`omdsh-code` 在它那一列里跑的就是这个。 |
+| [omdsh-webapp](https://github.com/omdsh-plugins/omdsh-webapp) | 一个打包器，把网页界面写成一个可双击的 macOS 应用：从 Dock 启动一个 profile，把已经显示着它的标签页调至前台，退出时停掉服务。 |
 
-这两个各自带着自己的 pnpm workspace，所以它们不是本 workspace 的成员。
+这几个各自带着自己的 pnpm workspace，所以它们都不是本 workspace 的成员。它们也都不往 profile 里组合任何图层，所以也都不出现在目录清单里。
 
 ### 目录清单
 
@@ -155,7 +156,7 @@ pnpm run check:registry     # registry.json 与磁盘上的包一致
 pnpm run registry:build     # 重新生成它
 ```
 
-`omdsh-desktop` 和 `omdsh-tui` 是独立的 workspace，它们的命令要进到各自目录里跑。
+`omdsh-desktop`、`omdsh-tui` 和 `omdsh-webapp` 是独立的 workspace，它们的命令要进到各自目录里跑。
 
 大多数插件另外还带着 `harness:local <path>` 和 `harness:npm`，用来在「旁边的一份 checkout」和「已提交的 registry 版本」之间切换 harness 依赖。只要还有东西是 link 状态，`check:harness-pin` 就会失败——`link:` 说明符把某一台机器的目录结构写死了，而且是**静默**失败，所以它绝不能进到提交里。
 
