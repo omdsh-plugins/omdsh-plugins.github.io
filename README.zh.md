@@ -2,13 +2,13 @@
 
 [English](README.md) | 中文
 
-一组给 [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) 用的插件：网页版的几种模式、会话列周围的各种面板、一条通往别的机器的路、一份键盘映射、一个花费读数，以及一个能在设置里把其余这些装上、卸掉、配好的插件中心。外加三个用来跑它们的应用，和一份让插件中心找得到它们的目录清单。
+一组给 [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) 用的插件：网页版的几种模式、会话列周围的各种面板、一条通往别的机器的路、一份键盘映射、两个顶栏读数（花费，和项目与 git 状态），以及一个能在设置里把其余这些装上、卸掉、配好的插件中心。外加三个用来跑它们的应用，和一份让插件中心找得到它们的目录清单。
 
 **这里没有一行改动落在 harness 上。** 每一个功能都以 out-of-tree bundle 的形式发布，由 profile 组合在 `dsh-base` 之上，走的全是 harness 本来就公开的接缝：一个槽位、一个服务、一个 settings 命名空间、一条路由。这条约束就是整个设计——harness 得以保持成一个能跟上游走的干净 fork，而明年才写出来的插件，装进今天组好的 profile 里时，两边谁也不需要知道对方。
 
 ## 这里都有什么
 
-十一个插件、三个应用、一份目录清单。
+十二个插件、三个应用、一份目录清单。
 
 ### 模式——中间那一列是什么
 
@@ -25,6 +25,7 @@
 | [omdsh-sidepanel](https://github.com/omdsh-plugins/omdsh-sidepanel) | 右边一列文件树，下边一条终端，只在 Work 模式下出现。 |
 | [omdsh-sidechat](https://github.com/omdsh-plugins/omdsh-sidechat) | 在任何位置召唤一条独立的对话，把你正看着的东西作为锚点带上。它从不碰你正在跑的那条对话。 |
 | [omdsh-usage](https://github.com/omdsh-plugins/omdsh-usage) | 在会话顶栏显示本次会话花费、本项目花费与账户余额。 |
+| [omdsh-status](https://github.com/omdsh-plugins/omdsh-status) | 在会话顶栏右端显示当前项目名称，以及 git 分支和变更计数。 |
 | [omdsh-editor](https://github.com/omdsh-plugins/omdsh-editor) | 用你真正在用的编辑器、终端或文件管理器打开当前会话的目录。 |
 
 ### 触达——别的机器
@@ -75,6 +76,7 @@
   omdsh-remdev ───── `remdev` 服务；sidepanel 和 code 拿一个 cwd 来问它
 
   omdsh-sidepanel · omdsh-sidechat · omdsh-usage · omdsh-editor
+  omdsh-status
       会话列旁边的那些界面，同伴没装时各自答得了自己
 ```
 

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="omdsh-plugins — DeepSeek Harness 的插件集合：11 个插件、3 个应用、1 份注册表，全部在 harness 之外，全部只用它已经开好的接缝。">
+<meta name="description" content="omdsh-plugins — DeepSeek Harness 的插件集合：12 个插件、3 个应用、1 份注册表，全部在 harness 之外，全部只用它已经开好的接缝。">
 <meta name="color-scheme" content="light dark">
 <title>omdsh-plugins</title>
 
@@ -19,7 +19,7 @@
     <nav class="topnav">
       <a href="#idea"><span class="zh">理念</span><span class="en">Idea</span></a>
       <a href="#compose"><span class="zh">组成</span><span class="en">Compose</span></a>
-      <a href="#catalog"><span class="zh">插件 11</span><span class="en">Plugins 11</span></a>
+      <a href="#catalog"><span class="zh">插件 12</span><span class="en">Plugins 12</span></a>
       <a href="#apps"><span class="zh">应用 3</span><span class="en">Apps 3</span></a>
       <a href="#registry"><span class="zh">注册表</span><span class="en">Registry</span></a>
       <a href="#conventions"><span class="zh">公约</span><span class="en">Conventions</span></a>
@@ -52,13 +52,13 @@
         <h1>omdsh<span class="slash">-</span>plugins</h1>
 
         <p class="thesis">
-          <span class="zh">11 个插件、3 个应用、1 份注册表 —— 全部在 harness 之外，全部只用它已经开好的接缝。</span>
-          <span class="en">Eleven plugins, three applications, one registry — all outside the harness, all built on seams it already publishes.</span>
+          <span class="zh">12 个插件、3 个应用、1 份注册表 —— 全部在 harness 之外，全部只用它已经开好的接缝。</span>
+          <span class="en">Twelve plugins, three applications, one registry — all outside the harness, all built on seams it already publishes.</span>
         </p>
 
         <p class="lede">
-          <span class="zh">DeepSeek Harness 是一个编码智能体。这套集合把它变成一台可以按自己的方式组装的工作台：聊天模式、代码模式、侧边面板、快捷键、远程开发、用量统计。每一项都是一个独立仓库、一个 profile 图层 —— 装上就有，卸掉就没，harness 本身一行不改。</span>
-          <span class="en">The harness is a coding agent. This collection turns it into a workbench you assemble yourself: chat mode, code mode, side panels, chords, remote development, spend at a glance. Each is its own repository and its own profile layer — add it and it is there, remove it and it is gone, with nothing in the harness edited.</span>
+          <span class="zh">DeepSeek Harness 是一个编码智能体。这套集合把它变成一台可以按自己的方式组装的工作台：聊天模式、代码模式、侧边面板、快捷键、远程开发、用量统计、项目状态。每一项都是一个独立仓库、一个 profile 图层 —— 装上就有，卸掉就没，harness 本身一行不改。</span>
+          <span class="en">The harness is a coding agent. This collection turns it into a workbench you assemble yourself: chat mode, code mode, side panels, chords, remote development, spend at a glance, project status. Each is its own repository and its own profile layer — add it and it is there, remove it and it is gone, with nothing in the harness edited.</span>
         </p>
 
         <div class="dl">
@@ -77,7 +77,7 @@
         </div>
 
         <div class="stats">
-          <div class="stat"><b>11</b><span class="cap"><span class="zh">插件</span><span class="en">plugins</span></span></div>
+          <div class="stat"><b>12</b><span class="cap"><span class="zh">插件</span><span class="en">plugins</span></span></div>
           <div class="stat"><b>3</b><span class="cap"><span class="zh">应用（桌面 · 终端 · 网页）</span><span class="en">applications</span></span></div>
           <div class="stat"><b>4</b><span class="cap"><span class="zh">分类</span><span class="en">categories</span></span></div>
           <div class="stat"><b>0</b><span class="cap"><span class="zh">处 harness 改动</span><span class="en">harness edits</span></span></div>
@@ -88,6 +88,10 @@
         <div class="stackwrap">
           <div class="rail"><span>PROFILE</span></div>
           <div class="stack">
+            <div class="layer" style="--t: var(--tone-insight); animation-delay:.34s">
+              <span class="dot"></span><span class="lname">omdsh-status</span>
+              <span class="lrole"><span class="zh">插件图层</span><span class="en">plugin layer</span></span>
+            </div>
             <div class="layer" style="--t: var(--tone-insight); animation-delay:.30s">
               <span class="dot"></span><span class="lname">omdsh-usage</span>
               <span class="lrole"><span class="zh">插件图层</span><span class="en">plugin layer</span></span>
@@ -252,7 +256,7 @@
     <!-- ── catalog ────────────────────────────────────────────────────── -->
     <section id="catalog">
       <div class="sec-head">
-        <div class="eyebrow"><span class="zh">插件目录 · 11 个仓库</span><span class="en">Catalog · 11 repositories</span></div>
+        <div class="eyebrow"><span class="zh">插件目录 · 12 个仓库</span><span class="en">Catalog · 12 repositories</span></div>
         <h2><span class="zh">装上就有，卸掉就没</span><span class="en">Add it and it is there; remove it and it is gone</span></h2>
         <p class="intro">
           <span class="zh">卡片上的标题、摘要、分类和文档链接，都是插件自己 <code>package.json</code> 里的 <code>dsh.plughub</code> 声明的 —— 和插件中心真正读的是同一份。</span>
@@ -261,11 +265,11 @@
       </div>
 
       <div class="filters" role="group" aria-label="Filter by category">
-        <button type="button" data-cat="all" aria-pressed="true"><span class="zh">全部</span><span class="en">All</span> <span class="n">11</span></button>
+        <button type="button" data-cat="all" aria-pressed="true"><span class="zh">全部</span><span class="en">All</span> <span class="n">12</span></button>
         <button type="button" data-cat="system" aria-pressed="false" style="--t: var(--tone-system)"><span class="dot"></span><span class="zh">系统</span><span class="en">System</span> <span class="n">3</span></button>
         <button type="button" data-cat="workspace" aria-pressed="false" style="--t: var(--tone-workspace)"><span class="dot"></span><span class="zh">工作区</span><span class="en">Workspace</span> <span class="n">5</span></button>
         <button type="button" data-cat="input" aria-pressed="false" style="--t: var(--tone-input)"><span class="dot"></span><span class="zh">输入</span><span class="en">Input</span> <span class="n">2</span></button>
-        <button type="button" data-cat="insight" aria-pressed="false" style="--t: var(--tone-insight)"><span class="dot"></span><span class="zh">洞察</span><span class="en">Insight</span> <span class="n">1</span></button>
+        <button type="button" data-cat="insight" aria-pressed="false" style="--t: var(--tone-insight)"><span class="dot"></span><span class="zh">洞察</span><span class="en">Insight</span> <span class="n">2</span></button>
       </div>
 
       <div class="lattice" id="cards">
@@ -351,6 +355,22 @@
           <div class="card-foot">
             <span class="chip">settings: omdsh-usage</span>
             <a href="https://github.com/omdsh-plugins/omdsh-usage" target="_blank" rel="noopener">repo ↗</a>
+          </div>
+        </article>
+
+        <!-- status -->
+        <article class="card" data-cat="insight" style="--t: var(--tone-insight)">
+          <div class="card-top"><span class="dot"></span>insight<span class="ver">0.1.0</span></div>
+          <h3><span class="zh">状态</span><span class="en">Status</span><span class="en-name zh">Status</span></h3>
+          <p class="pkg">@omdsh-plugins/omdsh-status</p>
+          <p class="sum"><span class="zh">在 Work 窗口右上角显示当前项目名称与 git 分支和变更计数。</span><span class="en">Project name and git branch with change counts, at the top-right of the Work window.</span></p>
+          <p class="detail">
+            <span class="zh">哪个项目、哪个分支、动了多少 —— 一眼的事。项目名取自已注册的 workspace；旁边是当前分支，和领先/落后、已暂存、已修改、未跟踪、冲突里非零的那几个计数 —— 有冲突时只有它一个数字是红的，一行里每个符号都喊叫的读数等于什么都没说。host 半边按会话解出工作目录跑一次 <code>git status</code>，浏览器只收到要画的那几个数字，没有路径清单、没有 diff；目录不在 git 仓库里时就只显示项目名。</span>
+            <span class="en">Which project, which branch, how much has moved — at a glance. The name comes from the workspace you registered; beside it the branch, and whichever of ahead/behind, staged, modified, untracked and conflicts are non-zero — conflicts are the one count drawn in the alarm colour, because a row where every glyph shouts says nothing. The host half resolves the session's directory and runs one <code>git status</code>; the browser receives only the counts it draws, with no path list and no diff, and a directory outside any repository shows the name alone.</span>
+          </p>
+          <div class="strip"> ⬇ 导出   omdsh-plugins   ⎇ main ↑1 +2 ~3 ?1</div>
+          <div class="card-foot">
+            <a href="https://github.com/omdsh-plugins/omdsh-status" target="_blank" rel="noopener">repo ↗</a>
           </div>
         </article>
 

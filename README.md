@@ -2,13 +2,13 @@
 
 English | [中文](README.zh.md)
 
-A collection of plugins for the [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) — modes for its web GUI, panels around the conversation, a way onto other machines, a keyboard map, a spend readout, and a hub that installs and configures the rest from inside Settings. Three applications to run them in, and a catalog so the hub can find them.
+A collection of plugins for the [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) — modes for its web GUI, panels around the conversation, a way onto other machines, a keyboard map, two top-row readouts (spend, project status), and a hub that installs and configures the rest from inside Settings. Three applications to run them in, and a catalog so the hub can find them.
 
 **Nothing here modifies the harness.** Every feature ships as an out-of-tree bundle that a profile composes over `dsh-base`, through seams the harness already publishes: a slot, a service, a settings namespace, a route. That constraint is the whole design — the harness stays a tracked fork that can follow upstream, and a plugin written next year installs into a profile assembled today without either knowing about the other.
 
 ## What is in here
 
-Eleven plugins, three applications, and one catalog.
+Twelve plugins, three applications, and one catalog.
 
 ### Modes — what the middle column is
 
@@ -25,6 +25,7 @@ Eleven plugins, three applications, and one catalog.
 | [omdsh-sidepanel](https://github.com/omdsh-plugins/omdsh-sidepanel) | A file tree down the right edge and a terminal along the bottom, in Work mode. |
 | [omdsh-sidechat](https://github.com/omdsh-plugins/omdsh-sidechat) | A side conversation summoned anywhere, carrying whatever you were looking at as its anchor. Never touches the conversation you are running. |
 | [omdsh-usage](https://github.com/omdsh-plugins/omdsh-usage) | Session spend, project spend, and account balance in the conversation's top row. |
+| [omdsh-status](https://github.com/omdsh-plugins/omdsh-status) | The current project's name with its git branch and change counts, at the right end of the conversation's top row. |
 | [omdsh-editor](https://github.com/omdsh-plugins/omdsh-editor) | Open the conversation's directory in the editor, terminal, or file manager you actually use. |
 
 ### Reach — other machines
@@ -75,6 +76,7 @@ Each carries a pnpm workspace of its own, which is why none of them is a member 
   omdsh-remdev ───── the `remdev` service; sidepanel and code ask it about a cwd
 
   omdsh-sidepanel · omdsh-sidechat · omdsh-usage · omdsh-editor
+  omdsh-status
       surfaces beside the column, each answering for itself when a
       companion is not installed
 ```
