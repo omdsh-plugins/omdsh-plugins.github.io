@@ -24,6 +24,7 @@ packages:
   - omdsh-shortcuts
   - omdsh-sidechat
   - omdsh-sidepanel
+  - omdsh-status
   - omdsh-usage
 
 # No `catalog:` here on purpose. Each plugin pins the harness release in its own
@@ -47,6 +48,10 @@ allowBuilds:
   # nothing here needs.
   '@google/genai': false
   protobufjs: false
+  # ssh2's build script only compiles the optional cpu-features speedup; the
+  # pure-JS fallback is the supported path for the remdev plugin's SFTP.
+  cpu-features: false
+  ssh2: false
 
 # Every harness package is pinned to one release these plugins choose
 # deliberately, so pnpm's release-age gate has nothing left to protect.
