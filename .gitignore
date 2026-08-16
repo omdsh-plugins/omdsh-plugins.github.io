@@ -22,6 +22,7 @@ omdsh-remdev/
 omdsh-shortcuts/
 omdsh-sidechat/
 omdsh-sidepanel/
+omdsh-status/
 omdsh-tui/
 omdsh-usage/
 omdsh-webapp/
@@ -35,3 +36,6 @@ registry/
 node_modules/
 
 .DS_Store
+
+# pnpm drops its content-addressable store here when no global store is configured.
+.pnpm-store/
