@@ -263,6 +263,11 @@ web boot: 1 entry did not activate
       动，README 里写清楚了关闭状态是什么样
 - [ ] `version` 是 semver，发布时会升
 - [ ] harness 依赖是提交下来的 registry 版本号，不是 `link:`
+- [ ] harness 的 `peerDependencies` 写**范围**，绝不写 `*`。npm 上每个
+      `@deepseek-ai/dsh-*` 版本都是预发布版，所以 `latest` 标签至今仍指向最早
+      发布的那一个——而 `*` 会听从 `latest`。在 workspace 里察觉不到：那里
+      harness 是通过各包钉住的 devDependencies 解析的，于是安装、构建、测试和
+      `check:harness-pin` 全都通过，而发布出去的包根本装不上
 - [ ] 裸 clone 下 `pnpm install && pnpm run build && pnpm run typecheck`
 - [ ] 裸 clone 下 `pnpm test` 跑得过它那些只用 node 的用例，而在
       `pnpm run harness:local <path> && pnpm install` 之后跑得过全部。已发布的

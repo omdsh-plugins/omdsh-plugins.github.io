@@ -297,6 +297,13 @@ inert, not fatal.
       profile without it boots, and the README says what the off state is
 - [ ] `version` is semver and gets bumped on release
 - [ ] Harness dependencies are the committed registry pin, not `link:`
+- [ ] Harness `peerDependencies` name a RANGE, never `*`. Every
+      `@deepseek-ai/dsh-*` version on npm is a prerelease, so the `latest`
+      dist-tag still points at the first one ever published — and `*` defers to
+      `latest`. Nothing in the workspace notices: the harness resolves through
+      the pinned devDependencies there, so install, build, tests and
+      `check:harness-pin` all pass while the published package cannot be
+      installed at all
 - [ ] `pnpm install && pnpm run build && pnpm run typecheck` from a bare clone
 - [ ] `pnpm test` passes its node-only specs from a bare clone, and its whole
       suite after `pnpm run harness:local <path> && pnpm install`. A published
