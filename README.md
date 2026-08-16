@@ -51,6 +51,9 @@ Eleven plugins, three applications, and one catalog.
 
 Each carries a pnpm workspace of its own, which is why none of them is a member of this one. None composes a layer into a profile either, so none appears in the catalog.
 
+**⬇️ Download the desktop application** — nothing else needed on the machine, the runtime and the plugin hub are inside it:
+[**macOS** (Apple silicon)](https://github.com/omdsh-plugins/omdsh-desktop/releases/download/v0.1.0-rc.6/DeepSeek-Harness-0.1.0-rc.6-arm64.dmg) · [**Windows** (x64)](https://github.com/omdsh-plugins/omdsh-desktop/releases/download/v0.1.0-rc.6/DeepSeek-Harness-0.1.0-rc.6-x64-setup.exe) · [all releases](https://github.com/omdsh-plugins/omdsh-desktop/releases/latest)
+
 ### Catalog
 
 | Directory | What it is |

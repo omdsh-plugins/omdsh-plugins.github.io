@@ -51,6 +51,9 @@
 
 这几个各自带着自己的 pnpm workspace，所以它们都不是本 workspace 的成员。它们也都不往 profile 里组合任何图层，所以也都不出现在目录清单里。
 
+**⬇️ 下载桌面版** —— 机器上不用再装别的，运行时和插件中心都在里面：
+[**macOS**（Apple 芯片）](https://github.com/omdsh-plugins/omdsh-desktop/releases/download/v0.1.0-rc.6/DeepSeek-Harness-0.1.0-rc.6-arm64.dmg) · [**Windows**（64 位）](https://github.com/omdsh-plugins/omdsh-desktop/releases/download/v0.1.0-rc.6/DeepSeek-Harness-0.1.0-rc.6-x64-setup.exe) · [全部版本](https://github.com/omdsh-plugins/omdsh-desktop/releases/latest)
+
 ### 目录清单
 
 | 目录 | 它是什么 |
