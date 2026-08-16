@@ -173,6 +173,18 @@
   }
   .lang:hover { color: var(--ink); border-color: var(--ink-2); }
 
+  /* The way out to the account every repository on this page lives in. It sits
+     beside the language button rather than inside .topnav, so it survives the
+     narrow-screen collapse that hides the section links. */
+  .topend { display: flex; align-items: center; gap: 14px; }
+  .ghlink {
+    display: inline-flex; align-items: center; gap: 7px;
+    font-family: var(--font-mono); font-size: 12px; letter-spacing: .04em;
+    color: var(--muted); border: 0; white-space: nowrap;
+  }
+  .ghlink:hover { color: var(--ink); }
+  .ghlink svg { display: block; width: 16px; height: 16px; fill: currentColor; }
+
   /* ── hero ───────────────────────────────────────────────────────────── */
   .hero { padding-block: 76px 84px; border-bottom: 1px solid var(--line); }
   .hero-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 64px; align-items: start; }
@@ -404,6 +416,8 @@
     .hero { padding-block: 48px 56px; }
     section { padding-block: 52px; }
     .topnav { display: none; }
+    /* .topnav carried the auto margin that pushed the right edge over. */
+    .topend { margin-left: auto; }
     .dep { grid-template-columns: 1fr; gap: 6px; }
     .rule { grid-template-columns: 1fr; }
     .rule::before { grid-column: 1; }
