@@ -24,6 +24,7 @@ omdsh-sidechat/
 omdsh-sidepanel/
 omdsh-tui/
 omdsh-usage/
+omdsh-webapp/
 
 # The catalog is its own repository too, and the hub reads it over the network
 # rather than from here. `registry/build.mjs` still runs from this checkout,

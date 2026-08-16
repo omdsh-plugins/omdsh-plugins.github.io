@@ -1,7 +1,8 @@
-# The plugin packages, listed one by one rather than as `omdsh-*`: the two
-# repositories that are applications rather than plugins — `omdsh-desktop` and
-# `omdsh-tui` — carry pnpm workspaces of their own, with their own catalogs and
-# a vendored dependency, and a glob would pull them into this one.
+# The plugin packages, listed one by one rather than as `omdsh-*`: the three
+# repositories that are applications rather than plugins — `omdsh-desktop`,
+# `omdsh-tui` and `omdsh-webapp` — carry pnpm workspaces of their own, with
+# their own catalogs, lockfiles and a vendored dependency, and a glob would pull
+# them into this one.
 #
 # Membership plus `linkWorkspacePackages` is what lets the two plugins built on
 # `@omdsh-plugins/omdsh-base` name it by an ordinary semver range instead of a
