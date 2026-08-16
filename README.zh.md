@@ -14,7 +14,7 @@
 
 | 包 | 它提供什么 |
 |---|---|
-| [omdsh-base](https://github.com/omdsh-plugins/omdsh-base) | 会话模式系统：所有模式插件注册分段用的那个注册表、渲染它们的那个开关，以及按模式给侧栏上色的圆点。它自己不贡献任何一个模式。 |
+| [omdsh-base](https://github.com/omdsh-plugins/omdsh-base) | 会话模式系统：所有模式插件注册分段用的那个注册表、渲染它们的那个开关，以及按模式给侧栏上色的圆点。它自己不发明模式，但贡献一个：**Work**，也就是 harness 自己的那根列，好让开关永远有地方可以切回去。 |
 | [omdsh-justchat](https://github.com/omdsh-plugins/omdsh-justchat) | **Chat** 和 **Work**。Chat 不用先选项目目录就能开始对话，这些对话统一收在一个托管工作区里。 |
 | [omdsh-code](https://github.com/omdsh-plugins/omdsh-code) | **Code**。在对话所属的工作区里开一个 harness 终端，它本身就是那一列，而不是列旁边的东西。 |
 
@@ -63,7 +63,7 @@
                     │        装上 · 卸掉 · 配置其余全部              │
                     └───────────────────────────────────────────────┘
 
-  omdsh-base ──── 模式注册表、模式开关、侧栏圆点
+  omdsh-base ──── 模式注册表、模式开关、侧栏圆点，以及 Work
       ├── omdsh-justchat ── Chat · Work
       └── omdsh-code ────── Code
 

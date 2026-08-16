@@ -14,7 +14,7 @@ Eleven plugins, two applications, and one catalog.
 
 | Package | What it adds |
 |---|---|
-| [omdsh-base](https://github.com/omdsh-plugins/omdsh-base) | The session-mode system: the registry every mode plugin registers a segment into, the switch that renders them, and the dots that colour the sidebar by mode. Contributes no mode of its own. |
+| [omdsh-base](https://github.com/omdsh-plugins/omdsh-base) | The session-mode system: the registry every mode plugin registers a segment into, the switch that renders them, and the dots that colour the sidebar by mode. It invents no mode, and contributes one: **Work**, the harness's own column, so a switch always has somewhere to switch back to. |
 | [omdsh-justchat](https://github.com/omdsh-plugins/omdsh-justchat) | **Chat** and **Work**. Chat starts a conversation without picking a project directory and keeps those conversations together in a managed workspace. |
 | [omdsh-code](https://github.com/omdsh-plugins/omdsh-code) | **Code**. A harness terminal in the conversation's workspace, running as the column rather than beside it. |
 
@@ -63,7 +63,7 @@ Both carry pnpm workspaces of their own, which is why they are not members of th
                     │  installs · removes · configures everything   │
                     └───────────────────────────────────────────────┘
 
-  omdsh-base ──── the mode registry, the switch, the sidebar dots
+  omdsh-base ──── the mode registry, the switch, the dots, and Work
       ├── omdsh-justchat ── Chat · Work
       └── omdsh-code ────── Code
 
