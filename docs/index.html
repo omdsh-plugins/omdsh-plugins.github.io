@@ -24,6 +24,7 @@
       <a href="#registry"><span class="zh">注册表</span><span class="en">Registry</span></a>
       <a href="#conventions"><span class="zh">公约</span><span class="en">Conventions</span></a>
       <a href="#install"><span class="zh">安装</span><span class="en">Install</span></a>
+      <a class="dlnav" href="https://github.com/omdsh-plugins/omdsh-desktop/releases/latest"><span class="zh">下载 ↓</span><span class="en">Download ↓</span></a>
     </nav>
     <button class="lang" id="langToggle" type="button" aria-label="Switch language">
       <span class="zh">EN</span><span class="en">中文</span>
@@ -53,6 +54,21 @@
           <span class="zh">DeepSeek Harness 是一个编码智能体。这套集合把它变成一台可以按自己的方式组装的工作台：聊天模式、代码模式、侧边面板、快捷键、远程开发、用量统计。每一项都是一个独立仓库、一个 profile 图层 —— 装上就有，卸掉就没，harness 本身一行不改。</span>
           <span class="en">The harness is a coding agent. This collection turns it into a workbench you assemble yourself: chat mode, code mode, side panels, chords, remote development, spend at a glance. Each is its own repository and its own profile layer — add it and it is there, remove it and it is gone, with nothing in the harness edited.</span>
         </p>
+
+        <div class="dl">
+          <a class="primary" href="https://github.com/omdsh-plugins/omdsh-desktop/releases/download/v0.1.0-rc.6/DeepSeek-Harness-0.1.0-rc.6-arm64.dmg">
+            <span class="os"><span class="zh">下载 macOS 版</span><span class="en">Download for macOS</span></span>
+            <span class="meta">Apple silicon · 217 MB</span>
+          </a>
+          <a href="https://github.com/omdsh-plugins/omdsh-desktop/releases/download/v0.1.0-rc.6/DeepSeek-Harness-0.1.0-rc.6-x64-setup.exe">
+            <span class="os"><span class="zh">下载 Windows 版</span><span class="en">Download for Windows</span></span>
+            <span class="meta">x64 · 134 MB</span>
+          </a>
+          <span class="dl-note">
+            <span class="zh">运行时和插件中心都在安装包里，机器上不用再装别的 · <a href="https://github.com/omdsh-plugins/omdsh-desktop/releases/latest">全部版本</a></span>
+            <span class="en">The runtime and the plugin hub are inside the installer · <a href="https://github.com/omdsh-plugins/omdsh-desktop/releases/latest">all releases</a></span>
+          </span>
+        </div>
 
         <div class="stats">
           <div class="stat"><b>11</b><span class="cap"><span class="zh">插件</span><span class="en">plugins</span></span></div>
@@ -454,6 +470,18 @@
             <span class="zh"><code>runtime/package.json</code> 是记录它所搭载的 harness 版本的唯一一处 —— 从源码跑和打包出来的 <code>.app</code> 因此监督的是同一个运行时。它绑的那些和弦不在这儿，在 <code>omdsh-shortcuts</code>；这个仓库只拥有那些和弦<em>做什么</em>。</span>
             <span class="en"><code>runtime/package.json</code> is the one place recording the release it ships, which is what makes running from source representative of a packaged build. Which chords the shell claims lives in <code>omdsh-shortcuts</code>; this repository owns what those chords run.</span>
           </p>
+          <div class="dl" style="margin-top:6px">
+            <a class="primary" href="https://github.com/omdsh-plugins/omdsh-desktop/releases/download/v0.1.0-rc.6/DeepSeek-Harness-0.1.0-rc.6-arm64.dmg">
+              <span class="os">macOS</span><span class="meta">.dmg · 217 MB</span>
+            </a>
+            <a href="https://github.com/omdsh-plugins/omdsh-desktop/releases/download/v0.1.0-rc.6/DeepSeek-Harness-0.1.0-rc.6-x64-setup.exe">
+              <span class="os">Windows</span><span class="meta">.exe · 134 MB</span>
+            </a>
+            <span class="dl-note">
+              <span class="zh">未签名，首次打开：macOS 右键 →「打开」，Windows「更多信息」→「仍要运行」</span>
+              <span class="en">Unsigned — first open: right-click → Open on macOS, More info → Run anyway on Windows</span>
+            </span>
+          </div>
           <div class="card-foot" style="margin-top:auto">
             <span class="chip">dsh 0.1.0-rc.6</span>
             <span class="chip">electron-builder · dmg · nsis</span>

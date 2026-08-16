@@ -161,6 +161,9 @@
     color: var(--muted); border: 0; white-space: nowrap; padding-block: 4px;
   }
   .topnav a:hover { color: var(--ink); }
+  /* The one item in the bar that leaves the page; coloured so it reads as an
+     action rather than another section. */
+  .topnav a.dlnav { color: var(--accent-text); font-weight: 500; }
 
   .lang {
     font-family: var(--font-mono); font-size: 11.5px; letter-spacing: .06em;
@@ -195,6 +198,21 @@
 
   .thesis { font-size: 20px; line-height: 1.55; color: var(--ink); margin-top: 22px; max-width: 34em; letter-spacing: -.01em; }
   .lede { font-size: 15.5px; color: var(--muted); margin-top: 18px; max-width: 40em; }
+
+  /* The page's one call to action: the installer that runs all of this. The
+     filled button takes its text from `--surface`, not white, so it stays
+     legible against the light accent the dark palette uses. */
+  .dl { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 34px; }
+  .dl a { display: inline-flex; align-items: baseline; gap: 8px; padding: 11px 17px; border: 1px solid var(--line-strong); border-radius: 4px; background: var(--surface); color: var(--ink); text-decoration: none; }
+  .dl a:hover { border-color: var(--accent); color: var(--accent-text); }
+  .dl a.primary { background: var(--accent); border-color: var(--accent); color: var(--surface); }
+  .dl a.primary:hover { color: var(--surface); filter: brightness(1.08); }
+  .dl .os { font-size: 14.5px; font-weight: 500; }
+  .dl .meta { font-family: var(--font-mono); font-size: 11.5px; color: var(--muted); }
+  .dl a.primary .meta { color: color-mix(in srgb, var(--surface) 72%, transparent); }
+  .dl .dl-note { font-size: 12.5px; color: var(--muted); }
+  .dl .dl-note a { all: unset; color: var(--accent-text); cursor: pointer; }
+  .dl .dl-note a:hover { text-decoration: underline; }
 
   .stats { display: grid; grid-template-columns: repeat(4, auto); gap: 0; margin-top: 38px; border: 1px solid var(--line); border-radius: 4px; overflow: hidden; background: var(--surface); width: fit-content; max-width: 100%; }
   .stat { padding: 14px 22px 13px; border-right: 1px solid var(--line); }
