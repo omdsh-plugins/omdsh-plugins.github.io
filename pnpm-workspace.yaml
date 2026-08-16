@@ -1,0 +1,52 @@
+# The plugin packages, listed one by one rather than as `omdsh-*`: the two
+# repositories that are applications rather than plugins — `omdsh-desktop` and
+# `omdsh-tui` — carry pnpm workspaces of their own, with their own catalogs and
+# a vendored dependency, and a glob would pull them into this one.
+#
+# Membership plus `linkWorkspacePackages` is what lets the two plugins built on
+# `@omdsh-plugins/omdsh-base` name it by an ordinary semver range instead of a
+# `link:` path. From here the range resolves to this checkout; from a clone of
+# one plugin alone — which every package here is still set up to be, each with
+# its own workspace file and lockfile — the same range resolves from the
+# registry once base is published. A `workspace:*` would have worked only from
+# this directory and never from that clone.
+linkWorkspacePackages: true
+
+packages:
+  - omdsh-base
+  - omdsh-code
+  - omdsh-editor
+  - omdsh-justchat
+  - omdsh-plughub
+  - omdsh-remctrl
+  - omdsh-remdev
+  - omdsh-shortcuts
+  - omdsh-sidechat
+  - omdsh-sidepanel
+  - omdsh-usage
+
+# No `catalog:` here on purpose. Each plugin pins the harness release in its own
+# manifest, and `pnpm run check:harness-pin` proves it against the literal that
+# `scripts/harness-source.ts` writes — a catalog reference would have nothing to
+# resolve against once a plugin is installed outside this workspace.
+
+# pnpm 10+ blocks any dependency shipping an install/build script until it is
+# explicitly reviewed here. Deny by default; allow only what the plugins need.
+# The reasoning is the desktop repository's, for the same dependencies.
+allowBuilds:
+  esbuild: true
+  # Restores the executable bit on node-pty's macOS spawn helper, which the
+  # persistent-terminal tools the plugins mount in tests need.
+  '@deepseek-ai/dsh-subprocess-local': true
+  # Cross-platform boundary for the persistent PTY backend, including ConPTY.
+  node-pty: true
+  # JSONL durability calls MoveFileExW with write-through publication on Windows.
+  koffi: true
+  # Pulled in by an optional LLM API backend; its lifecycle scripts are no-ops
+  # nothing here needs.
+  '@google/genai': false
+  protobufjs: false
+
+# Every harness package is pinned to one release these plugins choose
+# deliberately, so pnpm's release-age gate has nothing left to protect.
+minimumReleaseAge: 0

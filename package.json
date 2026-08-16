@@ -1,0 +1,22 @@
+{
+  "name": "omdsh-plugins",
+  "description": "Workspace root for the omdsh plugin collection: every package here installs into a dsh profile through its own dsh.bundle manifest.",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "packageManager": "pnpm@11.7.0",
+  "engines": {
+    "node": "^22.19.0 || >=24.0.0"
+  },
+  "scripts": {
+    "build": "pnpm -r run build",
+    "typecheck": "pnpm -r run typecheck",
+    "test": "pnpm -r run test",
+    "check:harness-pin": "pnpm -r run check:harness-pin",
+    "registry:build": "node registry/build.mjs",
+    "check:registry": "node registry/build.mjs --check"
+  },
+  "dependencies": {
+    "@deepseek-ai/dsh": "^0.1.0-rc.6"
+  }
+}

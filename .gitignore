@@ -1,0 +1,36 @@
+# Every plugin and application in this collection is its OWN repository, cloned
+# as a sibling of this file. What this repository tracks is what belongs to the
+# collection rather than to any one plugin: the conventions, the documentation
+# style, the workspace configuration, and the site under `docs/`.
+#
+# Listed one by one rather than as `omdsh-*/`, for the same reason
+# `pnpm-workspace.yaml` lists its members one by one: a glob decides the
+# question for directories that do not exist yet, and a future directory that
+# belongs to the collection would be ignored silently.
+#
+# Without these entries git records each checkout as a gitlink — a commit
+# pointer to a repository nobody can resolve from this one — which looks like a
+# tracked directory until somebody clones and finds it empty.
+omdsh-base/
+omdsh-code/
+omdsh-desktop/
+omdsh-editor/
+omdsh-justchat/
+omdsh-plughub/
+omdsh-remctrl/
+omdsh-remdev/
+omdsh-shortcuts/
+omdsh-sidechat/
+omdsh-sidepanel/
+omdsh-tui/
+omdsh-usage/
+
+# The catalog is its own repository too, and the hub reads it over the network
+# rather than from here. `registry/build.mjs` still runs from this checkout,
+# because it reads the siblings above.
+registry/
+
+# pnpm installs the whole workspace closure here.
+node_modules/
+
+.DS_Store
