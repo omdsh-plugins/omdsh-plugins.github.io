@@ -276,7 +276,7 @@
 
         <!-- plughub -->
         <article class="card" data-cat="system" style="--t: var(--tone-system)">
-          <div class="card-top"><span class="dot"></span>system<span class="ver">0.1.0</span></div>
+          <div class="card-top"><span class="dot"></span>system<span class="ver">0.1.3</span></div>
           <h3><span class="zh">插件中心</span><span class="en">Plugin Hub</span><span class="en-name zh">Plugin Hub</span></h3>
           <p class="pkg">@omdsh-plugins/omdsh-plughub</p>
           <p class="sum"><span class="zh">在设置里安装、卸载并配置 omdsh 插件。</span><span class="en">Install, remove, and configure omdsh plugins from inside Settings.</span></p>
@@ -292,7 +292,7 @@
 
         <!-- shortcuts -->
         <article class="card" data-cat="input" style="--t: var(--tone-input)">
-          <div class="card-top"><span class="dot"></span>input<span class="ver">0.1.0</span></div>
+          <div class="card-top"><span class="dot"></span>input<span class="ver">0.1.1</span></div>
           <h3><span class="zh">快捷键</span><span class="en">Shortcuts</span><span class="en-name zh">Shortcuts</span></h3>
           <p class="pkg">@omdsh-plugins/omdsh-shortcuts</p>
           <p class="sum"><span class="zh">为每个命令绑定一个快捷键，桌面菜单与网页端共用一份配置。</span><span class="en">One chord per command, on the desktop menu and in the page alike.</span></p>
@@ -310,10 +310,10 @@
 
         <!-- remdev -->
         <article class="card" data-cat="workspace" style="--t: var(--tone-workspace)">
-          <div class="card-top"><span class="dot"></span>workspace<span class="ver">0.1.0</span></div>
+          <div class="card-top"><span class="dot"></span>workspace<span class="ver">0.1.1</span></div>
           <h3><span class="zh">远程开发</span><span class="en">Remote Development</span><span class="en-name zh">Remote Development</span></h3>
           <p class="pkg">@omdsh-plugins/omdsh-remdev</p>
-          <p class="sum"><span class="zh">把工作区接到一台 SSH 服务器上，文件、终端和智能体都在那台机器上跑。</span><span class="en">Attach a workspace to an SSH server and run its files, terminals, and agents there.</span></p>
+          <p class="sum"><span class="zh">把工作区接到一台 SSH 服务器上，文件、终端、智能体和项目技能都在那台机器上。</span><span class="en">Attach a workspace to an SSH server: its files, terminals, agents, and project skills all live there.</span></p>
           <p class="detail">
             <span class="zh">侧栏 Workspaces 那一行末尾多一个 <strong>Remote Connect</strong>：描述一台机器、连上去、在上面装好 <code>.dsh-server</code>、选一个目录 —— 回来的是一个普通工作区，只是文件夹上带个地球。<code>workspaces.create</code> 要求目录真实存在，所以这个插件在 <code>$DSH_HOME/remotes/</code> 下给它一个真的镜像目录；于是会话分组、注册表、投影、用量汇总全都一行不用改。</span>
             <span class="en">A <strong>Remote Connect</strong> button at the trailing end of the sidebar's Workspaces bar: describe a machine, connect, provision a <code>.dsh-server</code> there, pick a directory. What comes back is an ordinary workspace with a globe on its folder. <code>workspaces.create</code> requires a real directory, so this plugin gives it one — a mirror under <code>$DSH_HOME/remotes/</code> — and everything downstream works untouched.</span>
@@ -376,7 +376,7 @@
 
         <!-- base -->
         <article class="card" data-cat="system" style="--t: var(--tone-system)">
-          <div class="card-top"><span class="dot"></span>system<span class="ver">0.1.0</span></div>
+          <div class="card-top"><span class="dot"></span>system<span class="ver">0.1.3</span></div>
           <h3><span class="zh">模式系统</span><span class="en">Mode System</span><span class="en-name zh">Mode System</span></h3>
           <p class="pkg">@omdsh-plugins/omdsh-base</p>
           <p class="sum"><span class="zh">所有模式插件共用的模式开关，以及按模式给侧栏会话上色的圆点。</span><span class="en">The switch every mode plugin registers into, and the sidebar dots that colour their conversations.</span></p>
@@ -392,7 +392,7 @@
 
         <!-- justchat -->
         <article class="card" data-cat="workspace" style="--t: var(--tone-workspace)">
-          <div class="card-top"><span class="dot"></span>workspace<span class="ver">0.1.0</span></div>
+          <div class="card-top"><span class="dot"></span>workspace<span class="ver">0.1.1</span></div>
           <h3><span class="zh">聊天模式</span><span class="en">Chat Mode</span><span class="en-name zh">Chat Mode</span></h3>
           <p class="pkg">@omdsh-plugins/omdsh-justchat</p>
           <p class="sum"><span class="zh">不用选项目目录就能开始对话，这些对话统一放在侧栏的 Chat 下面。</span><span class="en">Start a conversation without picking a project directory, kept together under Chat.</span></p>
@@ -408,7 +408,7 @@
 
         <!-- code -->
         <article class="card" data-cat="workspace" style="--t: var(--tone-workspace)">
-          <div class="card-top"><span class="dot"></span>workspace<span class="ver">0.1.0</span></div>
+          <div class="card-top"><span class="dot"></span>workspace<span class="ver">0.1.1</span></div>
           <h3><span class="zh">代码模式</span><span class="en">Code Mode</span><span class="en-name zh">Code Mode</span></h3>
           <p class="pkg">@omdsh-plugins/omdsh-code</p>
           <p class="sum"><span class="zh">在对话所属的工作区里开一个 harness 终端，与 Chat、Work 并列。</span><span class="en">A harness terminal in the conversation's workspace, beside Chat and Work.</span></p>
@@ -440,7 +440,7 @@
 
         <!-- sidechat -->
         <article class="card" data-cat="input" style="--t: var(--tone-input)">
-          <div class="card-top"><span class="dot"></span>input<span class="ver">0.1.0</span></div>
+          <div class="card-top"><span class="dot"></span>input<span class="ver">0.1.1</span></div>
           <h3><span class="zh">侧边对话</span><span class="en">Side Chat</span><span class="en-name zh">Side Chat</span></h3>
           <p class="pkg">@omdsh-plugins/omdsh-sidechat</p>
           <p class="sum"><span class="zh">在任何位置召唤一条独立的对话，带上你正看着的东西作为锚点。</span><span class="en">Summon a conversation of its own anywhere, anchored to whatever you were looking at.</span></p>
