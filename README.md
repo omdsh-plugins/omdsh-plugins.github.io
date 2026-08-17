@@ -15,8 +15,8 @@ Twelve plugins, three applications, and one catalog.
 | Package | What it adds |
 |---|---|
 | [omdsh-base](https://github.com/omdsh-plugins/omdsh-base) | The session-mode system: the registry every mode plugin registers a segment into, the switch that renders them, and the dots that colour the sidebar by mode. It invents no mode, and contributes one: **Work**, the harness's own column, so a switch always has somewhere to switch back to. |
-| [omdsh-justchat](https://github.com/omdsh-plugins/omdsh-justchat) | **Chat** and **Work**. Chat starts a conversation without picking a project directory and keeps those conversations together in a managed workspace. |
-| [omdsh-code](https://github.com/omdsh-plugins/omdsh-code) | **Code**. A harness terminal in the conversation's workspace, running as the column rather than beside it. |
+| [omdsh-chatmode](https://github.com/omdsh-plugins/omdsh-chatmode) | **Chat** and **Work**. Chat starts a conversation without picking a project directory and keeps those conversations together in a managed workspace. |
+| [omdsh-codemode](https://github.com/omdsh-plugins/omdsh-codemode) | **Code**. A harness terminal in the conversation's workspace, running as the column rather than beside it. |
 
 ### Around the conversation
 
@@ -47,7 +47,7 @@ Twelve plugins, three applications, and one catalog.
 | Repository | What it is |
 |---|---|
 | [omdsh-desktop](https://github.com/omdsh-plugins/omdsh-desktop) | An Electron shell that supervises a harness runtime and adds the native surface around it — windows, menus, restart policy, boot screen. |
-| [omdsh-tui](https://github.com/omdsh-plugins/omdsh-tui) | An interactive terminal for the harness, shipped as an installable profile bundle. `omdsh-code` runs this in its column. |
+| [omdsh-tui](https://github.com/omdsh-plugins/omdsh-tui) | An interactive terminal for the harness, shipped as an installable profile bundle. `omdsh-codemode` runs this in its column. |
 | [omdsh-webapp](https://github.com/omdsh-plugins/omdsh-webapp) | A packager that writes the web UI into a double-clickable macOS application: it starts a profile from the Dock, raises the tab already showing it, and stops the server when it quits. |
 
 Each carries a pnpm workspace of its own, which is why none of them is a member of this one. None composes a layer into a profile either, so none appears in the catalog.
@@ -69,11 +69,11 @@ Each carries a pnpm workspace of its own, which is why none of them is a member 
                     └───────────────────────────────────────────────┘
 
   omdsh-base ──── the mode registry, the switch, the dots, and Work
-      ├── omdsh-justchat ── Chat · Work
-      └── omdsh-code ────── Code
+      ├── omdsh-chatmode ── Chat · Work
+      └── omdsh-codemode ── Code
 
   omdsh-shortcuts ── the `shortcut` service; every chord in the app
-  omdsh-remdev ───── the `remdev` service; sidepanel and code ask it about a cwd
+  omdsh-remdev ───── the `remdev` service; sidepanel and codemode ask it about a cwd
 
   omdsh-sidepanel · omdsh-sidechat · omdsh-usage · omdsh-editor
   omdsh-status
@@ -106,8 +106,8 @@ Each plugin installs by name into a profile:
 
 ```sh
 dsh plugin --profile web add @omdsh-plugins/omdsh-base
-dsh plugin --profile web add @omdsh-plugins/omdsh-justchat   # Chat and Work
-dsh plugin --profile web add @omdsh-plugins/omdsh-code       # Code
+dsh plugin --profile web add @omdsh-plugins/omdsh-chatmode   # Chat and Work
+dsh plugin --profile web add @omdsh-plugins/omdsh-codemode   # Code
 ```
 
 Order is a readability preference, not a requirement: a plugin composed before the service it wants waits on a restricted fiber rather than failing.
@@ -125,10 +125,10 @@ Nothing here is published yet, so a profile assembled today installs from the wo
 ```sh
 pnpm install
 pnpm run build
-dsh plugin --profile web add "$PWD/omdsh-base" "$PWD/omdsh-justchat" "$PWD/omdsh-code"
+dsh plugin --profile web add "$PWD/omdsh-base" "$PWD/omdsh-chatmode" "$PWD/omdsh-codemode"
 ```
 
-`omdsh-tui` is not a workspace member and installs into a profile of its own, which is where `omdsh-code` looks for it:
+`omdsh-tui` is not a workspace member and installs into a profile of its own, which is where `omdsh-codemode` looks for it:
 
 ```sh
 cd omdsh-tui && pnpm install && pnpm run install:profile
@@ -182,13 +182,13 @@ Because `pnpm -r` stops at the first failing member, a root `pnpm run test` on a
 
 ## Known rough edges in the tooling
 
-- **`omdsh-code` and `omdsh-justchat` only build from this workspace, not standalone.** They are the only two packages that depend on another package in the collection (`@omdsh-plugins/omdsh-base`), and nothing here is published yet. From the collection root `linkWorkspacePackages` resolves that to the checkout and everything works; run `pnpm install`, `pnpm test`, or `harness:local` from *inside* either directory and pnpm treats it as its own workspace root, cannot find `omdsh-base` on npm, and fails before doing anything:
+- **`omdsh-codemode` and `omdsh-chatmode` only build from this workspace, not standalone.** They are the only two packages that depend on another package in the collection (`@omdsh-plugins/omdsh-base`), and nothing here is published yet. From the collection root `linkWorkspacePackages` resolves that to the checkout and everything works; run `pnpm install`, `pnpm test`, or `harness:local` from *inside* either directory and pnpm treats it as its own workspace root, cannot find `omdsh-base` on npm, and fails before doing anything:
 
   ```
   ERR_PNPM_FETCH_404  GET https://registry.npmjs.org/@omdsh-plugins%2Fomdsh-base: Not Found
   ```
 
-  This is the anticipated cost of the `linkWorkspacePackages` + semver arrangement `pnpm-workspace.yaml` explains, and it resolves itself the day `omdsh-base` is published. It is also why those two are the only plugins with no `pnpm-lock.yaml` of their own. Until then, run their commands from the workspace root (`pnpm --filter @omdsh-plugins/omdsh-code run test`).
+  This is the anticipated cost of the `linkWorkspacePackages` + semver arrangement `pnpm-workspace.yaml` explains, and it resolves itself the day `omdsh-base` is published. It is also why those two are the only plugins with no `pnpm-lock.yaml` of their own. Until then, run their commands from the workspace root (`pnpm --filter @omdsh-plugins/omdsh-codemode run test`).
 - **`omdsh-remctrl` and `omdsh-remdev` carry no `harness:local` / `harness:npm` / `check:harness-pin` scripts at all**, so the root `check:harness-pin` sweep passes over them. Neither has browser specs today, which is why it has not bitten — but neither is covered by the guarantee that sweep is there to give.
 
 ## Writing a plugin

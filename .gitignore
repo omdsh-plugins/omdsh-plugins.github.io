@@ -12,10 +12,10 @@
 # pointer to a repository nobody can resolve from this one — which looks like a
 # tracked directory until somebody clones and finds it empty.
 omdsh-base/
-omdsh-code/
+omdsh-chatmode/
+omdsh-codemode/
 omdsh-desktop/
 omdsh-editor/
-omdsh-justchat/
 omdsh-plughub/
 omdsh-remctrl/
 omdsh-remdev/

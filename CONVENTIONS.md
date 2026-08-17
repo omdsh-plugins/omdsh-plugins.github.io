@@ -135,7 +135,7 @@ way.** Title Case, every word capitalized: `Remote Control`, `Side Panels`,
 `Usage`. Spelled out rather than abbreviated — a package name is typed, so it
 contracts (`omdsh-remctrl`); a title is read, so it does not (`Remote
 Control`). Say what the plugin IS rather than repeating what it is filed under:
-`Chat Mode`, not `Justchat`. Translate it the way the summary beside it is
+`Chat Mode`, not `Chatmode`. Translate it the way the summary beside it is
 translated. The hub no longer folds the case, so what the manifest says is what
 the panel shows.
 
@@ -233,7 +233,7 @@ test is where a name is composed, not whether it appears in this list:
 `webRuntime` comes from the web-app surface bundle, so a plugin that names it
 is declaring it needs that surface — which is the honest thing for a plugin
 that has a browser half.) A service published by another plugin in this directory
-(`sessionModes` from omdsh-justchat, `shortcut` from omdsh-shortcuts, `remdev`
+(`sessionModes` from omdsh-chatmode, `shortcut` from omdsh-shortcuts, `remdev`
 from omdsh-remdev) is a different kind of fact: whether it exists is a property
 of the PROFILE, and a profile is assembled by a person one `dsh plugin add` at
 a time.
@@ -245,7 +245,7 @@ browser's post-settle sweep in `dsh-client-web`):
 
 ```
 web boot: 1 entry did not activate
-@omdsh-plugins/omdsh-code: pending (waiting for service: sessionModes)
+@omdsh-plugins/omdsh-codemode: pending (waiting for service: sessionModes)
 ```
 
 That is a dead UI, not a disabled feature — one missing companion plugin takes

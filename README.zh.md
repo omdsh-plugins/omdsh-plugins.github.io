@@ -15,8 +15,8 @@
 | 包 | 它提供什么 |
 |---|---|
 | [omdsh-base](https://github.com/omdsh-plugins/omdsh-base) | 会话模式系统：所有模式插件注册分段用的那个注册表、渲染它们的那个开关，以及按模式给侧栏上色的圆点。它自己不发明模式，但贡献一个：**Work**，也就是 harness 自己的那根列，好让开关永远有地方可以切回去。 |
-| [omdsh-justchat](https://github.com/omdsh-plugins/omdsh-justchat) | **Chat** 和 **Work**。Chat 不用先选项目目录就能开始对话，这些对话统一收在一个托管工作区里。 |
-| [omdsh-code](https://github.com/omdsh-plugins/omdsh-code) | **Code**。在对话所属的工作区里开一个 harness 终端，它本身就是那一列，而不是列旁边的东西。 |
+| [omdsh-chatmode](https://github.com/omdsh-plugins/omdsh-chatmode) | **Chat** 和 **Work**。Chat 不用先选项目目录就能开始对话，这些对话统一收在一个托管工作区里。 |
+| [omdsh-codemode](https://github.com/omdsh-plugins/omdsh-codemode) | **Code**。在对话所属的工作区里开一个 harness 终端，它本身就是那一列，而不是列旁边的东西。 |
 
 ### 会话列周围
 
@@ -47,7 +47,7 @@
 | 仓库 | 它是什么 |
 |---|---|
 | [omdsh-desktop](https://github.com/omdsh-plugins/omdsh-desktop) | 一个 Electron 外壳，监督一个 harness 运行时，并在它周围补上原生的那一层——窗口、菜单、重启策略、启动画面。 |
-| [omdsh-tui](https://github.com/omdsh-plugins/omdsh-tui) | harness 的交互式终端，以可安装的 profile bundle 形式发布。`omdsh-code` 在它那一列里跑的就是这个。 |
+| [omdsh-tui](https://github.com/omdsh-plugins/omdsh-tui) | harness 的交互式终端，以可安装的 profile bundle 形式发布。`omdsh-codemode` 在它那一列里跑的就是这个。 |
 | [omdsh-webapp](https://github.com/omdsh-plugins/omdsh-webapp) | 一个打包器，把网页界面写成一个可双击的 macOS 应用：从 Dock 启动一个 profile，把已经显示着它的标签页调至前台，退出时停掉服务。 |
 
 这几个各自带着自己的 pnpm workspace，所以它们都不是本 workspace 的成员。它们也都不往 profile 里组合任何图层，所以也都不出现在目录清单里。
@@ -69,11 +69,11 @@
                     └───────────────────────────────────────────────┘
 
   omdsh-base ──── 模式注册表、模式开关、侧栏圆点，以及 Work
-      ├── omdsh-justchat ── Chat · Work
-      └── omdsh-code ────── Code
+      ├── omdsh-chatmode ── Chat · Work
+      └── omdsh-codemode ── Code
 
   omdsh-shortcuts ── `shortcut` 服务；应用里每一个快捷键
-  omdsh-remdev ───── `remdev` 服务；sidepanel 和 code 拿一个 cwd 来问它
+  omdsh-remdev ───── `remdev` 服务；sidepanel 和 codemode 拿一个 cwd 来问它
 
   omdsh-sidepanel · omdsh-sidechat · omdsh-usage · omdsh-editor
   omdsh-status
@@ -105,8 +105,8 @@ dsh --profile web
 
 ```sh
 dsh plugin --profile web add @omdsh-plugins/omdsh-base
-dsh plugin --profile web add @omdsh-plugins/omdsh-justchat   # Chat 和 Work
-dsh plugin --profile web add @omdsh-plugins/omdsh-code       # Code
+dsh plugin --profile web add @omdsh-plugins/omdsh-chatmode   # Chat 和 Work
+dsh plugin --profile web add @omdsh-plugins/omdsh-codemode   # Code
 ```
 
 顺序只是可读性上的偏好，不是要求：一个插件如果比它想要的服务先组合，它会在受限 fiber 上等，而不是失败。
@@ -124,10 +124,10 @@ dsh plugin --profile web remove @omdsh-plugins/omdsh-base
 ```sh
 pnpm install
 pnpm run build
-dsh plugin --profile web add "$PWD/omdsh-base" "$PWD/omdsh-justchat" "$PWD/omdsh-code"
+dsh plugin --profile web add "$PWD/omdsh-base" "$PWD/omdsh-chatmode" "$PWD/omdsh-codemode"
 ```
 
-`omdsh-tui` 不是本 workspace 的成员，它装进自己的 profile，而那正是 `omdsh-code` 去找它的地方：
+`omdsh-tui` 不是本 workspace 的成员，它装进自己的 profile，而那正是 `omdsh-codemode` 去找它的地方：
 
 ```sh
 cd omdsh-tui && pnpm install && pnpm run install:profile
@@ -181,13 +181,13 @@ pnpm run harness:npm && pnpm install     # 提交前切回来
 
 ## 工具链上已知的粗糙处
 
-- **`omdsh-code` 和 `omdsh-justchat` 只能在本 workspace 里构建，不能单独构建。** 只有这两个包依赖了集合里的另一个包（`@omdsh-plugins/omdsh-base`），而这里还什么都没发布。从集合根目录走，`linkWorkspacePackages` 会把它解析到这份 checkout，一切正常；但只要**进到**这两个目录里跑 `pnpm install`、`pnpm test` 或 `harness:local`，pnpm 就会把它当成自己的 workspace 根，在 npm 上找不到 `omdsh-base`，于是什么都还没做就失败：
+- **`omdsh-codemode` 和 `omdsh-chatmode` 只能在本 workspace 里构建，不能单独构建。** 只有这两个包依赖了集合里的另一个包（`@omdsh-plugins/omdsh-base`），而这里还什么都没发布。从集合根目录走，`linkWorkspacePackages` 会把它解析到这份 checkout，一切正常；但只要**进到**这两个目录里跑 `pnpm install`、`pnpm test` 或 `harness:local`，pnpm 就会把它当成自己的 workspace 根，在 npm 上找不到 `omdsh-base`，于是什么都还没做就失败：
 
   ```
   ERR_PNPM_FETCH_404  GET https://registry.npmjs.org/@omdsh-plugins%2Fomdsh-base: Not Found
   ```
 
-  这正是 `pnpm-workspace.yaml` 里解释过的那套「linkWorkspacePackages + semver」安排预料之中的代价，等 `omdsh-base` 发布那天它自己就没了。这也是为什么只有这两个插件没有自己的 `pnpm-lock.yaml`。在那之前，它们的命令请从 workspace 根目录跑（`pnpm --filter @omdsh-plugins/omdsh-code run test`）。
+  这正是 `pnpm-workspace.yaml` 里解释过的那套「linkWorkspacePackages + semver」安排预料之中的代价，等 `omdsh-base` 发布那天它自己就没了。这也是为什么只有这两个插件没有自己的 `pnpm-lock.yaml`。在那之前，它们的命令请从 workspace 根目录跑（`pnpm --filter @omdsh-plugins/omdsh-codemode run test`）。
 - **`omdsh-remctrl` 和 `omdsh-remdev` 根本没有 `harness:local` / `harness:npm` / `check:harness-pin` 这几个脚本**，所以根目录那趟 `check:harness-pin` 是直接跳过它们的。它们今天都还没有浏览器用例，这是它至今没咬人的原因——但它们也确实不在那趟检查本该给出的保证之内。
 
 ## 写一个插件

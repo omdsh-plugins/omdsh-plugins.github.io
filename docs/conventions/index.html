@@ -275,8 +275,8 @@ ctx.inject?.(['settings'], (sctx) =&gt; {
         <span class="en">Every field is optional. A plugin that declares nothing still appears, under its package name, and <code>settings</code> falls back to the unscoped package name — so <strong>following rule 1 alone is enough to be configurable</strong>.</span>
       </p>
       <p>
-        <span class="zh"><strong>这个仓库里每个插件都声明 <code>displayName</code>，而且写法统一。</strong>英文一律 Title Case，每个词首字母大写：<code>Remote Control</code>、<code>Side Panels</code>、<code>Usage</code>。词要写全，不用包名里的缩写 —— 包名是拿来敲的，所以会缩（<code>omdsh-remctrl</code>）；标题是拿来读的，所以不缩（<code>Remote Control</code>）。写它<strong>是什么</strong>，而不是把归档用的代号再念一遍：叫 <code>Chat Mode</code>，不叫 <code>Justchat</code>。中文照着旁边 <code>summary</code> 的规矩一起翻。插件中心不再把标题折成小写了，所以 manifest 里写的就是面板上显示的。</span>
-        <span class="en"><strong>Every plugin here declares a <code>displayName</code>, and they are all written the same way.</strong> Title Case, every word capitalized: <code>Remote Control</code>, <code>Side Panels</code>, <code>Usage</code>. Spelled out rather than abbreviated — a package name is typed, so it contracts (<code>omdsh-remctrl</code>); a title is read, so it does not (<code>Remote Control</code>). Say what the plugin <strong>is</strong> rather than repeating what it is filed under: <code>Chat Mode</code>, not <code>Justchat</code>. Translate it the way the summary beside it is translated. The hub no longer folds the case, so what the manifest says is what the panel shows.</span>
+        <span class="zh"><strong>这个仓库里每个插件都声明 <code>displayName</code>，而且写法统一。</strong>英文一律 Title Case，每个词首字母大写：<code>Remote Control</code>、<code>Side Panels</code>、<code>Usage</code>。词要写全，不用包名里的缩写 —— 包名是拿来敲的，所以会缩（<code>omdsh-remctrl</code>）；标题是拿来读的，所以不缩（<code>Remote Control</code>）。写它<strong>是什么</strong>，而不是把归档用的代号再念一遍：叫 <code>Chat Mode</code>，不叫 <code>Chatmode</code>。中文照着旁边 <code>summary</code> 的规矩一起翻。插件中心不再把标题折成小写了，所以 manifest 里写的就是面板上显示的。</span>
+        <span class="en"><strong>Every plugin here declares a <code>displayName</code>, and they are all written the same way.</strong> Title Case, every word capitalized: <code>Remote Control</code>, <code>Side Panels</code>, <code>Usage</code>. Spelled out rather than abbreviated — a package name is typed, so it contracts (<code>omdsh-remctrl</code>); a title is read, so it does not (<code>Remote Control</code>). Say what the plugin <strong>is</strong> rather than repeating what it is filed under: <code>Chat Mode</code>, not <code>Chatmode</code>. Translate it the way the summary beside it is translated. The hub no longer folds the case, so what the manifest says is what the panel shows.</span>
       </p>
       <p>
         <span class="zh">回落仍然留着，给这个仓库之外的插件和 harness 自带的 bundle 用：什么都没声明，卡片就用 npm 里的那个包名当标题（<code>dsh-web-app</code>）。这才是老实的渲染 —— 没人给它们起过标题，标识符就该长成标识符的样子。</span>
@@ -368,7 +368,7 @@ ctx.inject?.(['settings'], (sctx) =&gt; {
           <span class="en">cordis's inject wait has no timeout, so an entry naming a service nobody composed sits at <code>pending</code> forever — and both boot audits fail the whole app for any entry that is not active (the host's <code>assertEntriesActivated</code>, and the browser's post-settle sweep in <code>dsh-client-web</code>):</span>
         </p>
 <pre><code>web boot: 1 entry did not activate
-@omdsh-plugins/omdsh-code: pending (waiting for service: sessionModes)</code></pre>
+@omdsh-plugins/omdsh-codemode: pending (waiting for service: sessionModes)</code></pre>
         <p>
           <span class="zh">这是一个<strong>死掉的界面</strong>，不是一个被关掉的功能 —— 少装一个配套插件，整个页面陪葬，连跟它毫无关系的插件也一起没了。</span>
           <span class="en">That is a <strong>dead UI</strong>, not a disabled feature — one missing companion plugin takes the whole page down, including every plugin that had nothing to do with it.</span>

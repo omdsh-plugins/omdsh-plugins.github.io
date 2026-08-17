@@ -15,9 +15,9 @@ linkWorkspacePackages: true
 
 packages:
   - omdsh-base
-  - omdsh-code
+  - omdsh-chatmode
+  - omdsh-codemode
   - omdsh-editor
-  - omdsh-justchat
   - omdsh-plughub
   - omdsh-remctrl
   - omdsh-remdev

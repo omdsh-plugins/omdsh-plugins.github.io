@@ -122,7 +122,7 @@ description 请写成**完整的句子**。插件中心会用属性名生成控�
 Case，每个词首字母大写：`Remote Control`、`Side Panels`、`Usage`。词要写全，不
 用包名里的缩写——包名是拿来敲的，所以会缩（`omdsh-remctrl`）；标题是拿来读的，
 所以不缩（`Remote Control`）。写它**是什么**，而不是把归档用的代号再念一遍：叫
-`Chat Mode`，不叫 `Justchat`。中文照着旁边 `summary` 的规矩一起翻。插件中心不再
+`Chat Mode`，不叫 `Chatmode`。中文照着旁边 `summary` 的规矩一起翻。插件中心不再
 把标题折成小写了，所以 manifest 里写的就是面板上显示的。
 
 回落仍然留着，给这个仓库之外的插件和 harness 自带的 bundle 用：什么都没声明，卡
@@ -206,7 +206,7 @@ harness 自己的服务——`slots`、`sessions`、`workspaces`、`workspaceReg
 这份名单里：`webRuntime` 来自 web-app 这个 surface bundle，所以写它的插件是在声
 明自己需要那个界面——对一个有浏览器半边的插件来说，这是诚实的说法。）而由这个
 目录里另一个插件发布
-的服务（omdsh-justchat 的 `sessionModes`、omdsh-shortcuts 的 `shortcut`、
+的服务（omdsh-chatmode 的 `sessionModes`、omdsh-shortcuts 的 `shortcut`、
 omdsh-remdev 的 `remdev`）是另一类事实：它在不在，是 **profile** 的属性，而
 profile 是一个人用 `dsh plugin add` 一条一条装出来的。
 
@@ -217,7 +217,7 @@ cordis 对被注入的服务会无限期等待，于是一个声明了"没人组
 
 ```
 web boot: 1 entry did not activate
-@omdsh-plugins/omdsh-code: pending (waiting for service: sessionModes)
+@omdsh-plugins/omdsh-codemode: pending (waiting for service: sessionModes)
 ```
 
 这是一个**死掉的界面**，不是一个被关掉的功能——少装一个配套插件，整个页面陪

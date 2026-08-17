@@ -101,7 +101,7 @@
               <span class="lrole"><span class="zh">插件图层</span><span class="en">plugin layer</span></span>
             </div>
             <div class="layer" style="--t: var(--tone-workspace); animation-delay:.22s">
-              <span class="dot"></span><span class="lname">omdsh-justchat</span>
+              <span class="dot"></span><span class="lname">omdsh-chatmode</span>
               <span class="lrole"><span class="zh">插件图层</span><span class="en">plugin layer</span></span>
             </div>
             <div class="layer" style="--t: var(--tone-system); animation-delay:.18s">
@@ -223,7 +223,7 @@
           <div class="note">
             <span class="tag"><span class="zh">代价</span><span class="en">the cost</span></span>
 <pre><code>web boot: 1 entry did not activate
-@omdsh-plugins/omdsh-code: pending (waiting for service: sessionModes)</code></pre>
+@omdsh-plugins/omdsh-codemode: pending (waiting for service: sessionModes)</code></pre>
             <p>
               <span class="zh">两个启动审计都会因为任何一项没激活而判整个应用失败 —— 这是一整页死掉的 UI，不是一个被禁用的功能，连跟它毫无关系的插件一起陪葬。所以：别人的 service 只在 <code>apply</code> 里面取，永远不进 <code>inject</code>。</span>
               <span class="en">Both boot audits fail the whole app for any entry that is not active. That is a dead UI, not a disabled feature — and it takes down every plugin that had nothing to do with it. So: reach for another plugin's service from inside <code>apply</code>, never from <code>inject</code>.</span>
@@ -235,11 +235,11 @@
       <h3 style="margin-top:56px;font-size:17px"><span class="zh">谁需要谁</span><span class="en">Who needs whom</span></h3>
       <div class="deps">
         <div class="dep">
-          <span class="who">omdsh-justchat · omdsh-code <span class="arrow">→</span> omdsh-base</span>
+          <span class="who">omdsh-chatmode · omdsh-codemode <span class="arrow">→</span> omdsh-base</span>
           <span class="what"><span class="zh">模式插件把自己的段注册进 <code>sessionModes</code>。没有 base，就没有那个开关。</span><span class="en">Mode plugins register their segment into <code>sessionModes</code>. Without base there is no switch to register into.</span></span>
         </div>
         <div class="dep">
-          <span class="who">omdsh-code <span class="arrow">→</span> omdsh-tui</span>
+          <span class="who">omdsh-codemode <span class="arrow">→</span> omdsh-tui</span>
           <span class="what"><span class="zh">Code 模式那一列跑的就是这个终端本身 —— 不是重新实现的一个。</span><span class="en">The column in Code mode <em>is</em> that terminal, running as a process; nothing of it is reimplemented.</span></span>
         </div>
         <div class="dep">
@@ -381,20 +381,20 @@
           <p class="pkg">@omdsh-plugins/omdsh-base</p>
           <p class="sum"><span class="zh">所有模式插件共用的模式开关，以及按模式给侧栏会话上色的圆点。</span><span class="en">The switch every mode plugin registers into, and the sidebar dots that colour their conversations.</span></p>
           <p class="detail">
-            <span class="zh"><strong>它自己不发明任何模式 —— 这正是重点。</strong>只装它的 profile 能正常启动，并且完全看不到那个开关，因为没有东西可切的控件不是控件。它提供 <code>sessionModes</code> 注册表、悬浮在对话列上方的开关、每一行侧栏前面那颗按模式着色的圆点，以及把 <strong>New Session</strong> 先递给"正占着这一列的那个模式"的那次覆盖。它唯一贡献的那个姿态是本来就在屏幕上的那个 —— <strong>Work</strong>，harness 自己的那根列 —— 好让开关永远有地方可以切回去；装了 justchat 之后，由它那个会记事的 Work 顶替。</span>
-            <span class="en"><strong>It invents no mode of its own — that is the point.</strong> A profile with this plugin and nothing else composes, boots, and shows no switch at all, because a control with nothing to switch between is not a control. It provides the <code>sessionModes</code> registry, the floating switch above the conversation, the coloured leading dot on every sidebar row, and the override that offers <strong>New Session</strong> to whichever segment is holding the column. The one posture it does contribute is the one already on screen — <strong>Work</strong>, the harness's own column — so a switch always has somewhere to switch back to; justchat's Work, which remembers where you were, replaces it.</span>
+            <span class="zh"><strong>它自己不发明任何模式 —— 这正是重点。</strong>只装它的 profile 能正常启动，并且完全看不到那个开关，因为没有东西可切的控件不是控件。它提供 <code>sessionModes</code> 注册表、悬浮在对话列上方的开关、每一行侧栏前面那颗按模式着色的圆点，以及把 <strong>New Session</strong> 先递给"正占着这一列的那个模式"的那次覆盖。它唯一贡献的那个姿态是本来就在屏幕上的那个 —— <strong>Work</strong>，harness 自己的那根列 —— 好让开关永远有地方可以切回去；装了 chatmode 之后，由它那个会记事的 Work 顶替。</span>
+            <span class="en"><strong>It invents no mode of its own — that is the point.</strong> A profile with this plugin and nothing else composes, boots, and shows no switch at all, because a control with nothing to switch between is not a control. It provides the <code>sessionModes</code> registry, the floating switch above the conversation, the coloured leading dot on every sidebar row, and the override that offers <strong>New Session</strong> to whichever segment is holding the column. The one posture it does contribute is the one already on screen — <strong>Work</strong>, the harness's own column — so a switch always has somewhere to switch back to; chatmode's Work, which remembers where you were, replaces it.</span>
           </p>
           <div class="card-foot">
-            <span class="chip"><span class="zh">被 justchat / code 需要</span><span class="en">needed by justchat / code</span></span>
+            <span class="chip"><span class="zh">被 chatmode / codemode 需要</span><span class="en">needed by chatmode / codemode</span></span>
             <a href="https://github.com/omdsh-plugins/omdsh-base" target="_blank" rel="noopener">repo ↗</a>
           </div>
         </article>
 
-        <!-- justchat -->
+        <!-- chatmode -->
         <article class="card" data-cat="workspace" style="--t: var(--tone-workspace)">
           <div class="card-top"><span class="dot"></span>workspace<span class="ver">0.1.2</span></div>
           <h3><span class="zh">聊天模式</span><span class="en">Chat Mode</span><span class="en-name zh">Chat Mode</span></h3>
-          <p class="pkg">@omdsh-plugins/omdsh-justchat</p>
+          <p class="pkg">@omdsh-plugins/omdsh-chatmode</p>
           <p class="sum"><span class="zh">不用选项目目录就能开始对话，这些对话统一放在侧栏的 Chat 下面。</span><span class="en">Start a conversation without picking a project directory, kept together under Chat.</span></p>
           <p class="detail">
             <span class="zh">harness 是编码智能体，新建会话前先问你要哪个工作区 —— 合理，因为编码总要发生在某处。但不是每个问题都是活儿。这个插件在旁边补上另一种姿势：对话上方一个 <strong>Chat / Work</strong> 开关，一个受管的 Chat 工作区（真实目录 <code>&lt;dshHome&gt;/chat</code>），背后是一套<strong>一个工具都没有</strong>的 agent 组合。模式是<strong>推导</strong>出来的而不是存下来的：一个会话是不是 chat，取决于它算在哪个工作区名下 —— 存一个标志位，迟早会和屏幕上的事实打架。</span>
@@ -402,7 +402,7 @@
           </p>
           <div class="card-foot">
             <span class="chip"><span class="zh">需要 omdsh-base</span><span class="en">needs omdsh-base</span></span>
-            <a href="https://github.com/omdsh-plugins/omdsh-justchat" target="_blank" rel="noopener">repo ↗</a>
+            <a href="https://github.com/omdsh-plugins/omdsh-chatmode" target="_blank" rel="noopener">repo ↗</a>
           </div>
         </article>
 
@@ -410,7 +410,7 @@
         <article class="card" data-cat="workspace" style="--t: var(--tone-workspace)">
           <div class="card-top"><span class="dot"></span>workspace<span class="ver">0.1.2</span></div>
           <h3><span class="zh">代码模式</span><span class="en">Code Mode</span><span class="en-name zh">Code Mode</span></h3>
-          <p class="pkg">@omdsh-plugins/omdsh-code</p>
+          <p class="pkg">@omdsh-plugins/omdsh-codemode</p>
           <p class="sum"><span class="zh">在对话所属的工作区里开一个 harness 终端，与 Chat、Work 并列。</span><span class="en">A harness terminal in the conversation's workspace, beside Chat and Work.</span></p>
           <p class="detail">
             <span class="zh">网页界面和终端是同一个 harness 的两道前门。这个插件是让其中一道显示在另一道里的那条缝：按下 <strong>Code</strong>，整个对话列换成一个真的 <code>dsh --profile omdsh-tui</code>，banner 都在，跑在这个对话本来就算在的目录里。终端不是重新实现的 —— 屏幕上是 omdsh-tui 自己的前门，这个插件只负责起进程、转发字节。在终端里 <code>/rename</code> 一下，侧栏那一行跟着改。</span>
@@ -418,7 +418,7 @@
           </p>
           <div class="card-foot">
             <span class="chip"><span class="zh">需要 omdsh-base · omdsh-tui</span><span class="en">needs omdsh-base · omdsh-tui</span></span>
-            <a href="https://github.com/omdsh-plugins/omdsh-code" target="_blank" rel="noopener">repo ↗</a>
+            <a href="https://github.com/omdsh-plugins/omdsh-codemode" target="_blank" rel="noopener">repo ↗</a>
           </div>
         </article>
 
@@ -518,8 +518,8 @@
           <span class="kind"><span class="zh">终端界面 · profile bundle</span><span class="en">Interactive terminal · profile bundle</span></span>
           <h3>omdsh-tui</h3>
           <p>
-            <span class="zh">上游把 TUI 包删掉了，这个仓库自己带一个 —— 而且是<strong>构建在已发布的 harness release 上</strong>，不是构建在它的 fork 上。这就是为什么这个终端跟随 harness 发版只需要改一个版本号，而不是合并一整个 monorepo。<code>omdsh-code</code> 在网页里显示的就是它。</span>
-            <span class="en">Upstream removed its TUI package; this repository carries one, <strong>built against a published harness release</strong> rather than a fork of it — which is what lets the terminal follow harness releases by changing a version number instead of merging a monorepo. It is what <code>omdsh-code</code> shows inside the web GUI.</span>
+            <span class="zh">上游把 TUI 包删掉了，这个仓库自己带一个 —— 而且是<strong>构建在已发布的 harness release 上</strong>，不是构建在它的 fork 上。这就是为什么这个终端跟随 harness 发版只需要改一个版本号，而不是合并一整个 monorepo。<code>omdsh-codemode</code> 在网页里显示的就是它。</span>
+            <span class="en">Upstream removed its TUI package; this repository carries one, <strong>built against a published harness release</strong> rather than a fork of it — which is what lets the terminal follow harness releases by changing a version number instead of merging a monorepo. It is what <code>omdsh-codemode</code> shows inside the web GUI.</span>
           </p>
           <p>
             <span class="zh">每个会话由一个 <strong>agent preset</strong> 组合出来 —— 决定模型有哪些工具、人设说什么、看得到哪些 prompt 段落 —— <code>/mode</code> 就是这四个 preset 的界面。bundle 的 patch 关掉了 base 的 host 面工具行，所以"少一个工具"是真的少一个，不只是个标签。</span>
@@ -749,7 +749,7 @@ dsh --profile web</code></pre>
           <h3><span class="zh">克隆、构建、加进 profile</span><span class="en">Clone, build, add to a profile</span></h3>
 <pre><code>pnpm install &amp;&amp; pnpm run build
 dsh plugin --profile web add \
-  "$PWD/omdsh-base" "$PWD/omdsh-justchat" "$PWD/omdsh-code"
+  "$PWD/omdsh-base" "$PWD/omdsh-chatmode" "$PWD/omdsh-codemode"
 
 <span class="c"># Code 模式跑的是另一个 profile，装法也不同</span>
 cd omdsh-tui &amp;&amp; pnpm install &amp;&amp; pnpm run install:profile</code></pre>
