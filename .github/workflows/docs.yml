@@ -29,6 +29,14 @@ on:
     - cron: '17 6 * * *'
   workflow_dispatch:
 
+# This workflow reads three checkouts and compares text. It writes nothing —
+# not a commit, not a comment, not a release — so the token it is handed does
+# not need to be able to. Stated rather than inherited, because the default is
+# a repository setting: somebody granting write to a workflow that needs it
+# would silently widen this one too.
+permissions:
+  contents: read
+
 jobs:
   check:
     runs-on: ubuntu-latest
