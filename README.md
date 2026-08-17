@@ -2,13 +2,13 @@
 
 English | [中文](README.zh.md)
 
-A collection of plugins for the [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) — modes for its web GUI, panels around the conversation, a way onto other machines, a keyboard map, two top-row readouts (spend, project status), and a hub that installs and configures the rest from inside Settings. Three applications to run them in, and a catalog so the hub can find them.
+A collection of plugins for the [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) — modes for its web GUI, panels around the conversation, two ways to hand it something it cannot read on its own (documents, pictures), a way onto other machines, a keyboard map, two top-row readouts (spend, project status), and a hub that installs and configures the rest from inside Settings. Three applications to run them in, and a catalog so the hub can find them.
 
 **Nothing here modifies the harness.** Every feature ships as an out-of-tree bundle that a profile composes over `dsh-base`, through seams the harness already publishes: a slot, a service, a settings namespace, a route. That constraint is the whole design — the harness stays a tracked fork that can follow upstream, and a plugin written next year installs into a profile assembled today without either knowing about the other.
 
 ## What is in here
 
-Twelve plugins, three applications, and one catalog.
+Fourteen plugins, three applications, and one catalog.
 
 ### Modes — what the middle column is
 
@@ -27,6 +27,15 @@ Twelve plugins, three applications, and one catalog.
 | [omdsh-usage](https://github.com/omdsh-plugins/omdsh-usage) | Session spend, project spend, and account balance in the conversation's top row. |
 | [omdsh-status](https://github.com/omdsh-plugins/omdsh-status) | The current project's name with its git branch and change counts, at the right end of the conversation's top row. |
 | [omdsh-editor](https://github.com/omdsh-plugins/omdsh-editor) | Open the conversation's directory in the editor, terminal, or file manager you actually use. |
+
+### What the model can read
+
+A DeepSeek route carries text and nothing else. These two hand it the rest of what a person has on their desk, by turning it into text before it gets there.
+
+| Package | What it adds |
+|---|---|
+| [omdsh-office](https://github.com/omdsh-plugins/omdsh-office) | Attach a Word file, a deck, a spreadsheet, a PDF or any text file — from a button beside the composer's plus or by dropping it on the window — and its text goes with the message. |
+| [omdsh-eyes](https://github.com/omdsh-plugins/omdsh-eyes) | Sight, from a vision model you configure: `see_image` and `watch_video` for a file, `ask_image` for a closer look, and a mirrored model route so a pasted picture is described on its way out. |
 
 ### Reach — other machines
 
@@ -163,7 +172,7 @@ A profile composes exactly one surface bundle over `dsh-base`. `@deepseek-ai/dsh
 
 A plugin with anything to configure registers one settings namespace with a [schemastery] schema, and `omdsh-plughub` renders a form from that schema — labels, descriptions, validation, secret redaction, and the base/user layering all come from the harness. **No plugin teaches the hub anything about itself**, which is what lets a plugin installed today get correct labels in both languages without the hub being edited.
 
-Five plugins own a namespace: `omdsh-plughub`, `omdsh-shortcuts`, `omdsh-remdev`, `omdsh-remctrl`, `omdsh-usage`. The rest are configured, where they are configurable at all, in the profile's own `cordis.patch.yml` — each README says which it is.
+Seven plugins own a namespace: `omdsh-plughub`, `omdsh-shortcuts`, `omdsh-remdev`, `omdsh-remctrl`, `omdsh-usage`, `omdsh-office`, `omdsh-eyes`. The rest are configured, where they are configurable at all, in the profile's own `cordis.patch.yml` — each README says which it is.
 
 A field holding a credential is declared `.role('secret')`, stripped from every response, and rendered as a write-only control.
 

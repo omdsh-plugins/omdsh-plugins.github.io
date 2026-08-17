@@ -2,13 +2,13 @@
 
 [English](README.md) | 中文
 
-一组给 [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) 用的插件：网页版的几种模式、会话列周围的各种面板、一条通往别的机器的路、一份键盘映射、两个顶栏读数（花费，和项目与 git 状态），以及一个能在设置里把其余这些装上、卸掉、配好的插件中心。外加三个用来跑它们的应用，和一份让插件中心找得到它们的目录清单。
+一组给 [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) 用的插件：网页版的几种模式、会话列周围的各种面板、两条把它自己读不了的东西（文档、图片）递给它的路、一条通往别的机器的路、一份键盘映射、两个顶栏读数（花费，和项目与 git 状态），以及一个能在设置里把其余这些装上、卸掉、配好的插件中心。外加三个用来跑它们的应用，和一份让插件中心找得到它们的目录清单。
 
 **这里没有一行改动落在 harness 上。** 每一个功能都以 out-of-tree bundle 的形式发布，由 profile 组合在 `dsh-base` 之上，走的全是 harness 本来就公开的接缝：一个槽位、一个服务、一个 settings 命名空间、一条路由。这条约束就是整个设计——harness 得以保持成一个能跟上游走的干净 fork，而明年才写出来的插件，装进今天组好的 profile 里时，两边谁也不需要知道对方。
 
 ## 这里都有什么
 
-十二个插件、三个应用、一份目录清单。
+十四个插件、三个应用、一份目录清单。
 
 ### 模式——中间那一列是什么
 
@@ -27,6 +27,15 @@
 | [omdsh-usage](https://github.com/omdsh-plugins/omdsh-usage) | 在会话顶栏显示本次会话花费、本项目花费与账户余额。 |
 | [omdsh-status](https://github.com/omdsh-plugins/omdsh-status) | 在会话顶栏右端显示当前项目名称，以及 git 分支和变更计数。 |
 | [omdsh-editor](https://github.com/omdsh-plugins/omdsh-editor) | 用你真正在用的编辑器、终端或文件管理器打开当前会话的目录。 |
+
+### 模型能读到什么
+
+DeepSeek 这条路只承载文字，别的都不行。这两个插件把人桌面上的其余东西也递给它——办法是在送到之前先变成文字。
+
+| 包 | 它提供什么 |
+|---|---|
+| [omdsh-office](https://github.com/omdsh-plugins/omdsh-office) | 添加 Word、PPT、Excel、PDF 或任意文本文件——从输入框加号旁边的按钮，或者直接拖到窗口上——它们的文字会跟着消息一起送出去。 |
+| [omdsh-eyes](https://github.com/omdsh-plugins/omdsh-eyes) | 用你配置的视觉模型给它一双眼睛：`see_image` 和 `watch_video` 看文件，`ask_image` 追问细节，还有一条镜像模型路由，让粘贴进来的图片在发出前被转写成文字。 |
 
 ### 触达——别的机器
 
@@ -162,7 +171,7 @@ cd omdsh-tui && pnpm install && pnpm run install:profile
 
 有东西要配的插件会注册**一个** settings 命名空间，带一份 [schemastery] schema，然后 `omdsh-plughub` 拿这份 schema 渲染出表单——标签、说明、校验、密钥脱敏、base/user 分层，全都是 harness 现成的。**没有任何插件需要教插件中心关于自己的事**，正是这一点让今天装上的插件在两种语言下都能拿到正确的标签，而中心一行都不用改。
 
-有五个插件拥有自己的命名空间：`omdsh-plughub`、`omdsh-shortcuts`、`omdsh-remdev`、`omdsh-remctrl`、`omdsh-usage`。其余的——在它们可配的范围内——是在 profile 自己的 `cordis.patch.yml` 里配的，每个 README 都会说清楚自己是哪一种。
+有七个插件拥有自己的命名空间：`omdsh-plughub`、`omdsh-shortcuts`、`omdsh-remdev`、`omdsh-remctrl`、`omdsh-usage`、`omdsh-office`、`omdsh-eyes`。其余的——在它们可配的范围内——是在 profile 自己的 `cordis.patch.yml` 里配的，每个 README 都会说清楚自己是哪一种。
 
 存放凭据的字段会声明 `.role('secret')`，在每一次响应里被剥掉，并渲染成只写控件。
 

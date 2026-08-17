@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="omdsh-plugins — DeepSeek Harness 的插件集合：12 个插件、3 个应用、1 份注册表，全部在 harness 之外，全部只用它已经开好的接缝。">
+<meta name="description" content="omdsh-plugins — DeepSeek Harness 的插件集合：14 个插件、3 个应用、1 份注册表，全部在 harness 之外，全部只用它已经开好的接缝。">
 <meta name="color-scheme" content="light dark">
 <title>omdsh-plugins</title>
 
@@ -19,7 +19,7 @@
     <nav class="topnav">
       <a href="#idea"><span class="zh">理念</span><span class="en">Idea</span></a>
       <a href="#compose"><span class="zh">组成</span><span class="en">Compose</span></a>
-      <a href="#catalog"><span class="zh">插件 12</span><span class="en">Plugins 12</span></a>
+      <a href="#catalog"><span class="zh">插件 14</span><span class="en">Plugins 14</span></a>
       <a href="#apps"><span class="zh">应用 3</span><span class="en">Apps 3</span></a>
       <a href="#registry"><span class="zh">注册表</span><span class="en">Registry</span></a>
       <a href="#conventions"><span class="zh">公约</span><span class="en">Conventions</span></a>
@@ -52,8 +52,8 @@
         <h1>omdsh<span class="slash">-</span>plugins</h1>
 
         <p class="thesis">
-          <span class="zh">12 个插件、3 个应用、1 份注册表 —— 全部在 harness 之外，全部只用它已经开好的接缝。</span>
-          <span class="en">Twelve plugins, three applications, one registry — all outside the harness, all built on seams it already publishes.</span>
+          <span class="zh">14 个插件、3 个应用、1 份注册表 —— 全部在 harness 之外，全部只用它已经开好的接缝。</span>
+          <span class="en">Fourteen plugins, three applications, one registry — all outside the harness, all built on seams it already publishes.</span>
         </p>
 
         <p class="lede">
@@ -77,7 +77,7 @@
         </div>
 
         <div class="stats">
-          <div class="stat"><b>12</b><span class="cap"><span class="zh">插件</span><span class="en">plugins</span></span></div>
+          <div class="stat"><b>14</b><span class="cap"><span class="zh">插件</span><span class="en">plugins</span></span></div>
           <div class="stat"><b>3</b><span class="cap"><span class="zh">应用（桌面 · 终端 · 网页）</span><span class="en">applications</span></span></div>
           <div class="stat"><b>4</b><span class="cap"><span class="zh">分类</span><span class="en">categories</span></span></div>
           <div class="stat"><b>0</b><span class="cap"><span class="zh">处 harness 改动</span><span class="en">harness edits</span></span></div>
@@ -256,7 +256,7 @@
     <!-- ── catalog ────────────────────────────────────────────────────── -->
     <section id="catalog">
       <div class="sec-head">
-        <div class="eyebrow"><span class="zh">插件目录 · 12 个仓库</span><span class="en">Catalog · 12 repositories</span></div>
+        <div class="eyebrow"><span class="zh">插件目录 · 14 个仓库</span><span class="en">Catalog · 14 repositories</span></div>
         <h2><span class="zh">装上就有，卸掉就没</span><span class="en">Add it and it is there; remove it and it is gone</span></h2>
         <p class="intro">
           <span class="zh">卡片上的标题、摘要、分类和文档链接，都是插件自己 <code>package.json</code> 里的 <code>dsh.plughub</code> 声明的 —— 和插件中心真正读的是同一份。</span>
@@ -265,10 +265,10 @@
       </div>
 
       <div class="filters" role="group" aria-label="Filter by category">
-        <button type="button" data-cat="all" aria-pressed="true"><span class="zh">全部</span><span class="en">All</span> <span class="n">12</span></button>
+        <button type="button" data-cat="all" aria-pressed="true"><span class="zh">全部</span><span class="en">All</span> <span class="n">14</span></button>
         <button type="button" data-cat="system" aria-pressed="false" style="--t: var(--tone-system)"><span class="dot"></span><span class="zh">系统</span><span class="en">System</span> <span class="n">3</span></button>
         <button type="button" data-cat="workspace" aria-pressed="false" style="--t: var(--tone-workspace)"><span class="dot"></span><span class="zh">工作区</span><span class="en">Workspace</span> <span class="n">5</span></button>
-        <button type="button" data-cat="input" aria-pressed="false" style="--t: var(--tone-input)"><span class="dot"></span><span class="zh">输入</span><span class="en">Input</span> <span class="n">2</span></button>
+        <button type="button" data-cat="input" aria-pressed="false" style="--t: var(--tone-input)"><span class="dot"></span><span class="zh">输入</span><span class="en">Input</span> <span class="n">4</span></button>
         <button type="button" data-cat="insight" aria-pressed="false" style="--t: var(--tone-insight)"><span class="dot"></span><span class="zh">洞察</span><span class="en">Insight</span> <span class="n">2</span></button>
       </div>
 
@@ -451,6 +451,38 @@
           <div class="card-foot">
             <span class="chip"><span class="zh">可选 omdsh-shortcuts</span><span class="en">optional omdsh-shortcuts</span></span>
             <a href="https://github.com/omdsh-plugins/omdsh-sidechat" target="_blank" rel="noopener">repo ↗</a>
+          </div>
+        </article>
+
+        <!-- office -->
+        <article class="card" data-cat="input" style="--t: var(--tone-input)">
+          <div class="card-top"><span class="dot"></span>input<span class="ver">0.1.0</span></div>
+          <h3><span class="zh">文档附件</span><span class="en">Office Files</span><span class="en-name zh">Office Files</span></h3>
+          <p class="pkg">@omdsh-plugins/omdsh-office</p>
+          <p class="sum"><span class="zh">把 Word、PPT、Excel、PDF 和文本文件添加到消息里，模型直接读到它们的内容。</span><span class="en">Attach Word, PowerPoint, Excel, PDF and text files to a message; the agent reads their text.</span></p>
+          <p class="detail">
+            <span class="zh">浏览器插件在消息发出那一刻只有一个钩子：<strong>reference codec</strong>。草稿里可以放引用占位符（一个 U+FFFC，画成一枚 chip），提交前 harness 会问每个占位符的主人它到底代表什么，再把答案拼进正文。于是草稿本身就是"附了什么"的唯一权威——退格删掉 chip 附件就没了，撤销又回来，复制会把 <code>@report.pdf</code> 一起带走，输入框上方那条轨道只是 <code>input.occurrences</code> 的投影，永远不会和你即将发出的消息对不上。也因此，展开后的文字就是对话里显示的文字：<code>inlineCharLimit</code> 既是上下文预算，也是这份文档有多少会出现在消息里，超出的部分留一个磁盘路径让 agent 自己 <code>read</code>。</span>
+            <span class="en">A browser plugin gets exactly one hook at send time: a <strong>reference codec</strong>. The draft can hold reference occurrences — one U+FFFC each, drawn as a chip — and just before the prompt goes out the harness asks each occurrence's owner what it means and splices the answer in. So the draft is the authority on what is attached: backspace over a chip and it is gone, undo brings it back, copy takes <code>@report.pdf</code> with it, and the rail above the composer is a projection of <code>input.occurrences</code> that cannot drift from the message you are about to send. It also means the expansion is what the transcript shows — <code>inlineCharLimit</code> is both a context budget and how much of the document appears in the message, with the remainder left as a path any <code>read</code> tool can open.</span>
+          </p>
+          <div class="card-foot">
+            <span class="chip">settings: omdsh-office</span>
+            <a href="https://github.com/omdsh-plugins/omdsh-office" target="_blank" rel="noopener">repo ↗</a>
+          </div>
+        </article>
+
+        <!-- eyes -->
+        <article class="card" data-cat="input" style="--t: var(--tone-input)">
+          <div class="card-top"><span class="dot"></span>input<span class="ver">0.1.0</span></div>
+          <h3><span class="zh">眼睛</span><span class="en">Eyes</span><span class="en-name zh">Eyes</span></h3>
+          <p class="pkg">@omdsh-plugins/omdsh-eyes</p>
+          <p class="sum"><span class="zh">让只能读文字的模型看懂图片和视频：配一个视觉模型，粘贴一张图或指一个文件，它来讲里面有什么。</span><span class="en">Let a text-only model read images and videos: point it at a vision model, paste a picture or name a file, and it describes what is there.</span></p>
+          <p class="detail">
+            <span class="zh">图片在 harness 里本来就是一等公民：内容寻址的附件存储、粘贴与拖拽、对话里的缩略图，全都现成。缺的只有一个声明——DeepSeek 的模型报告 <code>inputModalities: ['text']</code>，而拒绝图片的三道门读的都是这同一个字段。于是这个插件注册一条<strong>镜像模型路由</strong>：把每个只认文字的模型再登记一遍并声明接受图片，请求发出前把图换成 <code>&lt;image-description&gt;</code>，再原样交给真正的那条路由——日志里存的仍然是图片，只有线上那一份是文字。另外三个工具补齐其余场景：<code>see_image</code> 看磁盘上的图，<code>ask_image</code> 拿 id 追问细节，<code>watch_video</code> 用 ffmpeg 沿时间线抽帧逐帧描述。描述按图片自己的 sha256 归档，所以同一张图只花一次钱。</span>
+            <span class="en">Images are already first class in the harness — a content-addressed store, paste and drop, thumbnails in the transcript. One declaration is missing: DeepSeek's models report <code>inputModalities: ['text']</code>, and all three refusals read that same field. So this registers a <strong>mirrored model route</strong> — every text-only model advertised again under a provider that accepts images, swapping each picture for an <code>&lt;image-description&gt;</code> just before the request goes out and handing it to the route that really owns the model. The log keeps the picture; only the copy on the wire is text. Three tools cover the rest: <code>see_image</code> for a file, <code>ask_image</code> for a closer look by id, and <code>watch_video</code>, which cuts frames off a timeline with ffmpeg and describes each. Descriptions are filed under the image's own sha256, so one picture is paid for once.</span>
+          </p>
+          <div class="card-foot">
+            <span class="chip">settings: omdsh-eyes</span>
+            <a href="https://github.com/omdsh-plugins/omdsh-eyes" target="_blank" rel="noopener">repo ↗</a>
           </div>
         </article>
 

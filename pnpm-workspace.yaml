@@ -18,6 +18,8 @@ packages:
   - omdsh-chatmode
   - omdsh-codemode
   - omdsh-editor
+  - omdsh-eyes
+  - omdsh-office
   - omdsh-plughub
   - omdsh-remctrl
   - omdsh-remdev
