@@ -14,7 +14,10 @@
     "test": "pnpm -r run test",
     "check:harness-pin": "pnpm -r run check:harness-pin",
     "registry:build": "node registry/build.mjs",
-    "check:registry": "node registry/build.mjs --check"
+    "check:registry": "node registry/build.mjs --check",
+    "check:docs": "node scripts/check-docs.mjs",
+    "profile:build": "node scripts/build-profile.mjs",
+    "check:profile": "node scripts/build-profile.mjs --check"
   },
   "dependencies": {
     "@deepseek-ai/dsh": "^0.1.0-rc.6"

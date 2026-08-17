@@ -159,11 +159,31 @@ pnpm run test
 pnpm run check:harness-pin  # 确认没有插件还指着某份本地 harness checkout
 pnpm run check:registry     # registry.json 与磁盘上的包一致
 pnpm run registry:build     # 重新生成它
+pnpm run check:docs         # 站点和这两份 README 仍然和注册表对得上
+pnpm run profile:build      # 用这份 README 生成组织主页那一篇
+pnpm run check:profile      # 它没有落在这份 README 后面
 ```
 
 `omdsh-desktop`、`omdsh-tui` 和 `omdsh-webapp` 是独立的 workspace，它们的命令要进到各自目录里跑。
 
 大多数插件另外还带着 `harness:local <path>` 和 `harness:npm`，用来在「旁边的一份 checkout」和「已提交的 registry 版本」之间切换 harness 依赖。只要还有东西是 link 状态，`check:harness-pin` 就会失败——`link:` 说明符把某一台机器的目录结构写死了，而且是**静默**失败，所以它绝不能进到提交里。
+
+### 介绍这套集合的三份文档
+
+同一套集合被介绍了三遍——`docs/` 下的站点、这两份 README，以及 [github.com/omdsh-plugins](https://github.com/omdsh-plugins)——而它们之间没有任何一份是由另一份渲染出来的。是这两条命令在拦着它们说出不一样的话。
+
+`check:docs` 拿站点和两份 README 声称的东西——目录卡片、卡片上的版本与分类、各处的计数、下载链接、工具链版本、那九条规则——去对 `registry/registry.json` 和根 `package.json`，对不上就报出文件和行号。它不生成任何东西：站点讲的是 README 不讲的那套道理，生成会把两边都压平；它只是不许它们在别处已经写死的事实上互相矛盾。
+
+组织主页那一篇是生成的，因为 GitHub 只从一个叫 `.github` 的仓库里读它，没有别的办法往那儿放东西——不生成的话，它就是一篇早已存在的介绍的第二份手抄。`profile:build` 把这份 README 在 **Commands** 处截断（往下都是写给已经克隆下来的人看的），把相对链接改写成绝对链接（它们会相对那个仓库解析），然后写进那个仓库的一份检出里：
+
+```sh
+git clone https://github.com/omdsh-plugins/.github.git org-profile
+pnpm run profile:build
+```
+
+推送那份检出才会让页面变，所以改一次这份 README 是两次推送，和发一次版一样。页面落后时 `check:profile` 会失败。
+
+CI 跑的就是这两条，也只跑这两条：其余每一条都要读插件的检出，而那些各自都是独立仓库，在这个仓库的克隆里根本不存在。
 
 ### 浏览器测试需要一份 harness checkout
 

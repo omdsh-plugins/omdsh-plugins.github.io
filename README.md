@@ -160,11 +160,31 @@ pnpm run test
 pnpm run check:harness-pin  # no plugin is left pointing at a local harness checkout
 pnpm run check:registry     # registry.json matches the packages on disk
 pnpm run registry:build     # regenerate it
+pnpm run check:docs         # the site and these READMEs still match the registry
+pnpm run profile:build      # write the organisation's front page from this README
+pnpm run check:profile      # it is not behind this README
 ```
 
 `omdsh-desktop`, `omdsh-tui` and `omdsh-webapp` are separate workspaces; run their commands from inside them.
 
 Most plugins also carry `harness:local <path>` and `harness:npm`, which switch their harness dependencies between a sibling checkout and the committed registry pin. `check:harness-pin` fails while anything is still linked — a `link:` specifier hard-codes one machine's layout and fails silently, so it must never reach a commit.
+
+### The three documents that describe this collection
+
+The same collection is introduced three times over — the site under `docs/`, these two READMEs, and [github.com/omdsh-plugins](https://github.com/omdsh-plugins) — and nothing renders any of them from the others. Two commands are what keep them from saying different things.
+
+`check:docs` compares what the site and both READMEs claim — the catalog cards, their versions and categories, the counts, the release links, the toolchain versions, the nine rules — against `registry/registry.json` and the root manifest, and prints the file and line of anything that disagrees. It generates nothing: the site argues a case the READMEs do not, and a generator would flatten both. It only refuses to let them contradict a fact recorded somewhere else.
+
+The organisation's front page is generated, because GitHub reads it from a repository named `.github` and nothing else can put anything there — so it would otherwise be a second copy of an introduction that already exists. `profile:build` cuts this README at **Commands** (everything below is for somebody who already cloned), makes the relative links absolute, since they resolve against that other repository, and writes the result into a checkout of it:
+
+```sh
+git clone https://github.com/omdsh-plugins/.github.git org-profile
+pnpm run profile:build
+```
+
+Pushing that checkout is what changes the page, which makes editing this README two pushes, the way a release is. `check:profile` fails while the page is behind.
+
+Both are what CI runs, and all it runs: everything else here reads the plugin checkouts, and every one of those is a repository of its own, absent from a clone of this one.
 
 ### The browser specs need a harness checkout
 

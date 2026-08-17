@@ -32,6 +32,12 @@ omdsh-webapp/
 # because it reads the siblings above.
 registry/
 
+# So is the profile repository — `omdsh-plugins/.github`, whose `profile/README.md`
+# is what https://github.com/omdsh-plugins shows above the repository list.
+# `scripts/build-profile.mjs` writes into a checkout of it here, under a name of
+# its own: a directory called `.github` is this repository's workflows.
+org-profile/
+
 # pnpm installs the whole workspace closure here.
 node_modules/
 

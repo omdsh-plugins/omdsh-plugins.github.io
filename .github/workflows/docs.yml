@@ -1,0 +1,63 @@
+# Keep the published site and the READMEs agreeing with the packages.
+#
+# This repository is the collection's front door three times over: `docs/` is
+# what https://omdsh-plugins.github.io/ serves, and the two READMEs are what
+# GitHub renders on the repository page. Nothing generates any of them from the
+# others, so this is the only thing that notices when they drift — a card left
+# at last release's version, a plugin added to one document and not the other,
+# a count that moved everywhere but here.
+#
+# The organisation's front page is the same document again, one repository
+# further out, so it is checked here too — `omdsh-plugins/.github` holds what
+# https://github.com/omdsh-plugins shows, generated from README.md.
+#
+# It installs nothing. Both scripts read files and compare them, so a runner
+# needs Node and three checkouts and no dependency tree at all — which is also
+# why this workflow does not run the workspace's build, typecheck or test
+# scripts: the plugin checkouts they need are separate repositories, ignored
+# here, and absent from a clone of this one.
+name: docs
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  # The catalog is a repository of its own, so this can also go stale without a
+  # commit here: a plugin released and published to the registry leaves the
+  # cards behind. A daily run reports that on its own.
+  schedule:
+    - cron: '17 6 * * *'
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # The manifest the check reads for the packages, their versions,
+      # categories and settings namespaces. It is generated in a checkout of
+      # the collection — where every plugin is a sibling — and published here,
+      # which is the copy the plugin hub reads and therefore the one the site
+      # has to agree with.
+      - uses: actions/checkout@v4
+        with:
+          repository: omdsh-plugins/registry
+          path: registry
+
+      # The organisation profile, which renders from its own repository and
+      # therefore goes stale on its own: a README.md edit that is not followed
+      # by a regenerate-and-push leaves the front page describing last week's
+      # collection.
+      - uses: actions/checkout@v4
+        with:
+          repository: omdsh-plugins/.github
+          path: org-profile
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - run: node scripts/check-docs.mjs
+
+      - run: node scripts/build-profile.mjs --check
