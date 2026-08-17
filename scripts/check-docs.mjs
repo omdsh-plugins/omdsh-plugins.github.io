@@ -66,12 +66,27 @@ const SITE = 'docs/index.html'
 const RULES_PAGE = 'docs/conventions/index.html'
 const READMES = /** @type {const} */ (['README.md', 'README.zh.md'])
 
-const site = read(SITE)
-const rulesPage = read(RULES_PAGE)
-const readme = { 'README.md': read('README.md'), 'README.zh.md': read('README.zh.md') }
 /** The conventions, per language, with the file each was read from. */
 const CONVENTIONS = { en: 'CONVENTIONS.md', zh: 'CONVENTIONS.zh.md' }
-const conventions = { en: read(CONVENTIONS.en), zh: read(CONVENTIONS.zh) }
+
+/** The documentation style, likewise. It is a contract this script reads, not only prose. */
+const STYLE = { en: 'README-STYLE.md', zh: 'README-STYLE.zh.md' }
+
+/**
+ * Every document this script reads, keyed by the path a message would name.
+ *
+ * One map rather than a variable each, because a failure is reported as
+ * `path:line` and both halves have to come from the same place.
+ */
+const documents = Object.fromEntries(
+  [SITE, RULES_PAGE, ...READMES, CONVENTIONS.en, CONVENTIONS.zh, STYLE.en, STYLE.zh]
+    .map(path => [path, read(path)]),
+)
+
+const site = documents[SITE]
+const rulesPage = documents[RULES_PAGE]
+const readme = { 'README.md': documents['README.md'], 'README.zh.md': documents['README.zh.md'] }
+const conventions = { en: documents[CONVENTIONS.en], zh: documents[CONVENTIONS.zh] }
 const manifest = JSON.parse(read('package.json'))
 
 /**
@@ -497,7 +512,7 @@ const COUNT_ANCHORS = [
   },
 ]
 
-const source = { [SITE]: site, [RULES_PAGE]: rulesPage, 'README.md': readme['README.md'], 'README.zh.md': readme['README.zh.md'] }
+const source = documents
 
 for (const anchor of COUNT_ANCHORS) {
   const matches = [...source[anchor.file].matchAll(new RegExp(anchor.pattern, 'gu'))]
@@ -649,6 +664,231 @@ for (const [file, pattern] of /** @type {const} */ ([
     fail(file, `it counts ${sentence[1]} plugins with a settings namespace, ${String(configurable.length)} register one`)
   }
   sameSet(file, 'plugins named as owning a settings namespace', 'the registry', configurable, [...sentence[2].matchAll(/`([^`]+)`/gu)].map(([, name]) => name))
+}
+
+/* ─────────────────────────── the style contract ──────────────────────────── */
+
+/**
+ * The documentation style, applied to the documents in this repository.
+ *
+ * `README-STYLE.md` says what every README here agrees to look like, and the
+ * parts of it a machine can hold are read out of the document itself rather
+ * than restated here: the language switcher comes from the code blocks in its
+ * rule 2, the fixed Chinese section names from the table in its rule 10. A
+ * style document that some script paraphrases is two documents.
+ *
+ * What is checked is the structural half — the switcher, the heading skeleton,
+ * the two languages saying the same thing. Sentence case is deliberately not:
+ * the rule allows proper nouns and quoted UI strings (`New Session` is a
+ * button), so any check for it would either miss the real cases or shout at
+ * correct headings, and a check nobody trusts gets disabled.
+ *
+ * It reaches the six documents in this repository and no further. Every plugin
+ * README the style is really addressed to lives in a repository of its own,
+ * ignored here and absent from a clone — those are checked where they live, or
+ * not at all.
+ */
+
+/** Every document here that is written twice. */
+const BILINGUAL = [
+  { en: 'README.md', zh: 'README.zh.md' },
+  { en: STYLE.en, zh: STYLE.zh },
+  { en: CONVENTIONS.en, zh: CONVENTIONS.zh },
+]
+
+/**
+ * A document's headings, with the fenced blocks skipped.
+ *
+ * The skeleton in README-STYLE's own rule 0 is a fenced markdown block full of
+ * `##` lines, and counting those as headings would make the style document
+ * fail its own rule.
+ * @param {string} document - the Markdown.
+ * @returns {Array<{ level: number, title: string, line: number }>} the headings.
+ */
+function headings(document) {
+  const found = []
+  let fenced = false
+  for (const [index, line] of document.split('\n').entries()) {
+    if (line.startsWith('```')) {
+      fenced = !fenced
+      continue
+    }
+    if (fenced) continue
+    const heading = /^(#{1,6}) (.+)$/u.exec(line)
+    if (heading !== null) found.push({ level: heading[1].length, title: heading[2].trim(), line: index + 1 })
+  }
+  return found
+}
+
+/**
+ * A document's fenced blocks, as the language each is tagged with.
+ * @param {string} document - the Markdown.
+ * @returns {string[]} one entry per block, in order.
+ */
+function fences(document) {
+  const found = []
+  let open = false
+  for (const line of document.split('\n')) {
+    if (!line.startsWith('```')) continue
+    if (!open) found.push(line.slice(3).trim())
+    open = !open
+  }
+  return found
+}
+
+/**
+ * The two language-switcher lines, read from README-STYLE's rule 2.
+ * @returns {{ en: string, zh: string } | undefined} the templates, or undefined
+ *   when the rule no longer holds them where this looks.
+ */
+function switcherTemplates() {
+  const style = documents[STYLE.en]
+  const start = style.search(/^### \d+\. Line 3 is the language switcher/mu)
+  if (start < 0) return undefined
+  const rest = style.slice(start + 1)
+  const end = rest.search(/^### /mu)
+  const rule = end < 0 ? rest : rest.slice(0, end)
+  const blocks = [...rule.matchAll(/^```markdown\n([^\n]*)\n```$/gmu)].map(([, line]) => line.trim())
+  return blocks.length === 2 ? { en: blocks[0], zh: blocks[1] } : undefined
+}
+
+/** The fixed Chinese section names, read from the table in README-STYLE's rule 10. */
+function sectionNames() {
+  const table = /\| English \| 中文 \|\n\|[-| ]+\|\n((?:\|.*\|\n?)+)/u.exec(documents[STYLE.en])
+  if (table === null) return undefined
+  /** @type {Map<string, string>} */
+  const names = new Map()
+  for (const row of table[1].split('\n')) {
+    const cells = row.split('|').slice(1, -1).map(cell => cell.trim())
+    if (cells.length !== 2) continue
+    // `Layout / Packages | 目录结构 / 包` is two names on each side, paired in order.
+    const english = cells[0].split(' / ')
+    const chinese = cells[1].split(' / ')
+    if (english.length !== chinese.length) continue
+    for (const [index, name] of english.entries()) names.set(name, chinese[index])
+  }
+  return names.size > 0 ? names : undefined
+}
+
+const switcher = switcherTemplates()
+if (switcher === undefined) {
+  fail(STYLE.en, 'its rule on the language switcher no longer holds the two lines in a pair of markdown blocks, so this script cannot read what the switcher is')
+}
+
+const sections = sectionNames()
+if (sections === undefined) {
+  fail(STYLE.en, 'its "| English | 中文 |" table of fixed section names is gone, so this script cannot read what a translated heading should be')
+}
+
+for (const pair of BILINGUAL) {
+  // Rule: line 3 is the language switcher, byte for byte — with this document's
+  // own sibling named. Everything in this repository links its translation
+  // there, and `scripts/build-profile.mjs` rewrites that exact line, so it is
+  // load-bearing twice over.
+  if (switcher !== undefined) {
+    const expected = {
+      en: switcher.en.replace('README.zh.md', pair.zh),
+      zh: switcher.zh.replace('README.md', pair.en),
+    }
+    for (const language of /** @type {const} */ (['en', 'zh'])) {
+      const line = documents[pair[language]].split('\n')[2]
+      if (line !== expected[language]) {
+        fail(`${pair[language]}:3`, `its line 3 is "${line}", and the style says the language switcher is "${expected[language]}"`)
+      }
+    }
+  }
+
+  const structure = { en: headings(documents[pair.en]), zh: headings(documents[pair.zh]) }
+
+  // Rule: the two languages say the same thing — same headings, in the same
+  // order, at the same levels. Reported as the first place they part company,
+  // because after that every line disagrees and listing them all says nothing.
+  const aligned = structure.en.length === structure.zh.length
+  if (!aligned) {
+    fail(pair.zh, `it has ${String(structure.zh.length)} headings and ${pair.en} has ${String(structure.en.length)}`)
+  }
+  // Over the common prefix, so a document with one heading too many is reported
+  // as that and not also as every heading after it being the wrong one.
+  const parted = structure.en.findIndex((heading, index) => structure.zh[index] !== undefined && structure.zh[index].level !== heading.level)
+  if (parted >= 0) {
+    const here = structure.en[parted]
+    const there = structure.zh[parted]
+    fail(`${pair.zh}:${String(there.line)}`, `its headings stop matching ${pair.en}:${String(here.line)} — "${here.title}" is a level ${String(here.level)} heading, "${there.title}" is level ${String(there.level)}`)
+  }
+
+  // Rule: the fixed section names, wherever one of them is used. Only once the
+  // two documents line up: pairing by position through a document that has
+  // already diverged compares headings that were never counterparts.
+  if (sections !== undefined && aligned && parted < 0) {
+    for (const [index, heading] of structure.en.entries()) {
+      const translated = sections.get(heading.title)
+      const counterpart = structure.zh[index]
+      if (translated === undefined || counterpart === undefined) continue
+      if (counterpart.title !== translated) {
+        fail(`${pair.zh}:${String(counterpart.line)}`, `"${heading.title}" is "${counterpart.title}" here, and the style fixes it as "${translated}"`)
+      }
+    }
+  }
+
+  // Rule: same code blocks. Their languages, in order — a `sh` block that
+  // became prose in translation is a command a reader in one language cannot
+  // copy.
+  const tagged = { en: fences(documents[pair.en]), zh: fences(documents[pair.zh]) }
+  if (tagged.en.join(' ') !== tagged.zh.join(' ')) {
+    fail(pair.zh, `its code blocks are [${tagged.zh.join(', ')}] and ${pair.en} has [${tagged.en.join(', ')}]`)
+  }
+
+  for (const file of [pair.en, pair.zh]) {
+    const structured = headings(documents[file])
+
+    // Rule: no `## License`. The LICENSE file and package.json both say it, and
+    // GitHub renders both.
+    const licence = structured.find(heading => /^(license|licence|许可|开源协议)/iu.test(heading.title))
+    if (licence !== undefined) fail(`${file}:${String(licence.line)}`, `it has a "${licence.title}" section, and the style has no license section`)
+
+    // Rule: never skip a level.
+    for (const [index, heading] of structured.entries()) {
+      const previous = structured[index - 1]
+      if (previous !== undefined && heading.level > previous.level + 1) {
+        fail(`${file}:${String(heading.line)}`, `"${heading.title}" is a level ${String(heading.level)} heading under a level ${String(previous.level)} one, and the style skips no level`)
+      }
+    }
+
+    // Rule: known limitations is last, and nothing follows it. Checked where a
+    // document has one — the style document and the conventions are not
+    // READMEs and carry no such section.
+    const limits = structured.findIndex(heading => heading.level === 2 && (heading.title === 'Known limitations' || heading.title === sections?.get('Known limitations')))
+    if (limits >= 0 && limits !== structured.length - 1) {
+      fail(`${file}:${String(structured[limits + 1].line)}`, `"${structured[limits + 1].title}" follows the limitations section, and the style ends every README there`)
+    }
+
+    // Rule: install comes before commands — a reader decides they want it
+    // before being told how to get it.
+    const order = ['Install', 'Commands'].map(name => structured.findIndex(heading => heading.title === name || heading.title === sections?.get(name)))
+    if (order.every(index => index >= 0) && order[0] > order[1]) {
+      fail(`${file}:${String(structured[order[0]].line)}`, 'its install section comes after its commands section, and the style puts install first')
+    }
+  }
+}
+
+// Rule: the title is the bare name, which for this repository is the one the
+// manifest carries.
+for (const file of READMES) {
+  const title = headings(documents[file])[0]
+  if (title?.title !== manifest.name) {
+    fail(`${file}:1`, `its title is "${title?.title ?? '(none)'}", and the style makes it the bare package name, "${manifest.name}"`)
+  }
+}
+
+// Rule: the lead links the harness on first mention, so a reader who arrived
+// from a search engine learns what this is a plugin for without leaving the
+// paragraph.
+const HARNESS_LINK = '](https://github.com/deepseek-ai/deepseek-harness)'
+for (const file of READMES) {
+  const lead = documents[file].split('\n\n').slice(0, 3).join('\n\n')
+  if (!lead.includes(HARNESS_LINK)) {
+    fail(file, 'its lead paragraph does not link the DeepSeek Harness, which the style asks for on first mention')
+  }
 }
 
 /* ─────────────────────────────────── done ────────────────────────────────── */
