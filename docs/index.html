@@ -276,7 +276,7 @@
 
         <!-- plughub -->
         <article class="card" data-cat="system" style="--t: var(--tone-system)">
-          <div class="card-top"><span class="dot"></span>system<span class="ver">0.1.3</span></div>
+          <div class="card-top"><span class="dot"></span>system<span class="ver">0.2.0</span></div>
           <h3><span class="zh">插件中心</span><span class="en">Plugin Hub</span><span class="en-name zh">Plugin Hub</span></h3>
           <p class="pkg">@omdsh-plugins/omdsh-plughub</p>
           <p class="sum"><span class="zh">在设置里安装、卸载并配置 omdsh 插件。</span><span class="en">Install, remove, and configure omdsh plugins from inside Settings.</span></p>
@@ -292,7 +292,7 @@
 
         <!-- shortcuts -->
         <article class="card" data-cat="input" style="--t: var(--tone-input)">
-          <div class="card-top"><span class="dot"></span>input<span class="ver">0.1.1</span></div>
+          <div class="card-top"><span class="dot"></span>input<span class="ver">0.2.0</span></div>
           <h3><span class="zh">快捷键</span><span class="en">Shortcuts</span><span class="en-name zh">Shortcuts</span></h3>
           <p class="pkg">@omdsh-plugins/omdsh-shortcuts</p>
           <p class="sum"><span class="zh">为每个命令绑定一个快捷键，桌面菜单与网页端共用一份配置。</span><span class="en">One chord per command, on the desktop menu and in the page alike.</span></p>
@@ -310,7 +310,7 @@
 
         <!-- remdev -->
         <article class="card" data-cat="workspace" style="--t: var(--tone-workspace)">
-          <div class="card-top"><span class="dot"></span>workspace<span class="ver">0.1.1</span></div>
+          <div class="card-top"><span class="dot"></span>workspace<span class="ver">0.2.0</span></div>
           <h3><span class="zh">远程开发</span><span class="en">Remote Development</span><span class="en-name zh">Remote Development</span></h3>
           <p class="pkg">@omdsh-plugins/omdsh-remdev</p>
           <p class="sum"><span class="zh">把工作区接到一台 SSH 服务器上，文件、终端、智能体和项目技能都在那台机器上。</span><span class="en">Attach a workspace to an SSH server: its files, terminals, agents, and project skills all live there.</span></p>
@@ -343,7 +343,7 @@
 
         <!-- usage -->
         <article class="card" data-cat="insight" style="--t: var(--tone-insight)">
-          <div class="card-top"><span class="dot"></span>insight<span class="ver">0.1.0</span></div>
+          <div class="card-top"><span class="dot"></span>insight<span class="ver">0.2.0</span></div>
           <h3><span class="zh">用量</span><span class="en">Usage</span><span class="en-name zh">Usage</span></h3>
           <p class="pkg">@omdsh-plugins/omdsh-usage</p>
           <p class="sum"><span class="zh">在会话顶栏显示本次会话花费、本项目花费与账户余额。</span><span class="en">Session spend, project spend, and account balance, in the conversation's top row.</span></p>
@@ -360,7 +360,7 @@
 
         <!-- status -->
         <article class="card" data-cat="insight" style="--t: var(--tone-insight)">
-          <div class="card-top"><span class="dot"></span>insight<span class="ver">0.1.2</span></div>
+          <div class="card-top"><span class="dot"></span>insight<span class="ver">0.2.0</span></div>
           <h3><span class="zh">状态</span><span class="en">Status</span><span class="en-name zh">Status</span></h3>
           <p class="pkg">@omdsh-plugins/omdsh-status</p>
           <p class="sum"><span class="zh">在会话顶栏的 Session log 按钮左边显示当前项目名称与 git 分支和变更计数。</span><span class="en">Project name and git branch with change counts, in the conversation header left of the Session log button.</span></p>
@@ -392,13 +392,13 @@
 
         <!-- chatmode -->
         <article class="card" data-cat="workspace" style="--t: var(--tone-workspace)">
-          <div class="card-top"><span class="dot"></span>workspace<span class="ver">0.1.2</span></div>
+          <div class="card-top"><span class="dot"></span>workspace<span class="ver">0.2.0</span></div>
           <h3><span class="zh">聊天模式</span><span class="en">Chat Mode</span><span class="en-name zh">Chat Mode</span></h3>
           <p class="pkg">@omdsh-plugins/omdsh-chatmode</p>
           <p class="sum"><span class="zh">不用选项目目录就能开始对话，这些对话统一放在侧栏的 Chat 下面。</span><span class="en">Start a conversation without picking a project directory, kept together under Chat.</span></p>
           <p class="detail">
-            <span class="zh">harness 是编码智能体，新建会话前先问你要哪个工作区 —— 合理，因为编码总要发生在某处。但不是每个问题都是活儿。这个插件在旁边补上另一种姿势：对话上方一个 <strong>Chat / Work</strong> 开关，一个受管的 Chat 工作区（真实目录 <code>&lt;dshHome&gt;/chat</code>），背后是一套<strong>一个工具都没有</strong>的 agent 组合。模式是<strong>推导</strong>出来的而不是存下来的：一个会话是不是 chat，取决于它算在哪个工作区名下 —— 存一个标志位，迟早会和屏幕上的事实打架。</span>
-            <span class="en">The harness is a coding agent, and its New Session screen asks for a workspace first — reasonably, because a coding agent works somewhere. But not every question is work. This adds the other posture beside it: a <strong>Chat / Work</strong> switch above the conversation, a managed Chat workspace (a real directory at <code>&lt;dshHome&gt;/chat</code>), and an agent composition with <strong>no tools at all</strong> behind them. The mode is <strong>derived, not stored</strong>: a session is a chat exactly when it is accounted under that workspace — a stored flag would eventually disagree with the screen.</span>
+            <span class="zh">harness 是编码智能体，新建会话前先问你要哪个工作区 —— 合理，因为编码总要发生在某处。但不是每个问题都是活儿。这个插件在旁边补上另一种姿势：对话上方一个 <strong>Chat / Work</strong> 开关，加上一个受管的 Chat 工作区（真实目录 <code>&lt;dshHome&gt;/chat</code>）。<strong>会话跑在哪里</strong>就是它的全部 —— 用哪套 agent 仍由部署的默认预设和 harness 自己的芯片决定。模式是<strong>推导</strong>出来的而不是存下来的：一个会话是不是 chat，取决于它算在哪个工作区名下 —— 存一个标志位，迟早会和屏幕上的事实打架。</span>
+            <span class="en">The harness is a coding agent, and its New Session screen asks for a workspace first — reasonably, because a coding agent works somewhere. But not every question is work. This adds the other posture beside it: a <strong>Chat / Work</strong> switch above the conversation, and a managed Chat workspace (a real directory at <code>&lt;dshHome&gt;/chat</code>). <strong>Where the conversation lives is the whole of it</strong> — a chat runs the deployment's default preset, and the harness's own chip is where a reader picks another. The mode is <strong>derived, not stored</strong>: a session is a chat exactly when it is accounted under that workspace — a stored flag would eventually disagree with the screen.</span>
           </p>
           <div class="card-foot">
             <span class="chip"><span class="zh">需要 omdsh-base</span><span class="en">needs omdsh-base</span></span>
@@ -732,12 +732,13 @@ node registry/build.mjs --check</code></pre>
         <div class="path">
           <span class="tag"><span class="zh">路线 A · 推荐</span><span class="en">Path A · recommended</span></span>
           <h3><span class="zh">先装插件中心，剩下的在页面里点</span><span class="en">Install the hub once, click the rest</span></h3>
-<pre><code><span class="c"># 尚未发布到 npm，所以从检出装</span>
-pnpm install &amp;&amp; pnpm run build
-dsh plugin --profile web add "$PWD/omdsh-plughub"
-dsh --profile web</code></pre>
+<pre><code>dsh plugin --profile web add @omdsh-plugins/omdsh-plughub
+dsh --profile web
+
+<span class="c"># 或者一条命令装完，页面都不用开</span>
+npx @omdsh-plugins/omdsh-plughub add omdsh-base omdsh-chatmode</code></pre>
           <ol>
-            <li><span class="zh">打开 <strong>设置 → 插件 → OMDSH 插件</strong></span><span class="en">Open <strong>Settings → Plugins → OMDSH Plugins</strong></span></li>
+            <li><span class="zh">打开 <strong>设置 → 插件 → 插件中心</strong></span><span class="en">Open <strong>Settings → Plugins → Plugin hub</strong></span></li>
             <li><span class="zh">目录会直接列出整个集合 —— <code>upstream</code> 默认就是 <code>omdsh-plugins</code></span><span class="en">The catalog lists the collection immediately — <code>upstream</code> already defaults to <code>omdsh-plugins</code></span></li>
             <li><span class="zh">按 Install，然后按顶部的横幅重启</span><span class="en">Press Install, then restart from the banner at the top</span></li>
             <li><span class="zh">在同一页展开任何已装插件，配置它</span><span class="en">Expand any installed plugin on the same page to configure it</span></li>

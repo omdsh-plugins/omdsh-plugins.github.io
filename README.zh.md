@@ -95,21 +95,40 @@ dsh plugin --profile web add @omdsh-plugins/omdsh-plughub
 dsh --profile web
 ```
 
-打开**设置 → 插件 → OMDSH 插件**，整套集合会列在那里，每张卡片上都有一个安装按钮。插件中心读的是 [registry](https://github.com/omdsh-plugins/registry) 清单，所以你装完中心之后才发布的插件，照样会出现。
+打开**设置 → 插件 → 插件中心**，整套集合会列在那里，每张卡片上都有一个安装按钮。插件中心读的是 [registry](https://github.com/omdsh-plugins/registry) 清单，所以你装完中心之后才发布的插件，照样会出现。
 
 每一次安装、更新、卸载都在下次启动时生效——卡片上会这么写，harness 的 loader 也不会热插拔一个 bundle。
 
 ### 从命令行装
 
-每个插件都按包名装进某个 profile：
+插件中心带一条命令，目录里的东西都能按名字装：
+
+```sh
+npx @omdsh-plugins/omdsh-plughub list                       # 目录里有什么
+npx @omdsh-plugins/omdsh-plughub add omdsh-base omdsh-chatmode omdsh-codemode
+npx @omdsh-plugins/omdsh-plughub remove omdsh-codemode
+```
+
+这就是设置里那个页签的安装器，只是入口从按钮换成了 argv——同一份目录、同一个 specifier、底下同一个 `dsh plugin`——所以这样装上的插件，和从页签装上的是同一条依赖、同一行 bundle。不指定 `--profile` 时它写进 `web` profile，而那个 profile 得先存在：`dsh --profile web` 会建一个。
+
+十二个里有十个是它存在的理由。它们不在 npm 上，所以 `dsh plugin --profile web add @omdsh-plugins/omdsh-chatmode` 会回 `ERR_PNPM_FETCH_404`，而且什么都不会改——profile 保持原样。能用的那条 git specifier 需要一条 pnpm 构建白名单，而那条记录里带着 pnpm 解析出来的 commit，只能从报错里抄、事先写不出来；这条命令替你写好。
+
+`omdsh-base` 和 `omdsh-plughub` 在 npm 上，所以这两个也可以按老写法装：
 
 ```sh
 dsh plugin --profile web add @omdsh-plugins/omdsh-base
-dsh plugin --profile web add @omdsh-plugins/omdsh-chatmode   # Chat 和 Work
-dsh plugin --profile web add @omdsh-plugins/omdsh-codemode   # Code
 ```
 
 顺序只是可读性上的偏好，不是要求：一个插件如果比它想要的服务先组合，它会在受限 fiber 上等，而不是失败。
+
+**24 小时之内发布的版本，走 `dsh plugin` 按名字是装不到的。** 这是 pnpm 的谨慎，不是 npm 的，所以上面那条 `npx` 不受影响。pnpm 会把新发布的版本先晾一会儿——`minimumReleaseAge` 默认就是一天——所以发布第二天早上跑的 `add`，悄悄记下的是它*前面*那个版本，然后插件中心又会提示你更新到你本以为已经装上的那个。要么点名版本，要么就这一条命令把这个延迟豁免掉：
+
+```sh
+dsh plugin --profile web add @omdsh-plugins/omdsh-base@<version>
+dsh plugin --profile web add @omdsh-plugins/omdsh-base --config.minimumReleaseAge=0
+```
+
+本 workspace 的 `pnpm-workspace.yaml` 里那句 `minimumReleaseAge: 0` 管不到那次安装：profile 目录自己就是一个 pnpm root，什么都不从这里继承。
 
 卸掉也是同一条路：
 
@@ -119,7 +138,7 @@ dsh plugin --profile web remove @omdsh-plugins/omdsh-base
 
 ### 从本仓库装
 
-这里还没有任何东西发布到 npm，所以今天组的 profile 是从工作树装的。**先构建**——`dsh plugin add` 记的是 `link:` 依赖，装进去的文件*就是*这份 checkout，而一份没有 `lib/` 的 checkout 加载不了：
+这里大部分还没发布，而你正在改的那个插件，从来就不是已发布的那一份，所以在这里组的 profile 是从工作树装的。**先构建**——`dsh plugin add` 记的是 `link:` 依赖，装进去的文件*就是*这份 checkout，而一份没有 `lib/` 的 checkout 加载不了：
 
 ```sh
 pnpm install
@@ -220,7 +239,7 @@ pnpm run harness:npm && pnpm install     # 提交前切回来
 
 ## 已知限制
 
-- **还没有任何东西发布到 npm。** 本文里每一个 `@omdsh-plugins/…` 名字，都要等这些插件发布之后才能从 registry 解析到；今天它们从 checkout 安装，而插件中心会把这种安装报成 `linked` 而不是「已是最新」——因为本来就没有什么可拉取的。
+- **十二个里有十个还没上 npm。** `omdsh-base` 和 `omdsh-plughub` 已经发布，可以按名字装；本文里其余每一个 `@omdsh-plugins/…` 名字，交给 `dsh plugin add` 都会回 `ERR_PNPM_FETCH_404`。那十个通过插件中心装——它的命令或它的按钮，两者都从 registry 解析出来、装它的 GitHub 仓库——或者从 checkout 装；而插件中心会把 checkout 安装报成 `linked` 而不是「已是最新」，因为本来就没有什么可拉取的。
 - **安装需要重启。** loader 在启动时组合一个 profile，这里没有任何东西能热插拔一个 bundle。
 - **插件中心的写路由只走 loopback。** 一个对外提供的 `dsh web` 可以浏览目录，但不能从那里安装。
 - **有些界面是借来的座位，不是自有的。** 模式开关把自己对准会话列上一个公开属性，侧栏圆点是画到 harness 自己的行上去的，还有两个插件是 portal 进 DOM 锚点的。底下的标记变了的时候，它们各自退化成「什么都不显示」，而不是「显示错的东西」——但每一个都是这套集合必须跟着走的选择器。

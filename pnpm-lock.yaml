@@ -83,26 +83,16 @@ importers:
         version: 4.1.10(@opentelemetry/api@1.9.1)(@types/node@22.20.1)(@vitest/coverage-v8@4.1.10)(jsdom@26.1.0)(vite@8.2.1(@types/node@22.20.1)(esbuild@0.28.2)(tsx@4.23.12)(yaml@2.9.0))
 
   omdsh-chatmode:
-    dependencies:
-      clsx:
-        specifier: ^2.0.0
-        version: 2.1.1
     devDependencies:
       '@deepseek-ai/cordis':
         specifier: ^4.0.1
         version: 4.0.1(@deepseek-ai/cordis-plugin-include@1.0.6)(@deepseek-ai/cordis-plugin-loader@1.0.2)
-      '@deepseek-ai/dsh-api-remotes':
-        specifier: 0.1.0-rc.6
-        version: 0.1.0-rc.6(963f21f11cddd09def26a2473cddd8c5)
       '@deepseek-ai/dsh-client-locale':
         specifier: 0.1.0-rc.6
         version: 0.1.0-rc.6(2bc91dd264d3b268fed91230026d254d)
       '@deepseek-ai/dsh-client-runtime':
         specifier: 0.1.0-rc.6
         version: 0.1.0-rc.6(9b9cc316d8840c207092351c825bdfdb)
-      '@deepseek-ai/dsh-client-ui-conversation':
-        specifier: 0.1.0-rc.6
-        version: 0.1.0-rc.6(64939d233c496f762259263b32e655e1)
       '@deepseek-ai/dsh-client-ui-layout':
         specifier: 0.1.0-rc.6
         version: 0.1.0-rc.6(@deepseek-ai/cordis@4.0.1)(@deepseek-ai/dsh-client-runtime@0.1.0-rc.6(9b9cc316d8840c207092351c825bdfdb))(@deepseek-ai/dsh-client-ui-slots@0.1.0-rc.6(@deepseek-ai/cordis@4.0.1)(@deepseek-ai/dsh-invariants@0.1.0-rc.6(@deepseek-ai/cordis@4.0.1)))(@deepseek-ai/dsh-client-ui-theme@0.1.0-rc.6(1184f9c4cd2cf36ea788afd3a9d69f33))(@deepseek-ai/dsh-invariants@0.1.0-rc.6(@deepseek-ai/cordis@4.0.1))(react@18.3.1)
@@ -121,9 +111,6 @@ importers:
       '@deepseek-ai/dsh-invariants':
         specifier: 0.1.0-rc.6
         version: 0.1.0-rc.6(@deepseek-ai/cordis@4.0.1)
-      '@deepseek-ai/dsh-settings':
-        specifier: 0.1.0-rc.6
-        version: 0.1.0-rc.6(@deepseek-ai/cordis@4.0.1)(@deepseek-ai/dsh-brand@0.1.0-rc.6(@deepseek-ai/cordis@4.0.1)(@deepseek-ai/dsh-invariants@0.1.0-rc.6(@deepseek-ai/cordis@4.0.1)))(@deepseek-ai/dsh-invariants@0.1.0-rc.6(@deepseek-ai/cordis@4.0.1))(@deepseek-ai/schemastery@3.18.1)
       '@deepseek-ai/dsh-workspace':
         specifier: 0.1.0-rc.6
         version: 0.1.0-rc.6(1cc52dfbc7fc17aad1b6b9c3711f64fc)

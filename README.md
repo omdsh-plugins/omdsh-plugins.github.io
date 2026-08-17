@@ -96,21 +96,40 @@ dsh plugin --profile web add @omdsh-plugins/omdsh-plughub
 dsh --profile web
 ```
 
-Open **Settings → Plugins → OMDSH Plugins**, and the collection is listed with an Install button on each card. The hub reads the [registry](https://github.com/omdsh-plugins/registry) manifest, so a plugin published after you installed the hub still appears.
+Open **Settings → Plugins → Plugin hub**, and the collection is listed with an Install button on each card. The hub reads the [registry](https://github.com/omdsh-plugins/registry) manifest, so a plugin published after you installed the hub still appears.
 
 Every install, update, and removal takes effect on the next start — the hub says so on the card, and the harness's loader does not hot-swap a bundle.
 
 ### From the command line
 
-Each plugin installs by name into a profile:
+The hub ships a command, and it installs anything in the catalog by name:
+
+```sh
+npx @omdsh-plugins/omdsh-plughub list                       # what is on offer
+npx @omdsh-plugins/omdsh-plughub add omdsh-base omdsh-chatmode omdsh-codemode
+npx @omdsh-plugins/omdsh-plughub remove omdsh-codemode
+```
+
+That is the Settings tab's installer with argv where the button was — the same catalog, the same specifier, the same `dsh plugin` underneath — so a plugin added this way is the same dependency and the same bundle row. It writes into the `web` profile unless `--profile` says otherwise, and that profile has to exist first: `dsh --profile web` writes one.
+
+Ten of the twelve are why it exists. They are not on npm, so `dsh plugin --profile web add @omdsh-plugins/omdsh-chatmode` answers `ERR_PNPM_FETCH_404` and changes nothing — the profile is left exactly as it was. The git specifier that would work needs a pnpm build-allowlist key carrying the commit pnpm resolved, which can be copied out of a failure and never written down in advance; the command writes it for you.
+
+`omdsh-base` and `omdsh-plughub` are on npm, so those two also install the plain way:
 
 ```sh
 dsh plugin --profile web add @omdsh-plugins/omdsh-base
-dsh plugin --profile web add @omdsh-plugins/omdsh-chatmode   # Chat and Work
-dsh plugin --profile web add @omdsh-plugins/omdsh-codemode   # Code
 ```
 
 Order is a readability preference, not a requirement: a plugin composed before the service it wants waits on a restricted fiber rather than failing.
+
+**A version published in the last 24 hours does not install by name — through `dsh plugin`.** That is pnpm's caution and not npm's, so the `npx` line above is unaffected. pnpm holds a fresh release at arm's length — `minimumReleaseAge` defaults to a day — so an `add` run the morning after a release quietly records the version *before* it, and the hub then offers an update to the one you thought you asked for. Name the version, or waive the delay for that one command:
+
+```sh
+dsh plugin --profile web add @omdsh-plugins/omdsh-base@<version>
+dsh plugin --profile web add @omdsh-plugins/omdsh-base --config.minimumReleaseAge=0
+```
+
+The `minimumReleaseAge: 0` in this workspace's `pnpm-workspace.yaml` does not reach that install: the profile directory is its own pnpm root and inherits nothing from here.
 
 Remove one the same way:
 
@@ -120,7 +139,7 @@ dsh plugin --profile web remove @omdsh-plugins/omdsh-base
 
 ### From this checkout
 
-Nothing here is published yet, so a profile assembled today installs from the working tree. Build first — `dsh plugin add` records a `link:` dependency, so the installed files *are* the checkout, and a checkout with no `lib/` cannot be loaded:
+Most of this is not published yet, and a plugin you are changing is never the published one, so a profile assembled here installs from the working tree. Build first — `dsh plugin add` records a `link:` dependency, so the installed files *are* the checkout, and a checkout with no `lib/` cannot be loaded:
 
 ```sh
 pnpm install
@@ -221,7 +240,7 @@ Because `pnpm -r` stops at the first failing member, a root `pnpm run test` on a
 
 ## Known limitations
 
-- **Nothing is published to npm yet.** Every `@omdsh-plugins/…` name in this document resolves from the registry once these are released; today they install from a checkout, and the hub reports such an install as `linked` rather than up to date, because there was never anything to fetch.
+- **Ten of the twelve are not on npm yet.** `omdsh-base` and `omdsh-plughub` are published and install by name; every other `@omdsh-plugins/…` name in this document answers `ERR_PNPM_FETCH_404` when `dsh plugin add` is given it. Those ten install through the hub — its command or its button, which resolve each from the registry and install it from its GitHub repository — or from a checkout, and the hub reports a checkout install as `linked` rather than up to date, because there was never anything to fetch.
 - **Installs need a restart.** The loader composes a profile at boot; nothing here hot-swaps a bundle.
 - **The hub's write routes are loopback-only.** A `dsh web` served to another host can browse the catalog but cannot install from it.
 - **Some surfaces are borrowed, not owned.** The mode switch anchors itself to a published attribute on the conversation column, the sidebar dots are painted onto the harness's own rows, and two plugins portal into DOM anchors. Each degrades to nothing rather than to something wrong when the markup underneath changes — but each is a selector this collection has to follow.
