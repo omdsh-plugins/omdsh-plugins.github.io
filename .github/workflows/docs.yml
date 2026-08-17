@@ -33,14 +33,14 @@ jobs:
   check:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       # The manifest the check reads for the packages, their versions,
       # categories and settings namespaces. It is generated in a checkout of
       # the collection — where every plugin is a sibling — and published here,
       # which is the copy the plugin hub reads and therefore the one the site
       # has to agree with.
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           repository: omdsh-plugins/registry
           path: registry
@@ -49,12 +49,12 @@ jobs:
       # therefore goes stale on its own: a README.md edit that is not followed
       # by a regenerate-and-push leaves the front page describing last week's
       # collection.
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           repository: omdsh-plugins/.github
           path: org-profile
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: 24
 
