@@ -84,6 +84,10 @@
     line-height: 1.7;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+    /* Everything below is sized in CSS pixels; iOS inflates text in landscape
+       unless a page says not to, which would drift those sizes apart. */
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
   }
 
   a { color: var(--accent-text); text-decoration: none; border-bottom: 1px solid color-mix(in srgb, var(--accent) 35%, transparent); }
@@ -174,8 +178,8 @@
   .lang:hover { color: var(--ink); border-color: var(--ink-2); }
 
   /* The way out to the account every repository on this page lives in. It sits
-     beside the language button rather than inside .topnav, so it survives the
-     narrow-screen collapse that hides the section links. */
+     beside the language button rather than inside .topnav, so it stays on the
+     wordmark row when the section links drop to a strip of their own. */
   .topend { display: flex; align-items: center; gap: 14px; }
   .ghlink {
     display: inline-flex; align-items: center; gap: 7px;
@@ -187,7 +191,14 @@
 
   /* ── hero ───────────────────────────────────────────────────────────── */
   .hero { padding-block: 76px 84px; border-bottom: 1px solid var(--line); }
-  .hero-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 64px; align-items: start; }
+  /* Every column below is written `minmax(0, …)` rather than a bare fraction.
+     A bare `1fr` is `minmax(auto, 1fr)`, and a grid item in a track whose min is
+     `auto` cannot be laid out narrower than its own min-content — which for the
+     columns here is a code block's longest line or a table's natural width. On a
+     phone that pushes the whole column past the screen instead of scrolling the
+     one element that is too wide. A zero minimum lets it shrink and lets those
+     elements keep their own `overflow-x: auto`. */
+  .hero-grid { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: 64px; align-items: start; }
 
   .eyebrow {
     font-family: var(--font-mono); font-size: 11.5px; letter-spacing: .13em;
@@ -233,7 +244,7 @@
   .stat span.cap { display: block; font-size: 12px; color: var(--muted); margin-top: 3px; white-space: nowrap; }
 
   /* ── layer stack ────────────────────────────────────────────────────── */
-  .stackwrap { display: grid; grid-template-columns: 22px 1fr; gap: 14px; margin-top: 6px; }
+  .stackwrap { display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 14px; margin-top: 6px; }
   .rail { position: relative; border-left: 1px solid var(--line-strong); }
   .rail::before, .rail::after {
     content: ""; position: absolute; left: -1px; width: 9px; height: 1px; background: var(--line-strong);
@@ -272,14 +283,14 @@
   .sec-head h2 { font-size: clamp(25px, 3vw, 31px); margin-top: 12px; }
   .sec-head .intro { margin-top: 16px; color: var(--muted); font-size: 16px; max-width: 60ch; }
 
-  .principles { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 4px; margin-top: 44px; overflow: hidden; }
+  .principles { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 4px; margin-top: 44px; overflow: hidden; }
   .principle { background: var(--surface); padding: 24px 24px 26px; }
   .principle h3 { font-size: 16.5px; letter-spacing: -.015em; }
   .principle .num { font-family: var(--font-mono); font-size: 11px; letter-spacing: .1em; color: var(--accent-text); display: block; margin-bottom: 10px; }
   .principle p { margin-top: 10px; font-size: 14.5px; color: var(--muted); line-height: 1.68; }
 
   /* ── composition ────────────────────────────────────────────────────── */
-  .halves { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 4px; overflow: hidden; margin-top: 20px; }
+  .halves { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 4px; overflow: hidden; margin-top: 20px; }
   .half { background: var(--surface); padding: 20px 22px 22px; }
   .half .tag { font-family: var(--font-mono); font-size: 11px; letter-spacing: .09em; color: var(--muted); text-transform: uppercase; }
   .half h4 { font-size: 15px; margin-top: 8px; }
@@ -287,7 +298,7 @@
 
   .figcap { font-size: 13px; color: var(--muted); margin-top: 12px; font-family: var(--font-mono); }
 
-  .split { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; margin-top: 44px; align-items: start; }
+  .split { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 56px; margin-top: 44px; align-items: start; }
   .split h3 { font-size: 17px; }
   .split .body { margin-top: 14px; color: var(--muted); font-size: 15px; }
   .split .body p + p { margin-top: 12px; }
@@ -301,7 +312,7 @@
   .note p { font-size: 14px; color: var(--muted); margin-top: 12px; }
 
   .deps { margin-top: 24px; display: grid; gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 4px; overflow: hidden; }
-  .dep { background: var(--surface); display: grid; grid-template-columns: minmax(210px, 260px) 1fr; gap: 20px; padding: 13px 20px; align-items: baseline; }
+  .dep { background: var(--surface); display: grid; grid-template-columns: minmax(210px, 260px) minmax(0, 1fr); gap: 20px; padding: 13px 20px; align-items: baseline; }
   .dep .who { font-family: var(--font-mono); font-size: 12.5px; color: var(--ink); }
   .dep .who .arrow { color: var(--accent); padding-inline: 5px; }
   .dep .what { font-size: 14px; color: var(--muted); }
@@ -321,7 +332,7 @@
   .filters button .n { font-variant-numeric: tabular-nums; opacity: .65; }
 
   .lattice {
-    display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(min(330px, 100%), 1fr));
     gap: 1px; background: var(--line); border: 1px solid var(--line);
     border-radius: 4px; overflow: hidden; margin-top: 20px;
   }
@@ -346,7 +357,7 @@
   .card-foot a:hover { color: var(--accent-text); }
 
   /* ── apps ───────────────────────────────────────────────────────────── */
-  .apps { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 4px; overflow: hidden; margin-top: 40px; }
+  .apps { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 4px; overflow: hidden; margin-top: 40px; }
   .app { background: var(--surface); padding: 28px 26px 26px; display: flex; flex-direction: column; gap: 14px; }
   .app h3 { font-family: var(--font-mono); font-size: 19px; letter-spacing: -.03em; }
   .app .kind { font-family: var(--font-mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
@@ -364,18 +375,18 @@
   td.dim { color: var(--muted); }
 
   /* ── registry / install ─────────────────────────────────────────────── */
-  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-top: 44px; align-items: start; }
+  .cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 48px; margin-top: 44px; align-items: start; }
   .stack-list { display: grid; gap: 18px; margin-top: 4px; }
   .stack-list li { list-style: none; }
   ul.plain { margin: 0; padding: 0; display: grid; gap: 14px; }
-  ul.plain li { list-style: none; display: grid; grid-template-columns: 18px 1fr; gap: 10px; font-size: 14.5px; color: var(--muted); }
+  ul.plain li { list-style: none; display: grid; grid-template-columns: 18px minmax(0, 1fr); gap: 10px; font-size: 14.5px; color: var(--muted); }
   ul.plain li::before { content: "—"; color: var(--accent); font-family: var(--font-mono); }
   ul.plain li b { color: var(--ink-2); font-weight: 600; }
 
   .urlbox { font-family: var(--font-mono); font-size: 12.5px; background: var(--code-bg); border: 1px solid var(--line); border-radius: 4px; padding: 13px 15px; overflow-x: auto; white-space: nowrap; color: var(--accent-text); margin-top: 20px; }
 
   .rules { counter-reset: r; display: grid; gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 4px; overflow: hidden; margin-top: 40px; }
-  .rule { background: var(--surface); display: grid; grid-template-columns: 46px 1fr; gap: 4px 18px; padding: 18px 22px; align-items: baseline; }
+  .rule { background: var(--surface); display: grid; grid-template-columns: 46px minmax(0, 1fr); gap: 4px 18px; padding: 18px 22px; align-items: baseline; }
   .rule::before {
     counter-increment: r; content: counter(r, decimal-leading-zero);
     font-family: var(--font-mono); font-size: 12px; color: var(--accent); letter-spacing: .04em;
@@ -383,7 +394,7 @@
   .rule h4 { font-size: 15.5px; }
   .rule p { grid-column: 2; font-size: 14px; color: var(--muted); margin-top: 6px; }
 
-  .paths { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 4px; overflow: hidden; margin-top: 40px; }
+  .paths { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 4px; overflow: hidden; margin-top: 40px; }
   .path { background: var(--surface); padding: 26px 24px; display: flex; flex-direction: column; gap: 14px; }
   .path .tag { font-family: var(--font-mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
   .path h3 { font-size: 17px; }
@@ -405,21 +416,89 @@
 
   /* ── responsive ─────────────────────────────────────────────────────── */
   @media (max-width: 1000px) {
-    .hero-grid, .split, .cols { grid-template-columns: 1fr; gap: 44px; }
-    .apps, .paths, .halves { grid-template-columns: 1fr; }
-    .stats { grid-template-columns: repeat(2, 1fr); width: 100%; }
+    .hero-grid, .split, .cols { grid-template-columns: minmax(0, 1fr); gap: 44px; }
+    .apps, .paths, .halves { grid-template-columns: minmax(0, 1fr); }
+    .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); width: 100%; }
     .stat:nth-child(2) { border-right: 0; }
     .stat:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
   }
+
+  /* ── phones ─────────────────────────────────────────────────────────── */
   @media (max-width: 640px) {
     :root { --wrap: calc(100% - 32px); }
     .hero { padding-block: 48px 56px; }
-    section { padding-block: 52px; }
-    .topnav { display: none; }
-    /* .topnav carried the auto margin that pushed the right edge over. */
+    section { padding-block: 52px; scroll-margin-top: 92px; }
+
+    /* The section links become a strip of their own under the wordmark: this
+       page is long enough that a phone with no way to jump can only scroll.
+       The strip bleeds to both edges so a swipe reaches the last item. */
+    .topbar-in { flex-wrap: wrap; height: auto; gap: 0 14px; padding-top: 11px; }
     .topend { margin-left: auto; }
-    .dep { grid-template-columns: 1fr; gap: 6px; }
-    .rule { grid-template-columns: 1fr; }
+    .topnav {
+      order: 3; width: 100%; margin: 11px -16px 0; padding: 0 16px 9px;
+      gap: 18px; overscroll-behavior-x: contain;
+    }
+    .topnav a { padding-block: 2px; }
+
+    /* Several specifiers quoted inline are wider than a phone, and `nowrap`
+       would carry the column off the screen rather than break one word. */
+    code {
+      white-space: normal; overflow-wrap: break-word;
+      /* Both halves of a broken specifier keep the box, rather than the pair
+         sharing one that is open where the line ended. */
+      -webkit-box-decoration-break: clone; box-decoration-break: clone;
+    }
+
+    /* Two captions here are a sentence long; held on one line they decide how
+       wide the row wants to be, and the row is half a screen. */
+    .stat { padding: 13px 16px 12px; }
+    .stat span.cap { white-space: normal; }
+
+    /* The name is the identity of the row, so it stays whole and the role
+       wraps under it — the reverse breaks package names across lines. */
+    .layer { flex-wrap: wrap; row-gap: 2px; }
+    .layer .lname { white-space: nowrap; }
+
+    /* Squeezed into a phone, a three-column table turns its prose column into a
+       four-word ribbon. A floor keeps the columns readable and hands what does
+       not fit to the scroller these tables are already wrapped in. */
+    .tablewrap table { min-width: 460px; }
+    th, td { padding: 9px 12px; }
+    /* An opaque header cell would paint over the shadow below for its own row. */
+    th { background: none; }
+
+    /* Nothing else on this page moves sideways, so a panel that does says so:
+       a shadow at the trailing edge, which the content itself covers once it
+       has been scrolled to the end. Otherwise a cut line just reads as a bug. */
+    .tablewrap { --scroll-bg: var(--surface); }
+    pre, .card .strip { --scroll-bg: var(--code-bg); }
+    .tablewrap, pre, .card .strip {
+      background-image:
+        linear-gradient(to left, var(--scroll-bg), transparent),
+        radial-gradient(farthest-side at 100% 50%, color-mix(in srgb, var(--ink) 20%, transparent), transparent);
+      background-position: right center;
+      background-size: 26px 100%, 11px 100%;
+      background-repeat: no-repeat;
+      background-attachment: local, scroll;
+    }
+
+    /* A URL nobody can read to the end is not a URL. */
+    .urlbox { white-space: normal; overflow-wrap: anywhere; }
+
+    /* On the narrowest phones the button breaks somewhere; the platform it
+       downloads is the half that has to survive whole. */
+    .dl a { flex-wrap: wrap; }
+    .dl .os { white-space: nowrap; }
+
+    /* Side padding is content width on a 390px screen. */
+    .card { padding: 20px 18px 18px; }
+    .principle { padding: 22px 18px 24px; }
+    .app { padding: 24px 18px 22px; }
+    .path { padding: 22px 18px; }
+    .filters button { padding: 8px 12px; }
+
+    .dep { grid-template-columns: minmax(0, 1fr); gap: 6px; }
+    .rule { grid-template-columns: minmax(0, 1fr); padding: 16px 18px; }
     .rule::before { grid-column: 1; }
     .rule p { grid-column: 1; }
   }
