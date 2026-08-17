@@ -329,13 +329,12 @@
           <div class="card-top"><span class="dot"></span>system<span class="ver">0.2.0</span></div>
           <h3><span class="zh">远程控制</span><span class="en">Remote Control</span><span class="en-name zh">Remote Control</span></h3>
           <p class="pkg">@omdsh-plugins/omdsh-remctrl</p>
-          <p class="sum"><span class="zh">在 tailnet 上用手机查看进度、批准工具调用、下发新任务。</span><span class="en">Watch, approve, and dispatch from a phone on your tailnet.</span></p>
+          <p class="sum"><span class="zh">把你的 dsh 界面开放到公网地址，前面挡一道通行码。</span><span class="en">Your dsh window, on a public address, behind a passcode.</span></p>
           <p class="detail">
-            <span class="zh">harness 的第二道前门，跑在自己的端口上，前面是设备配对和分级方法白名单。绑定策略从设计上就<strong>不能</strong>被配置到公网接口；配对是六位数字码，同时只有一个、五分钟、五次机会；设备令牌以哈希存储，重启后仍在，可撤销。当前进度 <strong>M0 —— 门和锁已经装好了</strong>，门后面的会话读取、实时流、批准和派活是 M1–M4。</span>
-            <span class="en">A second front door on its own port, behind device pairing and a tiered method allowlist. The bind policy <strong>cannot</strong> be configured onto a public interface; pairing is a six-digit code, one outstanding at a time, five minutes, five guesses; device tokens are stored as hashes, survive a restart, and are revocable. Status <strong>M0 — the door and the lock</strong>; reading sessions, the live stream, approvals and dispatch are M1 through M4.</span>
+            <span class="zh">只有一扇门，它是一个反向代理：请求打到本插件绑定的端口上，通行码决定它能不能往里走，能的那些被原样交给 harness 自己的回环端口——HTTP 和两条 WebSocket 下行，一字不改。所以手机上不是一个功能子集，<strong>就是</strong> dsh。代价写在明处：代理把 <code>Host</code> 改写成回环地址，这正是 harness 信任围栏放行的原因，也意味着一个已登录的浏览器能触达桌面端能触达的一切。于是通行码周围那几样不是功能，是设计本身——默认关；Cookie 没落定之前一个字节都不转发；每个地址每分钟六次尝试，这才是十个字符够用的原因；来源围栏在公网这一侧照着浏览器真正用的地址重问一遍；走隧道时非 HTTPS 的请求在读取凭证<strong>之前</strong>就以 <code>421</code> 挡回。默认出口是一条 <code>cloudflared</code> quick tunnel，所以一台没有公网地址的笔记本不用映射端口、不用开防火墙、不用配证书。</span>
+            <span class="en">One door, and it is a reverse proxy: requests arrive on a port this plugin binds, the passcode decides whether they go further, and the ones that do are handed to the harness's own loopback port — HTTP and both WebSocket downlinks, verbatim. So a phone gets no subset of anything; it <strong>is</strong> dsh. The cost is stated rather than hidden: the proxy rewrites <code>Host</code> to loopback, which is what makes the harness's trust fence pass, and which means a signed-in browser reaches everything the desktop can. The controls around the passcode are therefore the design and not features — off by default; nothing forwarded before the cookie resolves; six tries a minute per address, which is what makes ten characters enough; the provenance fence re-imposed at the public boundary, about the address the browser actually used; and under the tunnel a non-HTTPS request refused with <code>421</code> <strong>before</strong> a credential is read off it. The default way out is a supervised <code>cloudflared</code> quick tunnel, so a laptop with no public address forwards no port, opens no firewall, and arranges no certificate.</span>
           </p>
           <div class="card-foot">
-            <span class="chip status">M0</span>
             <span class="chip">settings: omdsh-remctrl</span>
             <a href="https://github.com/omdsh-plugins/omdsh-remctrl" target="_blank" rel="noopener">repo ↗</a>
           </div>
