@@ -105,7 +105,7 @@
               <span class="lrole"><span class="zh">插件图层</span><span class="en">plugin layer</span></span>
             </div>
             <div class="layer" style="--t: var(--tone-system); animation-delay:.18s">
-              <span class="dot"></span><span class="lname">omdsh-base</span>
+              <span class="dot"></span><span class="lname">omdsh-basemode</span>
               <span class="lrole"><span class="zh">插件图层</span><span class="en">plugin layer</span></span>
             </div>
             <div class="stack-gap"></div>
@@ -235,8 +235,8 @@
       <h3 style="margin-top:56px;font-size:17px"><span class="zh">谁需要谁</span><span class="en">Who needs whom</span></h3>
       <div class="deps">
         <div class="dep">
-          <span class="who">omdsh-chatmode · omdsh-codemode <span class="arrow">→</span> omdsh-base</span>
-          <span class="what"><span class="zh">模式插件把自己的段注册进 <code>sessionModes</code>。没有 base，就没有那个开关。</span><span class="en">Mode plugins register their segment into <code>sessionModes</code>. Without base there is no switch to register into.</span></span>
+          <span class="who">omdsh-chatmode · omdsh-codemode <span class="arrow">→</span> omdsh-basemode</span>
+          <span class="what"><span class="zh">模式插件把自己的段注册进 <code>sessionModes</code>。没有 omdsh-basemode，就没有那个开关。</span><span class="en">Mode plugins register their segment into <code>sessionModes</code>. Without omdsh-basemode there is no switch to register into.</span></span>
         </div>
         <div class="dep">
           <span class="who">omdsh-codemode <span class="arrow">→</span> omdsh-tui</span>
@@ -373,11 +373,11 @@
           </div>
         </article>
 
-        <!-- base -->
+        <!-- basemode -->
         <article class="card" data-cat="system" style="--t: var(--tone-system)">
-          <div class="card-top"><span class="dot"></span>system<span class="ver">0.1.3</span></div>
+          <div class="card-top"><span class="dot"></span>system<span class="ver">0.2.0</span></div>
           <h3><span class="zh">模式系统</span><span class="en">Mode System</span><span class="en-name zh">Mode System</span></h3>
-          <p class="pkg">@omdsh-plugins/omdsh-base</p>
+          <p class="pkg">@omdsh-plugins/omdsh-basemode</p>
           <p class="sum"><span class="zh">所有模式插件共用的模式开关，以及按模式给侧栏会话上色的圆点。</span><span class="en">The switch every mode plugin registers into, and the sidebar dots that colour their conversations.</span></p>
           <p class="detail">
             <span class="zh"><strong>它自己不发明任何模式 —— 这正是重点。</strong>只装它的 profile 能正常启动，并且完全看不到那个开关，因为没有东西可切的控件不是控件。它提供 <code>sessionModes</code> 注册表、悬浮在对话列上方的开关、每一行侧栏前面那颗按模式着色的圆点，以及把 <strong>New Session</strong> 先递给"正占着这一列的那个模式"的那次覆盖。它唯一贡献的那个姿态是本来就在屏幕上的那个 —— <strong>Work</strong>，harness 自己的那根列 —— 好让开关永远有地方可以切回去；装了 chatmode 之后，由它那个会记事的 Work 顶替。</span>
@@ -385,7 +385,7 @@
           </p>
           <div class="card-foot">
             <span class="chip"><span class="zh">被 chatmode / codemode 需要</span><span class="en">needed by chatmode / codemode</span></span>
-            <a href="https://github.com/omdsh-plugins/omdsh-base" target="_blank" rel="noopener">repo ↗</a>
+            <a href="https://github.com/omdsh-plugins/omdsh-basemode" target="_blank" rel="noopener">repo ↗</a>
           </div>
         </article>
 
@@ -400,7 +400,7 @@
             <span class="en">The harness is a coding agent, and its New Session screen asks for a workspace first — reasonably, because a coding agent works somewhere. But not every question is work. This adds the other posture beside it: a <strong>Chat / Work</strong> switch above the conversation, and a managed Chat workspace (a real directory at <code>&lt;dshHome&gt;/chat</code>). <strong>Where the conversation lives is the whole of it</strong> — a chat runs the deployment's default preset, and the harness's own chip is where a reader picks another. The mode is <strong>derived, not stored</strong>: a session is a chat exactly when it is accounted under that workspace — a stored flag would eventually disagree with the screen.</span>
           </p>
           <div class="card-foot">
-            <span class="chip"><span class="zh">需要 omdsh-base</span><span class="en">needs omdsh-base</span></span>
+            <span class="chip"><span class="zh">需要 omdsh-basemode</span><span class="en">needs omdsh-basemode</span></span>
             <a href="https://github.com/omdsh-plugins/omdsh-chatmode" target="_blank" rel="noopener">repo ↗</a>
           </div>
         </article>
@@ -416,7 +416,7 @@
             <span class="en">The web GUI and the terminal are two front doors onto the same harness; this is the seam that lets one be shown inside the other. Pressing <strong>Code</strong> replaces the conversation column with a real <code>dsh --profile omdsh-tui</code>, banner and all, in the directory the conversation is already accounted under. Nothing of the terminal is reimplemented — this plugin starts that program and relays bytes. A <code>/rename</code> typed inside it moves the sidebar row.</span>
           </p>
           <div class="card-foot">
-            <span class="chip"><span class="zh">需要 omdsh-base · omdsh-tui</span><span class="en">needs omdsh-base · omdsh-tui</span></span>
+            <span class="chip"><span class="zh">需要 omdsh-basemode · omdsh-tui</span><span class="en">needs omdsh-basemode · omdsh-tui</span></span>
             <a href="https://github.com/omdsh-plugins/omdsh-codemode" target="_blank" rel="noopener">repo ↗</a>
           </div>
         </article>
@@ -453,35 +453,35 @@
           </div>
         </article>
 
-        <!-- office -->
+        <!-- document -->
         <article class="card" data-cat="input" style="--t: var(--tone-input)">
-          <div class="card-top"><span class="dot"></span>input<span class="ver">0.1.0</span></div>
-          <h3><span class="zh">文档附件</span><span class="en">Office Files</span><span class="en-name zh">Office Files</span></h3>
-          <p class="pkg">@omdsh-plugins/omdsh-office</p>
+          <div class="card-top"><span class="dot"></span>input<span class="ver">0.3.0</span></div>
+          <h3><span class="zh">文档</span><span class="en">Documents</span><span class="en-name zh">Documents</span></h3>
+          <p class="pkg">@omdsh-plugins/omdsh-document</p>
           <p class="sum"><span class="zh">把 Word、PPT、Excel、PDF 和文本文件添加到消息里，模型直接读到它们的内容。</span><span class="en">Attach Word, PowerPoint, Excel, PDF and text files to a message; the agent reads their text.</span></p>
           <p class="detail">
-            <span class="zh">浏览器插件在消息发出那一刻只有一个钩子：<strong>reference codec</strong>。草稿里可以放引用占位符（一个 U+FFFC，画成一枚 chip），提交前 harness 会问每个占位符的主人它到底代表什么，再把答案拼进正文。于是草稿本身就是"附了什么"的唯一权威——退格删掉 chip 附件就没了，撤销又回来，复制会把 <code>@report.pdf</code> 一起带走，输入框上方那条轨道只是 <code>input.occurrences</code> 的投影，永远不会和你即将发出的消息对不上。也因此，展开后的文字就是对话里显示的文字：<code>inlineCharLimit</code> 既是上下文预算，也是这份文档有多少会出现在消息里，超出的部分留一个磁盘路径让 agent 自己 <code>read</code>。</span>
-            <span class="en">A browser plugin gets exactly one hook at send time: a <strong>reference codec</strong>. The draft can hold reference occurrences — one U+FFFC each, drawn as a chip — and just before the prompt goes out the harness asks each occurrence's owner what it means and splices the answer in. So the draft is the authority on what is attached: backspace over a chip and it is gone, undo brings it back, copy takes <code>@report.pdf</code> with it, and the rail above the composer is a projection of <code>input.occurrences</code> that cannot drift from the message you are about to send. It also means the expansion is what the transcript shows — <code>inlineCharLimit</code> is both a context budget and how much of the document appears in the message, with the remainder left as a path any <code>read</code> tool can open.</span>
+            <span class="zh">输入框里什么也不会出现。附件是宿主端为这个对话维护的<strong>队列</strong>——输入框上方那条轨道就是它——而宿主在 <code>agent/pre-step</code> 把队列放到消息正下方，作为一条 context 消息：模型紧接着问题读到文档，聊天记录在这条消息底下画一行可折叠的 <code>Context injection</code>。浏览器插件唯一的发送时钩子是草稿里的一枚 chip，而 chip 是输入框里一个看得见的格子，代表的却不是用户写下的内容；换成宿主端这条缝，输入框就还是输入框。队列归宿主所有，于是它不随刷新消失，而<strong>轨道清空就是回执</strong>：队列只会被真正带着用户话语的那一步认领，还留着的一行就是没送出去的文件。</span>
+            <span class="en">Nothing appears in the message box. An attachment is a <strong>queue</strong> the host keeps for the conversation — the rail above the composer is that queue — and the host splices it in directly under the message at <code>agent/pre-step</code>, as a context message: the model reads the documents right after the question, and the transcript draws one collapsed <code>Context injection</code> row beneath it. A browser plugin's only send-time hook is a chip in the draft, and a chip is a visible cell in the textarea standing for something the user did not write; the host's seam leaves the message box a message box. The queue being the host's is also why it survives a reload — and why <strong>the rail emptying is the receipt</strong>: only a step actually carrying the user's words may claim it, so a row that stays is a file that did not go.</span>
           </p>
           <div class="card-foot">
-            <span class="chip">settings: omdsh-office</span>
-            <a href="https://github.com/omdsh-plugins/omdsh-office" target="_blank" rel="noopener">repo ↗</a>
+            <span class="chip">settings: omdsh-document</span>
+            <a href="https://github.com/omdsh-plugins/omdsh-document" target="_blank" rel="noopener">repo ↗</a>
           </div>
         </article>
 
-        <!-- eyes -->
+        <!-- vision -->
         <article class="card" data-cat="input" style="--t: var(--tone-input)">
-          <div class="card-top"><span class="dot"></span>input<span class="ver">0.1.0</span></div>
-          <h3><span class="zh">眼睛</span><span class="en">Eyes</span><span class="en-name zh">Eyes</span></h3>
-          <p class="pkg">@omdsh-plugins/omdsh-eyes</p>
+          <div class="card-top"><span class="dot"></span>input<span class="ver">0.2.0</span></div>
+          <h3><span class="zh">视觉</span><span class="en">Vision</span><span class="en-name zh">Vision</span></h3>
+          <p class="pkg">@omdsh-plugins/omdsh-vision</p>
           <p class="sum"><span class="zh">让只能读文字的模型看懂图片和视频：配一个视觉模型，粘贴一张图或指一个文件，它来讲里面有什么。</span><span class="en">Let a text-only model read images and videos: point it at a vision model, paste a picture or name a file, and it describes what is there.</span></p>
           <p class="detail">
             <span class="zh">图片在 harness 里本来就是一等公民：内容寻址的附件存储、粘贴与拖拽、对话里的缩略图，全都现成。缺的只有一个声明——DeepSeek 的模型报告 <code>inputModalities: ['text']</code>，而拒绝图片的三道门读的都是这同一个字段。于是这个插件注册一条<strong>镜像模型路由</strong>：把每个只认文字的模型再登记一遍并声明接受图片，请求发出前把图换成 <code>&lt;image-description&gt;</code>，再原样交给真正的那条路由——日志里存的仍然是图片，只有线上那一份是文字。另外三个工具补齐其余场景：<code>see_image</code> 看磁盘上的图，<code>ask_image</code> 拿 id 追问细节，<code>watch_video</code> 用 ffmpeg 沿时间线抽帧逐帧描述。描述按图片自己的 sha256 归档，所以同一张图只花一次钱。</span>
             <span class="en">Images are already first class in the harness — a content-addressed store, paste and drop, thumbnails in the transcript. One declaration is missing: DeepSeek's models report <code>inputModalities: ['text']</code>, and all three refusals read that same field. So this registers a <strong>mirrored model route</strong> — every text-only model advertised again under a provider that accepts images, swapping each picture for an <code>&lt;image-description&gt;</code> just before the request goes out and handing it to the route that really owns the model. The log keeps the picture; only the copy on the wire is text. Three tools cover the rest: <code>see_image</code> for a file, <code>ask_image</code> for a closer look by id, and <code>watch_video</code>, which cuts frames off a timeline with ffmpeg and describes each. Descriptions are filed under the image's own sha256, so one picture is paid for once.</span>
           </p>
           <div class="card-foot">
-            <span class="chip">settings: omdsh-eyes</span>
-            <a href="https://github.com/omdsh-plugins/omdsh-eyes" target="_blank" rel="noopener">repo ↗</a>
+            <span class="chip">settings: omdsh-vision</span>
+            <a href="https://github.com/omdsh-plugins/omdsh-vision" target="_blank" rel="noopener">repo ↗</a>
           </div>
         </article>
 
@@ -767,7 +767,7 @@ node registry/build.mjs --check</code></pre>
 dsh --profile web
 
 <span class="c"># 或者一条命令装完，页面都不用开</span>
-npx @omdsh-plugins/omdsh-plughub add omdsh-base omdsh-chatmode</code></pre>
+npx @omdsh-plugins/omdsh-plughub add omdsh-basemode omdsh-chatmode</code></pre>
           <ol>
             <li><span class="zh">打开 <strong>设置 → 插件 → 插件中心</strong></span><span class="en">Open <strong>Settings → Plugins → Plugin hub</strong></span></li>
             <li><span class="zh">目录会直接列出整个集合 —— <code>upstream</code> 默认就是 <code>omdsh-plugins</code></span><span class="en">The catalog lists the collection immediately — <code>upstream</code> already defaults to <code>omdsh-plugins</code></span></li>
@@ -781,7 +781,7 @@ npx @omdsh-plugins/omdsh-plughub add omdsh-base omdsh-chatmode</code></pre>
           <h3><span class="zh">克隆、构建、加进 profile</span><span class="en">Clone, build, add to a profile</span></h3>
 <pre><code>pnpm install &amp;&amp; pnpm run build
 dsh plugin --profile web add \
-  "$PWD/omdsh-base" "$PWD/omdsh-chatmode" "$PWD/omdsh-codemode"
+  "$PWD/omdsh-basemode" "$PWD/omdsh-chatmode" "$PWD/omdsh-codemode"
 
 <span class="c"># Code 模式跑的是另一个 profile，装法也不同</span>
 cd omdsh-tui &amp;&amp; pnpm install &amp;&amp; pnpm run install:profile</code></pre>

@@ -5,21 +5,20 @@
 # them into this one.
 #
 # Membership plus `linkWorkspacePackages` is what lets the two plugins built on
-# `@omdsh-plugins/omdsh-base` name it by an ordinary semver range instead of a
+# `@omdsh-plugins/omdsh-basemode` name it by an ordinary semver range instead of a
 # `link:` path. From here the range resolves to this checkout; from a clone of
 # one plugin alone — which every package here is still set up to be, each with
 # its own workspace file and lockfile — the same range resolves from the
-# registry once base is published. A `workspace:*` would have worked only from
+# registry once omdsh-basemode is published. A `workspace:*` would have worked only from
 # this directory and never from that clone.
 linkWorkspacePackages: true
 
 packages:
-  - omdsh-base
+  - omdsh-basemode
   - omdsh-chatmode
   - omdsh-codemode
+  - omdsh-document
   - omdsh-editor
-  - omdsh-eyes
-  - omdsh-office
   - omdsh-plughub
   - omdsh-remctrl
   - omdsh-remdev
@@ -28,6 +27,7 @@ packages:
   - omdsh-sidepanel
   - omdsh-status
   - omdsh-usage
+  - omdsh-vision
 
 # No `catalog:` here on purpose. Each plugin pins the harness release in its own
 # manifest, and `pnpm run check:harness-pin` proves it against the literal that

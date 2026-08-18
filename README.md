@@ -14,7 +14,7 @@ Fourteen plugins, three applications, and one catalog.
 
 | Package | What it adds |
 |---|---|
-| [omdsh-base](https://github.com/omdsh-plugins/omdsh-base) | The session-mode system: the registry every mode plugin registers a segment into, the switch that renders them, and the dots that colour the sidebar by mode. It invents no mode, and contributes one: **Work**, the harness's own column, so a switch always has somewhere to switch back to. |
+| [omdsh-basemode](https://github.com/omdsh-plugins/omdsh-basemode) | The session-mode system: the registry every mode plugin registers a segment into, the switch that renders them, and the dots that colour the sidebar by mode. It invents no mode, and contributes one: **Work**, the harness's own column, so a switch always has somewhere to switch back to. |
 | [omdsh-chatmode](https://github.com/omdsh-plugins/omdsh-chatmode) | **Chat** and **Work**. Chat starts a conversation without picking a project directory and keeps those conversations together in a managed workspace. |
 | [omdsh-codemode](https://github.com/omdsh-plugins/omdsh-codemode) | **Code**. A harness terminal in the conversation's workspace, running as the column rather than beside it. |
 
@@ -34,8 +34,8 @@ A DeepSeek route carries text and nothing else. These two hand it the rest of wh
 
 | Package | What it adds |
 |---|---|
-| [omdsh-office](https://github.com/omdsh-plugins/omdsh-office) | Attach a Word file, a deck, a spreadsheet, a PDF or any text file — from a button beside the composer's plus or by dropping it on the window — and its text goes with the message. |
-| [omdsh-eyes](https://github.com/omdsh-plugins/omdsh-eyes) | Sight, from a vision model you configure: `see_image` and `watch_video` for a file, `ask_image` for a closer look, and a mirrored model route so a pasted picture is described on its way out. |
+| [omdsh-document](https://github.com/omdsh-plugins/omdsh-document) | Attach a Word file, a deck, a spreadsheet, a PDF or any text file — from **Document** under the Attachments heading these two put in the composer's plus menu, by dropping it on the window, or by pasting it into the message box — and the host puts its text in front of the message, without a mark in the message box. |
+| [omdsh-vision](https://github.com/omdsh-plugins/omdsh-vision) | Sight, from a vision model you configure. Add a picture or a video from **Multimedia** in the same menu, by dropping it on the window, or by pasting it — and the agent gets `see_image`, `ask_image` and `watch_video` for the ones already on disk. |
 
 ### Reach — other machines
 
@@ -77,7 +77,7 @@ Each carries a pnpm workspace of its own, which is why none of them is a member 
                     │  installs · removes · configures everything   │
                     └───────────────────────────────────────────────┘
 
-  omdsh-base ──── the mode registry, the switch, the dots, and Work
+  omdsh-basemode ──── the mode registry, the switch, the dots, and Work
       ├── omdsh-chatmode ── Chat · Work
       └── omdsh-codemode ── Code
 
@@ -90,7 +90,7 @@ Each carries a pnpm workspace of its own, which is why none of them is a member 
       companion is not installed
 ```
 
-Three services here are published by plugins rather than by the harness: `sessionModes` (omdsh-base), `shortcut` (omdsh-shortcuts), and `remdev` (omdsh-remdev). Whether one exists is a property of the profile a person assembled, so **no plugin names another plugin's service in a top-level `inject`** — it reaches for it inside `apply`, on a restricted fiber, and stays inert when it is absent. One missing companion must never take the page down. That is rule 9 of the [conventions](CONVENTIONS.md), and it is why any subset of this collection composes.
+Three services here are published by plugins rather than by the harness: `sessionModes` (omdsh-basemode), `shortcut` (omdsh-shortcuts), and `remdev` (omdsh-remdev). Whether one exists is a property of the profile a person assembled, so **no plugin names another plugin's service in a top-level `inject`** — it reaches for it inside `apply`, on a restricted fiber, and stays inert when it is absent. One missing companion must never take the page down. That is rule 9 of the [conventions](CONVENTIONS.md), and it is why any subset of this collection composes.
 
 ## Install
 
@@ -115,7 +115,7 @@ The hub ships a command, and it installs anything in the catalog by name:
 
 ```sh
 npx @omdsh-plugins/omdsh-plughub list                       # what is on offer
-npx @omdsh-plugins/omdsh-plughub add omdsh-base omdsh-chatmode omdsh-codemode
+npx @omdsh-plugins/omdsh-plughub add omdsh-basemode omdsh-chatmode omdsh-codemode
 npx @omdsh-plugins/omdsh-plughub remove omdsh-codemode
 ```
 
@@ -123,10 +123,10 @@ That is the Settings tab's installer with argv where the button was — the same
 
 Ten of the twelve are why it exists. They are not on npm, so `dsh plugin --profile web add @omdsh-plugins/omdsh-chatmode` answers `ERR_PNPM_FETCH_404` and changes nothing — the profile is left exactly as it was. The git specifier that would work needs a pnpm build-allowlist key carrying the commit pnpm resolved, which can be copied out of a failure and never written down in advance; the command writes it for you.
 
-`omdsh-base` and `omdsh-plughub` are on npm, so those two also install the plain way:
+`omdsh-basemode` and `omdsh-plughub` are on npm, so those two also install the plain way:
 
 ```sh
-dsh plugin --profile web add @omdsh-plugins/omdsh-base
+dsh plugin --profile web add @omdsh-plugins/omdsh-basemode
 ```
 
 Order is a readability preference, not a requirement: a plugin composed before the service it wants waits on a restricted fiber rather than failing.
@@ -134,8 +134,8 @@ Order is a readability preference, not a requirement: a plugin composed before t
 **A version published in the last 24 hours does not install by name — through `dsh plugin`.** That is pnpm's caution and not npm's, so the `npx` line above is unaffected. pnpm holds a fresh release at arm's length — `minimumReleaseAge` defaults to a day — so an `add` run the morning after a release quietly records the version *before* it, and the hub then offers an update to the one you thought you asked for. Name the version, or waive the delay for that one command:
 
 ```sh
-dsh plugin --profile web add @omdsh-plugins/omdsh-base@<version>
-dsh plugin --profile web add @omdsh-plugins/omdsh-base --config.minimumReleaseAge=0
+dsh plugin --profile web add @omdsh-plugins/omdsh-basemode@<version>
+dsh plugin --profile web add @omdsh-plugins/omdsh-basemode --config.minimumReleaseAge=0
 ```
 
 The `minimumReleaseAge: 0` in this workspace's `pnpm-workspace.yaml` does not reach that install: the profile directory is its own pnpm root and inherits nothing from here.
@@ -143,7 +143,7 @@ The `minimumReleaseAge: 0` in this workspace's `pnpm-workspace.yaml` does not re
 Remove one the same way:
 
 ```sh
-dsh plugin --profile web remove @omdsh-plugins/omdsh-base
+dsh plugin --profile web remove @omdsh-plugins/omdsh-basemode
 ```
 
 ### From this checkout
@@ -153,7 +153,7 @@ Most of this is not published yet, and a plugin you are changing is never the pu
 ```sh
 pnpm install
 pnpm run build
-dsh plugin --profile web add "$PWD/omdsh-base" "$PWD/omdsh-chatmode" "$PWD/omdsh-codemode"
+dsh plugin --profile web add "$PWD/omdsh-basemode" "$PWD/omdsh-chatmode" "$PWD/omdsh-codemode"
 ```
 
 `omdsh-tui` is not a workspace member and installs into a profile of its own, which is where `omdsh-codemode` looks for it:
@@ -172,7 +172,7 @@ A profile composes exactly one surface bundle over `dsh-base`. `@deepseek-ai/dsh
 
 A plugin with anything to configure registers one settings namespace with a [schemastery] schema, and `omdsh-plughub` renders a form from that schema — labels, descriptions, validation, secret redaction, and the base/user layering all come from the harness. **No plugin teaches the hub anything about itself**, which is what lets a plugin installed today get correct labels in both languages without the hub being edited.
 
-Seven plugins own a namespace: `omdsh-plughub`, `omdsh-shortcuts`, `omdsh-remdev`, `omdsh-remctrl`, `omdsh-usage`, `omdsh-office`, `omdsh-eyes`. The rest are configured, where they are configurable at all, in the profile's own `cordis.patch.yml` — each README says which it is.
+Seven plugins own a namespace: `omdsh-plughub`, `omdsh-shortcuts`, `omdsh-remdev`, `omdsh-remctrl`, `omdsh-usage`, `omdsh-document`, `omdsh-vision`. The rest are configured, where they are configurable at all, in the profile's own `cordis.patch.yml` — each README says which it is.
 
 A field holding a credential is declared `.role('secret')`, stripped from every response, and rendered as a write-only control.
 
@@ -223,7 +223,7 @@ Both are what CI runs, and all it runs: everything else here reads the plugin ch
 To run everything, point the packages at a harness checkout first:
 
 ```sh
-cd omdsh-base && pnpm run harness:local ../../deepseek-harness && pnpm install
+cd omdsh-basemode && pnpm run harness:local ../../deepseek-harness && pnpm install
 pnpm run test
 pnpm run harness:npm && pnpm install     # before committing
 ```
@@ -232,13 +232,7 @@ Because `pnpm -r` stops at the first failing member, a root `pnpm run test` on a
 
 ## Known rough edges in the tooling
 
-- **`omdsh-codemode` and `omdsh-chatmode` only build from this workspace, not standalone.** They are the only two packages that depend on another package in the collection (`@omdsh-plugins/omdsh-base`), and nothing here is published yet. From the collection root `linkWorkspacePackages` resolves that to the checkout and everything works; run `pnpm install`, `pnpm test`, or `harness:local` from *inside* either directory and pnpm treats it as its own workspace root, cannot find `omdsh-base` on npm, and fails before doing anything:
-
-  ```
-  ERR_PNPM_FETCH_404  GET https://registry.npmjs.org/@omdsh-plugins%2Fomdsh-base: Not Found
-  ```
-
-  This is the anticipated cost of the `linkWorkspacePackages` + semver arrangement `pnpm-workspace.yaml` explains, and it resolves itself the day `omdsh-base` is published. It is also why those two are the only plugins with no `pnpm-lock.yaml` of their own. Until then, run their commands from the workspace root (`pnpm --filter @omdsh-plugins/omdsh-codemode run test`).
+- **`omdsh-codemode` and `omdsh-chatmode` prefer the collection workspace.** They are the only two packages that depend on another package in the collection (`@omdsh-plugins/omdsh-basemode`). From the collection root `linkWorkspacePackages` resolves that to the checkout; run `pnpm install` from *inside* either directory and pnpm treats it as its own workspace root and fetches the published `@omdsh-plugins/omdsh-basemode` from npm instead — which is the release, not the checkout you are editing. That is why those two are the only plugins with no `pnpm-lock.yaml` of their own, and why their commands belong at the workspace root (`pnpm --filter @omdsh-plugins/omdsh-codemode run test`).
 - **`omdsh-remctrl` and `omdsh-remdev` carry no `harness:local` / `harness:npm` / `check:harness-pin` scripts at all**, so the root `check:harness-pin` sweep passes over them. Neither has browser specs today, which is why it has not bitten — but neither is covered by the guarantee that sweep is there to give.
 
 ## Writing a plugin
@@ -249,7 +243,7 @@ Because `pnpm -r` stops at the first failing member, a root `pnpm run test` on a
 
 ## Known limitations
 
-- **Ten of the twelve are not on npm yet.** `omdsh-base` and `omdsh-plughub` are published and install by name; every other `@omdsh-plugins/…` name in this document answers `ERR_PNPM_FETCH_404` when `dsh plugin add` is given it. Those ten install through the hub — its command or its button, which resolve each from the registry and install it from its GitHub repository — or from a checkout, and the hub reports a checkout install as `linked` rather than up to date, because there was never anything to fetch.
+- **Ten of the twelve are not on npm yet.** `omdsh-basemode` and `omdsh-plughub` are published and install by name; every other `@omdsh-plugins/…` name in this document answers `ERR_PNPM_FETCH_404` when `dsh plugin add` is given it. Those ten install through the hub — its command or its button, which resolve each from the registry and install it from its GitHub repository — or from a checkout, and the hub reports a checkout install as `linked` rather than up to date, because there was never anything to fetch.
 - **Installs need a restart.** The loader composes a profile at boot; nothing here hot-swaps a bundle.
 - **The hub's write routes are loopback-only.** A `dsh web` served to another host can browse the catalog but cannot install from it.
 - **Some surfaces are borrowed, not owned.** The mode switch anchors itself to a published attribute on the conversation column, the sidebar dots are painted onto the harness's own rows, and two plugins portal into DOM anchors. Each degrades to nothing rather than to something wrong when the markup underneath changes — but each is a selector this collection has to follow.

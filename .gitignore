@@ -11,13 +11,12 @@
 # Without these entries git records each checkout as a gitlink — a commit
 # pointer to a repository nobody can resolve from this one — which looks like a
 # tracked directory until somebody clones and finds it empty.
-omdsh-base/
+omdsh-basemode/
 omdsh-chatmode/
 omdsh-codemode/
 omdsh-desktop/
+omdsh-document/
 omdsh-editor/
-omdsh-eyes/
-omdsh-office/
 omdsh-plughub/
 omdsh-remctrl/
 omdsh-remdev/
@@ -27,6 +26,7 @@ omdsh-sidepanel/
 omdsh-status/
 omdsh-tui/
 omdsh-usage/
+omdsh-vision/
 omdsh-webapp/
 
 # The catalog is its own repository too, and the hub reads it over the network

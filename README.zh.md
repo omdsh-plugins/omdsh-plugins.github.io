@@ -14,7 +14,7 @@
 
 | 包 | 它提供什么 |
 |---|---|
-| [omdsh-base](https://github.com/omdsh-plugins/omdsh-base) | 会话模式系统：所有模式插件注册分段用的那个注册表、渲染它们的那个开关，以及按模式给侧栏上色的圆点。它自己不发明模式，但贡献一个：**Work**，也就是 harness 自己的那根列，好让开关永远有地方可以切回去。 |
+| [omdsh-basemode](https://github.com/omdsh-plugins/omdsh-basemode) | 会话模式系统：所有模式插件注册分段用的那个注册表、渲染它们的那个开关，以及按模式给侧栏上色的圆点。它自己不发明模式，但贡献一个：**Work**，也就是 harness 自己的那根列，好让开关永远有地方可以切回去。 |
 | [omdsh-chatmode](https://github.com/omdsh-plugins/omdsh-chatmode) | **Chat** 和 **Work**。Chat 不用先选项目目录就能开始对话，这些对话统一收在一个托管工作区里。 |
 | [omdsh-codemode](https://github.com/omdsh-plugins/omdsh-codemode) | **Code**。在对话所属的工作区里开一个 harness 终端，它本身就是那一列，而不是列旁边的东西。 |
 
@@ -34,8 +34,8 @@ DeepSeek 这条路只承载文字，别的都不行。这两个插件把人桌�
 
 | 包 | 它提供什么 |
 |---|---|
-| [omdsh-office](https://github.com/omdsh-plugins/omdsh-office) | 添加 Word、PPT、Excel、PDF 或任意文本文件——从输入框加号旁边的按钮，或者直接拖到窗口上——它们的文字会跟着消息一起送出去。 |
-| [omdsh-eyes](https://github.com/omdsh-plugins/omdsh-eyes) | 用你配置的视觉模型给它一双眼睛：`see_image` 和 `watch_video` 看文件，`ask_image` 追问细节，还有一条镜像模型路由，让粘贴进来的图片在发出前被转写成文字。 |
+| [omdsh-document](https://github.com/omdsh-plugins/omdsh-document) | 添加 Word、PPT、Excel、PDF 或任意文本文件——从这两个插件在加号菜单里立起的「附件」一栏中的**文档**、直接拖到窗口上，或者粘贴进输入框——宿主端会把它们的文字放到消息前面，输入框里不留任何标记。 |
+| [omdsh-vision](https://github.com/omdsh-plugins/omdsh-vision) | 用你配置的视觉模型给它一双眼睛。从同一栏里的**多媒体**、拖到窗口上，或者直接粘贴，都能添加图片和视频；已经在磁盘上的，模型还能自己用 `see_image`、`ask_image` 和 `watch_video` 去看。 |
 
 ### 触达——别的机器
 
@@ -77,7 +77,7 @@ DeepSeek 这条路只承载文字，别的都不行。这两个插件把人桌�
                     │        装上 · 卸掉 · 配置其余全部              │
                     └───────────────────────────────────────────────┘
 
-  omdsh-base ──── 模式注册表、模式开关、侧栏圆点，以及 Work
+  omdsh-basemode ──── 模式注册表、模式开关、侧栏圆点，以及 Work
       ├── omdsh-chatmode ── Chat · Work
       └── omdsh-codemode ── Code
 
@@ -89,7 +89,7 @@ DeepSeek 这条路只承载文字，别的都不行。这两个插件把人桌�
       会话列旁边的那些界面，同伴没装时各自答得了自己
 ```
 
-这里有三个服务是插件发布的，不是 harness 发布的：`sessionModes`（omdsh-base）、`shortcut`（omdsh-shortcuts）、`remdev`（omdsh-remdev）。它们在不在，是「某个人一条一条组出来的 profile」的属性，所以**没有任何插件会把另一个插件的服务写进顶层 `inject`**——它在 `apply` 里、在一条受限 fiber 上去够它，够不着就保持静默。少一个同伴，绝不能把整个页面带下去。这是[约定](CONVENTIONS.zh.md)的第 9 条，也是这套集合的任意子集都能组合起来的原因。
+这里有三个服务是插件发布的，不是 harness 发布的：`sessionModes`（omdsh-basemode）、`shortcut`（omdsh-shortcuts）、`remdev`（omdsh-remdev）。它们在不在，是「某个人一条一条组出来的 profile」的属性，所以**没有任何插件会把另一个插件的服务写进顶层 `inject`**——它在 `apply` 里、在一条受限 fiber 上去够它，够不着就保持静默。少一个同伴，绝不能把整个页面带下去。这是[约定](CONVENTIONS.zh.md)的第 9 条，也是这套集合的任意子集都能组合起来的原因。
 
 ## 安装
 
@@ -114,7 +114,7 @@ dsh --profile web
 
 ```sh
 npx @omdsh-plugins/omdsh-plughub list                       # 目录里有什么
-npx @omdsh-plugins/omdsh-plughub add omdsh-base omdsh-chatmode omdsh-codemode
+npx @omdsh-plugins/omdsh-plughub add omdsh-basemode omdsh-chatmode omdsh-codemode
 npx @omdsh-plugins/omdsh-plughub remove omdsh-codemode
 ```
 
@@ -122,10 +122,10 @@ npx @omdsh-plugins/omdsh-plughub remove omdsh-codemode
 
 十二个里有十个是它存在的理由。它们不在 npm 上，所以 `dsh plugin --profile web add @omdsh-plugins/omdsh-chatmode` 会回 `ERR_PNPM_FETCH_404`，而且什么都不会改——profile 保持原样。能用的那条 git specifier 需要一条 pnpm 构建白名单，而那条记录里带着 pnpm 解析出来的 commit，只能从报错里抄、事先写不出来；这条命令替你写好。
 
-`omdsh-base` 和 `omdsh-plughub` 在 npm 上，所以这两个也可以按老写法装：
+`omdsh-basemode` 和 `omdsh-plughub` 在 npm 上，所以这两个也可以按老写法装：
 
 ```sh
-dsh plugin --profile web add @omdsh-plugins/omdsh-base
+dsh plugin --profile web add @omdsh-plugins/omdsh-basemode
 ```
 
 顺序只是可读性上的偏好，不是要求：一个插件如果比它想要的服务先组合，它会在受限 fiber 上等，而不是失败。
@@ -133,8 +133,8 @@ dsh plugin --profile web add @omdsh-plugins/omdsh-base
 **24 小时之内发布的版本，走 `dsh plugin` 按名字是装不到的。** 这是 pnpm 的谨慎，不是 npm 的，所以上面那条 `npx` 不受影响。pnpm 会把新发布的版本先晾一会儿——`minimumReleaseAge` 默认就是一天——所以发布第二天早上跑的 `add`，悄悄记下的是它*前面*那个版本，然后插件中心又会提示你更新到你本以为已经装上的那个。要么点名版本，要么就这一条命令把这个延迟豁免掉：
 
 ```sh
-dsh plugin --profile web add @omdsh-plugins/omdsh-base@<version>
-dsh plugin --profile web add @omdsh-plugins/omdsh-base --config.minimumReleaseAge=0
+dsh plugin --profile web add @omdsh-plugins/omdsh-basemode@<version>
+dsh plugin --profile web add @omdsh-plugins/omdsh-basemode --config.minimumReleaseAge=0
 ```
 
 本 workspace 的 `pnpm-workspace.yaml` 里那句 `minimumReleaseAge: 0` 管不到那次安装：profile 目录自己就是一个 pnpm root，什么都不从这里继承。
@@ -142,7 +142,7 @@ dsh plugin --profile web add @omdsh-plugins/omdsh-base --config.minimumReleaseAg
 卸掉也是同一条路：
 
 ```sh
-dsh plugin --profile web remove @omdsh-plugins/omdsh-base
+dsh plugin --profile web remove @omdsh-plugins/omdsh-basemode
 ```
 
 ### 从本仓库装
@@ -152,7 +152,7 @@ dsh plugin --profile web remove @omdsh-plugins/omdsh-base
 ```sh
 pnpm install
 pnpm run build
-dsh plugin --profile web add "$PWD/omdsh-base" "$PWD/omdsh-chatmode" "$PWD/omdsh-codemode"
+dsh plugin --profile web add "$PWD/omdsh-basemode" "$PWD/omdsh-chatmode" "$PWD/omdsh-codemode"
 ```
 
 `omdsh-tui` 不是本 workspace 的成员，它装进自己的 profile，而那正是 `omdsh-codemode` 去找它的地方：
@@ -171,7 +171,7 @@ cd omdsh-tui && pnpm install && pnpm run install:profile
 
 有东西要配的插件会注册**一个** settings 命名空间，带一份 [schemastery] schema，然后 `omdsh-plughub` 拿这份 schema 渲染出表单——标签、说明、校验、密钥脱敏、base/user 分层，全都是 harness 现成的。**没有任何插件需要教插件中心关于自己的事**，正是这一点让今天装上的插件在两种语言下都能拿到正确的标签，而中心一行都不用改。
 
-有七个插件拥有自己的命名空间：`omdsh-plughub`、`omdsh-shortcuts`、`omdsh-remdev`、`omdsh-remctrl`、`omdsh-usage`、`omdsh-office`、`omdsh-eyes`。其余的——在它们可配的范围内——是在 profile 自己的 `cordis.patch.yml` 里配的，每个 README 都会说清楚自己是哪一种。
+有七个插件拥有自己的命名空间：`omdsh-plughub`、`omdsh-shortcuts`、`omdsh-remdev`、`omdsh-remctrl`、`omdsh-usage`、`omdsh-document`、`omdsh-vision`。其余的——在它们可配的范围内——是在 profile 自己的 `cordis.patch.yml` 里配的，每个 README 都会说清楚自己是哪一种。
 
 存放凭据的字段会声明 `.role('secret')`，在每一次响应里被剥掉，并渲染成只写控件。
 
@@ -222,7 +222,7 @@ CI 跑的就是这两条，也只跑这两条：其余每一条都要读插件�
 想跑全部，先把包指向一份 harness checkout：
 
 ```sh
-cd omdsh-base && pnpm run harness:local ../../deepseek-harness && pnpm install
+cd omdsh-basemode && pnpm run harness:local ../../deepseek-harness && pnpm install
 pnpm run test
 pnpm run harness:npm && pnpm install     # 提交前切回来
 ```
@@ -231,13 +231,7 @@ pnpm run harness:npm && pnpm install     # 提交前切回来
 
 ## 工具链上已知的粗糙处
 
-- **`omdsh-codemode` 和 `omdsh-chatmode` 只能在本 workspace 里构建，不能单独构建。** 只有这两个包依赖了集合里的另一个包（`@omdsh-plugins/omdsh-base`），而这里还什么都没发布。从集合根目录走，`linkWorkspacePackages` 会把它解析到这份 checkout，一切正常；但只要**进到**这两个目录里跑 `pnpm install`、`pnpm test` 或 `harness:local`，pnpm 就会把它当成自己的 workspace 根，在 npm 上找不到 `omdsh-base`，于是什么都还没做就失败：
-
-  ```
-  ERR_PNPM_FETCH_404  GET https://registry.npmjs.org/@omdsh-plugins%2Fomdsh-base: Not Found
-  ```
-
-  这正是 `pnpm-workspace.yaml` 里解释过的那套「linkWorkspacePackages + semver」安排预料之中的代价，等 `omdsh-base` 发布那天它自己就没了。这也是为什么只有这两个插件没有自己的 `pnpm-lock.yaml`。在那之前，它们的命令请从 workspace 根目录跑（`pnpm --filter @omdsh-plugins/omdsh-codemode run test`）。
+- **`omdsh-codemode` 和 `omdsh-chatmode` 更适合在本 workspace 里构建。** 只有这两个包依赖了集合里的另一个包（`@omdsh-plugins/omdsh-basemode`）。从集合根目录走，`linkWorkspacePackages` 会把它解析到这份 checkout；但只要**进到**这两个目录里跑 `pnpm install`，pnpm 就会把它当成自己的 workspace 根，去 npm 上拉已发布的 `@omdsh-plugins/omdsh-basemode`——那是发布版，不是你正在改的这份 checkout。这也是为什么只有这两个插件没有自己的 `pnpm-lock.yaml`，以及为什么它们的命令应该从 workspace 根目录跑（`pnpm --filter @omdsh-plugins/omdsh-codemode run test`）。
 - **`omdsh-remctrl` 和 `omdsh-remdev` 根本没有 `harness:local` / `harness:npm` / `check:harness-pin` 这几个脚本**，所以根目录那趟 `check:harness-pin` 是直接跳过它们的。它们今天都还没有浏览器用例，这是它至今没咬人的原因——但它们也确实不在那趟检查本该给出的保证之内。
 
 ## 写一个插件
@@ -248,7 +242,7 @@ pnpm run harness:npm && pnpm install     # 提交前切回来
 
 ## 已知限制
 
-- **十二个里有十个还没上 npm。** `omdsh-base` 和 `omdsh-plughub` 已经发布，可以按名字装；本文里其余每一个 `@omdsh-plugins/…` 名字，交给 `dsh plugin add` 都会回 `ERR_PNPM_FETCH_404`。那十个通过插件中心装——它的命令或它的按钮，两者都从 registry 解析出来、装它的 GitHub 仓库——或者从 checkout 装；而插件中心会把 checkout 安装报成 `linked` 而不是「已是最新」，因为本来就没有什么可拉取的。
+- **十二个里有十个还没上 npm。** `omdsh-basemode` 和 `omdsh-plughub` 已经发布，可以按名字装；本文里其余每一个 `@omdsh-plugins/…` 名字，交给 `dsh plugin add` 都会回 `ERR_PNPM_FETCH_404`。那十个通过插件中心装——它的命令或它的按钮，两者都从 registry 解析出来、装它的 GitHub 仓库——或者从 checkout 装；而插件中心会把 checkout 安装报成 `linked` 而不是「已是最新」，因为本来就没有什么可拉取的。
 - **安装需要重启。** loader 在启动时组合一个 profile，这里没有任何东西能热插拔一个 bundle。
 - **插件中心的写路由只走 loopback。** 一个对外提供的 `dsh web` 可以浏览目录，但不能从那里安装。
 - **有些界面是借来的座位，不是自有的。** 模式开关把自己对准会话列上一个公开属性，侧栏圆点是画到 harness 自己的行上去的，还有两个插件是 portal 进 DOM 锚点的。底下的标记变了的时候，它们各自退化成「什么都不显示」，而不是「显示错的东西」——但每一个都是这套集合必须跟着走的选择器。

@@ -3,7 +3,7 @@
 English | [中文](README-STYLE.zh.md)
 
 What every README in this repository agrees to look like, so that a reader who
-has read one has read them all. `omdsh-base/README.md` is the exemplar; this
+has read one has read them all. `omdsh-basemode/README.md` is the exemplar; this
 file is that exemplar stated as rules.
 
 ## The skeleton
@@ -119,7 +119,7 @@ dsh plugin --profile web remove @omdsh-plugins/omdsh-shortcuts
 ```
 
 **The form that works today comes first.** For a plugin already on npm that is
-its registry name, `dsh plugin --profile web add @omdsh-plugins/omdsh-base`; for
+its registry name, `dsh plugin --profile web add @omdsh-plugins/omdsh-basemode`; for
 one that is not published yet it is the hub's own command, which resolves the
 name through the registry and writes the pnpm build-allowlist entry a git
 install needs. A first line that fails is worse than a longer one that works,

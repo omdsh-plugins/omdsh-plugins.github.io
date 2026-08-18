@@ -2,7 +2,7 @@
 
 [English](README-STYLE.md) | 中文
 
-本仓库里每一份 README 都同意长成什么样，好让读过一份的人等于读过了全部。`omdsh-base/README.md` 是范本，这份文件是把那个范本写成规则。
+本仓库里每一份 README 都同意长成什么样，好让读过一份的人等于读过了全部。`omdsh-basemode/README.md` 是范本，这份文件是把那个范本写成规则。
 
 ## 骨架
 
@@ -101,7 +101,7 @@ dsh plugin --profile web remove @omdsh-plugins/omdsh-shortcuts
 ​```
 ```
 
-**今天能用的那种形式排在最前。** 已经在 npm 上的插件，那就是它的 registry 名字，`dsh plugin --profile web add @omdsh-plugins/omdsh-base`；还没发布的，那就是插件中心自己那条命令——它通过 registry 解析名字，并把 git 安装需要的那条 pnpm 构建白名单写好。第一条命令就失败，比一条长一点但能用的命令更糟，而 `dsh plugin add` 碰上没发布的包只会回 `ERR_PNPM_FETCH_404`。checkout 形式两种情况下都跟在后面，给要自己构建的人。`add` 和 `remove` 永远用同一种方式称呼这个包，不管它是用哪种形式装上的。
+**今天能用的那种形式排在最前。** 已经在 npm 上的插件，那就是它的 registry 名字，`dsh plugin --profile web add @omdsh-plugins/omdsh-basemode`；还没发布的，那就是插件中心自己那条命令——它通过 registry 解析名字，并把 git 安装需要的那条 pnpm 构建白名单写好。第一条命令就失败，比一条长一点但能用的命令更糟，而 `dsh plugin add` 碰上没发布的包只会回 `ERR_PNPM_FETCH_404`。checkout 形式两种情况下都跟在后面，给要自己构建的人。`add` 和 `remove` 永远用同一种方式称呼这个包，不管它是用哪种形式装上的。
 
 这一节还要写清**关闭状态**——当这个插件会去够的某个同伴插件没被组合进来时，profile 会怎样（约定第 9 条），以及 `remove` 之后还剩下什么站着。那句话就该在这里，一个正在组 profile 的人正看着这里，而不是往上翻三十行去某个叙述小节里找。
 
