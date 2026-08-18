@@ -175,10 +175,10 @@ ctx.slots.inject('omdsh.plugin.card', () => ctx.slots.register({
 装进去的文件**就是**那个签出目录，两个版本号是同一个文件。插件中心会把这种情况
 报成 `linked` 而不是"已是最新"，因为从来就没有什么可拉的。
 
-**别忘了同步目录里的那一行。** 插件中心的默认上游是 `omdsh-plugins` 账号，而它在那里
-优先采用的来源是 [`omdsh-plugins/registry`][registry] 里的策展清单——所以别人拿来
-比较的版本是**那个文件**声明的版本，不是你默认分支上的。清单由这些 `package.json`
-生成，所以一次发布是两次推送：先推插件，再 `node registry/build.mjs` 后推 registry。
+**别忘了同步目录里的那一行。** 插件中心的默认目录是 [`omdsh-plugins/registry`][registry]
+里的策展清单——所以别人拿来比较的版本是**那个文件**声明的版本，不是你默认分支上的。
+清单由这些 `package.json` 生成，所以一次发布是两次推送：先推插件，再
+`node registry/build.mjs` 后推 registry。
 
 [registry]: https://github.com/omdsh-plugins/registry
 

@@ -196,12 +196,12 @@ records a `link:` dependency, so the installed files ARE the checkout and the
 two versions are the same file. The hub reports that as `linked` instead of "up
 to date", because there was never anything to fetch.
 
-**Move the catalog row with it.** The hub's default upstream is the
-`omdsh-plugins` account, and the source it prefers there is the curated manifest
-in [`omdsh-plugins/registry`][registry] — so the version an installation
-compares against is the one THAT file advertises, not the one on your default
-branch. The manifest is generated from these `package.json` files, so a release
-is two pushes: the plugin, then `node registry/build.mjs` and the registry.
+**Move the catalog row with it.** The hub's default catalog is the curated
+manifest in [`omdsh-plugins/registry`][registry] — so the version an
+installation compares against is the one THAT file advertises, not the one on
+your default branch. The manifest is generated from these `package.json` files,
+so a release is two pushes: the plugin, then `node registry/build.mjs` and the
+registry.
 
 [registry]: https://github.com/omdsh-plugins/registry
 

@@ -279,10 +279,10 @@
           <div class="card-top"><span class="dot"></span>system<span class="ver">0.2.3</span></div>
           <h3><span class="zh">插件中心</span><span class="en">Plugin Hub</span><span class="en-name zh">Plugin Hub</span></h3>
           <p class="pkg">@omdsh-plugins/omdsh-plughub</p>
-          <p class="sum"><span class="zh">在设置里安装、卸载并配置 omdsh 插件。</span><span class="en">Install, remove, and configure omdsh plugins from inside Settings.</span></p>
+          <p class="sum"><span class="zh">在设置里安装、停用并配置 omdsh 插件。</span><span class="en">Install, disable, and configure omdsh plugins from inside Settings.</span></p>
           <p class="detail">
-            <span class="zh">设置页里多出来的一个标签页：上半是可以装的目录，下半是已装插件的配置表单。表单直接由插件注册的 schema 生成，所以这个中心不认识任何一个具体插件 —— 这正是它存在的意义。更新按钮由 semver 比较点亮；装完给一条重启横幅，因为插件图层是在启动时组合的，热挂载本来就做不到，说"重启"是诚实的汇报。</span>
-            <span class="en">One more tab beside the shipped Plugins pages: a catalog on top, a form per installed plugin below. The form is generated from the schema the plugin already registered, so the hub knows nothing about any plugin in particular — which is the whole point. Update is lit by one semver comparison, and an install raises a restart banner, because plugin layers are composed at boot and saying so is the honest report.</span>
+            <span class="zh">设置页里多出来的一个标签页：上半是可以装的目录，一张卡片一个按钮——没装是安装，装了是更新，有新版本才点亮。下半是这个 profile 里有的插件，装上的和停用的都在；停用只把图层从组装栈拿掉，文件还在，再启用不用再装一遍。模板自带的 bundle、插件中心和模式系统都留在栈上——中心是把插件装回去的唯一界面，模式系统是那个没人会自动装上的 peer。表单直接由插件注册的 schema 生成，所以这个中心不认识任何一个具体插件 —— 这正是它存在的意义。装、卸、启、停都给一条重启横幅，因为插件图层是在启动时组合的。</span>
+            <span class="en">One more tab beside the shipped Plugins pages: a catalog on top, one button per card — Install when it is missing, Update when it is there, lit only when a newer version exists. Below, every plugin this profile has, composed or parked. Disable takes a layer off the stack without touching <code>node_modules</code>, so Enable is not another install. Template bundles, the hub, and the mode system stay on: the hub is the only UI that puts plugins back, and the mode system is the peer nothing auto-installs. The form is generated from the schema the plugin already registered, so the hub knows nothing about any plugin in particular — which is the whole point. Install, remove, enable and disable all raise a restart banner, because plugin layers are composed at boot.</span>
           </p>
           <div class="card-foot">
             <span class="chip">settings: omdsh-plughub</span>
@@ -313,10 +313,10 @@
           <div class="card-top"><span class="dot"></span>workspace<span class="ver">0.2.1</span></div>
           <h3><span class="zh">远程开发</span><span class="en">Remote Development</span><span class="en-name zh">Remote Development</span></h3>
           <p class="pkg">@omdsh-plugins/omdsh-remdev</p>
-          <p class="sum"><span class="zh">把工作区接到一台 SSH 服务器上，文件、终端、智能体和项目技能都在那台机器上。</span><span class="en">Attach a workspace to an SSH server: its files, terminals, agents, and project skills all live there.</span></p>
+          <p class="sum"><span class="zh">把工作区接到一台 SSH 服务器上，文件、终端、项目技能和 Work 会话都在那台机器上跑——进入服务器之后，整个界面就是它上面那个 dsh。</span><span class="en">Attach a workspace to an SSH server: its files, terminals, project skills and Work conversations all run there — enter a server and the screen is the dsh on it.</span></p>
           <p class="detail">
-            <span class="zh">侧栏 Workspaces 那一行末尾多一个 <strong>Remote Connect</strong>：描述一台机器、连上去、在上面装好 <code>.dsh-server</code>、选一个目录 —— 回来的是一个普通工作区，只是文件夹上带个地球。<code>workspaces.create</code> 要求目录真实存在，所以这个插件在 <code>$DSH_HOME/remotes/</code> 下给它一个真的镜像目录；于是会话分组、注册表、投影、用量汇总全都一行不用改。</span>
-            <span class="en">A <strong>Remote Connect</strong> button at the trailing end of the sidebar's Workspaces bar: describe a machine, connect, provision a <code>.dsh-server</code> there, pick a directory. What comes back is an ordinary workspace with a globe on its folder. <code>workspaces.create</code> requires a real directory, so this plugin gives it one — a mirror under <code>$DSH_HOME/remotes/</code> — and everything downstream works untouched.</span>
+            <span class="zh">侧栏 Workspaces 那一行末尾多一个 <strong>Remote Connect</strong>：先选主机，再连接（机器上没有 harness 就这一下装好），再打开文件夹 —— 回来的是一个普通工作区，只是文件夹上带个地球。编辑、重装、同步会话收在 <strong>更多</strong> 里。插件中心里那张卡片按安装 / Code / 远程窗口 / 会话分组画出可调项，服务器仍然只在那个窗口里写。<code>workspaces.create</code> 要求目录真实存在，所以这个插件在 <code>$DSH_HOME/remotes/</code> 下给它一个真的镜像目录；于是会话分组、注册表、投影、用量汇总全都一行不用改。</span>
+            <span class="en">A <strong>Remote Connect</strong> button at the trailing end of the sidebar's Workspaces bar: pick a host, connect (the harness is installed if the machine does not have one), open a folder. What comes back is an ordinary workspace with a globe on its folder. Edit, reinstall and conversation sync wait behind <strong>More</strong>. The Plugin hub card groups the drawable tunables by install / Code / remote window / conversations; servers are still only written in that window. <code>workspaces.create</code> requires a real directory, so this plugin gives it one — a mirror under <code>$DSH_HOME/remotes/</code> — and everything downstream works untouched.</span>
           </p>
           <div class="card-foot">
             <span class="chip">settings: omdsh-remdev</span>
@@ -460,8 +460,8 @@
           <p class="pkg">@omdsh-plugins/omdsh-document</p>
           <p class="sum"><span class="zh">把 Word、PPT、Excel、PDF 和文本文件添加到消息里，模型直接读到它们的内容。</span><span class="en">Attach Word, PowerPoint, Excel, PDF and text files to a message; the agent reads their text.</span></p>
           <p class="detail">
-            <span class="zh">输入框里什么也不会出现。附件是宿主端为这个对话维护的<strong>队列</strong>——输入框上方那条轨道就是它——而宿主在 <code>agent/pre-step</code> 把队列放到消息正下方，作为一条 context 消息：模型紧接着问题读到文档，聊天记录在这条消息底下画一行可折叠的 <code>Context injection</code>。浏览器插件唯一的发送时钩子是草稿里的一枚 chip，而 chip 是输入框里一个看得见的格子，代表的却不是用户写下的内容；换成宿主端这条缝，输入框就还是输入框。队列归宿主所有，于是它不随刷新消失，而<strong>轨道清空就是回执</strong>：队列只会被真正带着用户话语的那一步认领，还留着的一行就是没送出去的文件。</span>
-            <span class="en">Nothing appears in the message box. An attachment is a <strong>queue</strong> the host keeps for the conversation — the rail above the composer is that queue — and the host splices it in directly under the message at <code>agent/pre-step</code>, as a context message: the model reads the documents right after the question, and the transcript draws one collapsed <code>Context injection</code> row beneath it. A browser plugin's only send-time hook is a chip in the draft, and a chip is a visible cell in the textarea standing for something the user did not write; the host's seam leaves the message box a message box. The queue being the host's is also why it survives a reload — and why <strong>the rail emptying is the receipt</strong>: only a step actually carrying the user's words may claim it, so a row that stays is a file that did not go.</span>
+            <span class="zh">输入框里什么也不会出现。附件是宿主端为这个对话维护的<strong>队列</strong>——输入框卡片里那条轨道就是它，紧挨 harness 自己的图片缩略图——而宿主在 <code>agent/pre-step</code> 把队列放到消息正下方，作为一条 context 消息：模型紧接着问题读到文档，聊天记录在这条消息底下画一行可折叠的 <code>Context injection</code>。浏览器插件唯一的发送时钩子是草稿里的一枚 chip，而 chip 是输入框里一个看得见的格子，代表的却不是用户写下的内容；换成宿主端这条缝，输入框就还是输入框。队列归宿主所有，于是它不随刷新消失，而<strong>轨道清空就是回执</strong>：队列只会被真正带着用户话语的那一步认领，还留着的一行就是没送出去的文件。</span>
+            <span class="en">Nothing appears in the message box. An attachment is a <strong>queue</strong> the host keeps for the conversation — the rail inside the composer card is that queue, next to the harness's own image thumbnails — and the host splices it in directly under the message at <code>agent/pre-step</code>, as a context message: the model reads the documents right after the question, and the transcript draws one collapsed <code>Context injection</code> row beneath it. A browser plugin's only send-time hook is a chip in the draft, and a chip is a visible cell in the textarea standing for something the user did not write; the host's seam leaves the message box a message box. The queue being the host's is also why it survives a reload — and why <strong>the rail emptying is the receipt</strong>: only a step actually carrying the user's words may claim it, so a row that stays is a file that did not go.</span>
           </p>
           <div class="card-foot">
             <span class="chip">settings: omdsh-document</span>
@@ -474,10 +474,10 @@
           <div class="card-top"><span class="dot"></span>input<span class="ver">0.2.1</span></div>
           <h3><span class="zh">视觉</span><span class="en">Vision</span><span class="en-name zh">Vision</span></h3>
           <p class="pkg">@omdsh-plugins/omdsh-vision</p>
-          <p class="sum"><span class="zh">让只能读文字的模型看懂图片和视频：配一个视觉模型，粘贴一张图或指一个文件，它来讲里面有什么。</span><span class="en">Let a text-only model read images and videos: point it at a vision model, paste a picture or name a file, and it describes what is there.</span></p>
+          <p class="sum"><span class="zh">让只能读文字的模型看懂图片和视频：出厂接 Qwen VL，也可以换成你配的视觉模型。</span><span class="en">Let a text-only model read images and videos: Qwen VL as shipped, or a vision model you configure.</span></p>
           <p class="detail">
-            <span class="zh">图片在 harness 里本来就是一等公民：内容寻址的附件存储、粘贴与拖拽、对话里的缩略图，全都现成。缺的只有一个声明——DeepSeek 的模型报告 <code>inputModalities: ['text']</code>，而拒绝图片的三道门读的都是这同一个字段。于是这个插件注册一条<strong>镜像模型路由</strong>：把每个只认文字的模型再登记一遍并声明接受图片，请求发出前把图换成 <code>&lt;image-description&gt;</code>，再原样交给真正的那条路由——日志里存的仍然是图片，只有线上那一份是文字。另外三个工具补齐其余场景：<code>see_image</code> 看磁盘上的图，<code>ask_image</code> 拿 id 追问细节，<code>watch_video</code> 用 ffmpeg 沿时间线抽帧逐帧描述。描述按图片自己的 sha256 归档，所以同一张图只花一次钱。</span>
-            <span class="en">Images are already first class in the harness — a content-addressed store, paste and drop, thumbnails in the transcript. One declaration is missing: DeepSeek's models report <code>inputModalities: ['text']</code>, and all three refusals read that same field. So this registers a <strong>mirrored model route</strong> — every text-only model advertised again under a provider that accepts images, swapping each picture for an <code>&lt;image-description&gt;</code> just before the request goes out and handing it to the route that really owns the model. The log keeps the picture; only the copy on the wire is text. Three tools cover the rest: <code>see_image</code> for a file, <code>ask_image</code> for a closer look by id, and <code>watch_video</code>, which cuts frames off a timeline with ffmpeg and describes each. Descriptions are filed under the image's own sha256, so one picture is paid for once.</span>
+            <span class="zh">出厂默认是 DashScope 上的 <strong>Qwen3-VL Flash</strong>，凭据名 <code>DASHSCOPE_API_KEY</code>；填一个 harness 模型路由就能换掉它，不必先清掉那个地址。图片的粘贴和拖入走 harness 自己的输入框轨道——它现在自己画缩略图——这个插件只把<strong>视频</strong>从那条轨道上拿走，因为 harness 没有任何视频模态。另外三个工具补齐磁盘上的其余场景：<code>see_image</code> 看文件，<code>ask_image</code> 拿 id 追问细节，<code>watch_video</code> 用 ffmpeg 沿时间线抽帧逐帧描述。描述按图片自己的 sha256 归档，所以同一张图只花一次钱。图片在 harness 里本来就是一等公民；缺的只有一个声明——DeepSeek 的模型报告 <code>inputModalities: ['text']</code>。于是这个插件再注册一条<strong>镜像模型路由</strong>：把每个只认文字的模型再登记一遍并声明接受图片，请求发出前把图换成 <code>&lt;image-description&gt;</code>，日志里存的仍然是图片，只有线上那一份是文字。</span>
+            <span class="en">As shipped, <strong>Qwen3-VL Flash</strong> on DashScope, under a credential named <code>DASHSCOPE_API_KEY</code>; a named harness route wins over that endpoint without clearing it. Pasted and dropped pictures stay in the harness's own composer rail — it draws those thumbnails itself now — and this plugin claims only <strong>video</strong>, because there is no video modality anywhere in the harness. Three tools cover files already on disk: <code>see_image</code>, <code>ask_image</code> for a closer look by id, and <code>watch_video</code>, which cuts frames off a timeline with ffmpeg and describes each. Descriptions are filed under the image's own sha256, so one picture is paid for once. Images are already first class in the harness; one declaration is missing: DeepSeek's models report <code>inputModalities: ['text']</code>. So this also registers a <strong>mirrored model route</strong> — every text-only model advertised again under a provider that accepts images, swapping each picture for an <code>&lt;image-description&gt;</code> just before the request goes out. The log keeps the picture; only the copy on the wire is text.</span>
           </p>
           <div class="card-foot">
             <span class="chip">settings: omdsh-vision</span>
@@ -520,8 +520,8 @@
           <span class="kind"><span class="zh">Electron 桌面外壳</span><span class="en">Electron desktop shell</span></span>
           <h3>omdsh-desktop</h3>
           <p>
-            <span class="zh">把 harness 运行时当作<strong>子进程</strong>监督起来，通过 loopback HTTP 说话。运行时崩了，或者堆爆了，按外壳自己的策略重启 —— 窗口不跟着走。窗口、菜单、活动指示、重启策略，还有那块"运行时正在启动"的开机屏，都归它。</span>
-            <span class="en">An Electron shell that supervises a harness runtime as a <strong>child process</strong> and talks to it over loopback HTTP. A runtime that crashes or exhausts its heap is restarted under a policy the shell owns, without taking the window with it. Windows, menus, activity, restart policy, and the boot screen a starting runtime is watched from all live here.</span>
+            <span class="zh">把 harness 运行时当作<strong>子进程</strong>监督起来，通过 loopback HTTP 说话。运行时崩了，或者堆爆了，按外壳自己的策略重启 —— 窗口不跟着走。窗口、菜单、活动指示、重启策略，还有那块"运行时正在启动"的开机屏，都归它。交付进去的插件中心卸不掉、停不了：下次启动会把它放回组装栈；通过中心做的 Update 写成 profile 的真实依赖，外壳不再去覆盖那份副本。</span>
+            <span class="en">An Electron shell that supervises a harness runtime as a <strong>child process</strong> and talks to it over loopback HTTP. A runtime that crashes or exhausts its heap is restarted under a policy the shell owns, without taking the window with it. Windows, menus, activity, restart policy, and the boot screen a starting runtime is watched from all live here. The shipped hub cannot be uninstalled or disabled: the next launch puts it back on the stack. An Update through the hub writes a real profile dependency, and this shell then leaves that copy alone.</span>
           </p>
           <p>
             <span class="zh"><code>runtime/package.json</code> 是记录它所搭载的 harness 版本的唯一一处 —— 从源码跑和打包出来的 <code>.app</code> 因此监督的是同一个运行时。它绑的那些和弦不在这儿，在 <code>omdsh-shortcuts</code>；这个仓库只拥有那些和弦<em>做什么</em>。</span>
@@ -616,12 +616,12 @@
         <div class="eyebrow"><span class="zh">注册表</span><span class="en">Registry</span></div>
         <h2><span class="zh">一份文件，一次请求，一次说清推荐什么</span><span class="en">One file, one request, and a chance to say what is recommended</span></h2>
         <p class="intro">
-          <span class="zh">插件中心默认读的目录就是它。<code>upstream</code> 设置默认是 <code>omdsh-plugins</code>，所以刚装好、还没配置过的一份安装也能直接看到整个集合。</span>
-          <span class="en">The curated catalog every hub installation reads by default. Its <code>upstream</code> setting defaults to <code>omdsh-plugins</code>, so a fresh install lists the whole collection without being configured.</span>
+          <span class="zh">插件中心默认读的目录就是它。<code>registryUrl</code> 默认指向这份清单的 CDN 地址，GitHub 枚举默认关闭，所以刚装好、还没配置过的一份安装也能直接看到整个集合。</span>
+          <span class="en">The curated catalog every hub installation reads by default. <code>registryUrl</code> points at this file on a CDN, and GitHub enumeration stays off, so a fresh install lists the whole collection without being configured.</span>
         </p>
       </div>
 
-      <div class="urlbox">https://raw.githubusercontent.com/omdsh-plugins/registry/HEAD/registry.json</div>
+      <div class="urlbox">https://cdn.jsdmirror.com/gh/omdsh-plugins/registry/registry.json</div>
 
       <div class="cols">
         <div>
@@ -770,7 +770,7 @@ dsh --profile web
 npx @omdsh-plugins/omdsh-plughub add omdsh-basemode omdsh-chatmode</code></pre>
           <ol>
             <li><span class="zh">打开 <strong>设置 → 插件 → 插件中心</strong></span><span class="en">Open <strong>Settings → Plugins → Plugin hub</strong></span></li>
-            <li><span class="zh">目录会直接列出整个集合 —— <code>upstream</code> 默认就是 <code>omdsh-plugins</code></span><span class="en">The catalog lists the collection immediately — <code>upstream</code> already defaults to <code>omdsh-plugins</code></span></li>
+            <li><span class="zh">目录会直接列出整个集合 —— 默认读的就是这份清单的 CDN 地址</span><span class="en">The catalog lists the collection immediately — the default is this manifest, on a CDN</span></li>
             <li><span class="zh">按 Install，然后按顶部的横幅重启</span><span class="en">Press Install, then restart from the banner at the top</span></li>
             <li><span class="zh">在同一页展开任何已装插件，配置它</span><span class="en">Expand any installed plugin on the same page to configure it</span></li>
           </ol>
