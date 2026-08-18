@@ -120,11 +120,11 @@ npx @omdsh-plugins/omdsh-plughub remove omdsh-codemode
 
 That is the Settings tab's installer with argv where the button was — the same catalog, the same specifier, the same `dsh plugin` underneath — so a plugin added this way is the same dependency and the same bundle row. It writes into the `web` profile unless `--profile` says otherwise, and that profile has to exist first: `dsh --profile web` writes one.
 
-Every plugin but the hub is why it exists. Only `omdsh-plughub` installs from npm — the bootstrap in the section above. The rest install from their GitHub repositories, so `dsh plugin --profile web add @omdsh-plugins/omdsh-chatmode` answers `ERR_PNPM_FETCH_404` and changes nothing — the profile is left exactly as it was. The git specifier that would work needs a pnpm build-allowlist key carrying the commit pnpm resolved, which can be copied out of a failure and never written down in advance; the command writes it for you.
+Every plugin but the hub is why it exists. Two packages install from npm: `omdsh-plughub`, the bootstrap in the section above, and `omdsh-basemode`, the mode system chatmode and codemode register into. The rest install from their GitHub repositories, so `dsh plugin --profile web add @omdsh-plugins/omdsh-chatmode` answers `ERR_PNPM_FETCH_404` and changes nothing — the profile is left exactly as it was. The git specifier that would work needs a pnpm build-allowlist key carrying the commit pnpm resolved, which can be copied out of a failure and never written down in advance; the command writes it for you.
 
 Order is a readability preference, not a requirement: a plugin composed before the service it wants waits on a restricted fiber rather than failing.
 
-**A version of the hub published in the last 24 hours does not install by name — through `dsh plugin`.** That is pnpm's caution and not npm's, so the `npx` line above is unaffected. pnpm holds a fresh release at arm's length — `minimumReleaseAge` defaults to a day — so an `add` run the morning after a release quietly records the version *before* it, and the hub then offers an update to the one you thought you asked for. Name the version, or waive the delay for that one command:
+**A version of the hub or of `omdsh-basemode` published in the last 24 hours does not install by name — through `dsh plugin`.** That is pnpm's caution and not npm's, so the `npx` line above is unaffected. pnpm holds a fresh release at arm's length — `minimumReleaseAge` defaults to a day — so an `add` run the morning after a release quietly records the version *before* it, and the hub then offers an update to the one you thought you asked for. Name the version, or waive the delay for that one command:
 
 ```sh
 dsh plugin --profile web add @omdsh-plugins/omdsh-plughub@<version>
@@ -141,7 +141,7 @@ dsh plugin --profile web remove @omdsh-plugins/omdsh-plughub
 
 ### From this checkout
 
-Most of this is not published yet, and a plugin you are changing is never the published one, so a profile assembled here installs from the working tree. Build first — `dsh plugin add` records a `link:` dependency, so the installed files *are* the checkout, and a checkout with no `lib/` cannot be loaded:
+The hub and the mode system are published; everything else, and a plugin you are changing, is never the published one, so a profile assembled here installs from the working tree. Build first — `dsh plugin add` records a `link:` dependency, so the installed files *are* the checkout, and a checkout with no `lib/` cannot be loaded:
 
 ```sh
 pnpm install
@@ -236,7 +236,7 @@ Because `pnpm -r` stops at the first failing member, a root `pnpm run test` on a
 
 ## Known limitations
 
-- **Only the hub installs from npm.** `omdsh-plughub` is published and installs by name; every other plugin in this document installs through the hub — its command or its button, which resolve each from the registry and install it from its GitHub repository — or from a checkout, and the hub reports a checkout install as `linked` rather than up to date, because there was never anything to fetch.
+- **Only the hub and the mode system install from npm.** `omdsh-plughub` and `omdsh-basemode` are published and install by name; every other plugin in this document installs through the hub — its command or its button, which resolve each from the registry and install it from its GitHub repository — or from a checkout, and the hub reports a checkout install as `linked` rather than up to date, because there was never anything to fetch.
 - **Installs need a restart.** The loader composes a profile at boot; nothing here hot-swaps a bundle.
 - **The hub's write routes are loopback-only.** A `dsh web` served to another host can browse the catalog but cannot install from it.
 - **Some surfaces are borrowed, not owned.** The mode switch anchors itself to a published attribute on the conversation column, the sidebar dots are painted onto the harness's own rows, and two plugins portal into DOM anchors. Each degrades to nothing rather than to something wrong when the markup underneath changes — but each is a selector this collection has to follow.
