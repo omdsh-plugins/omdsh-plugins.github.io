@@ -8,7 +8,7 @@
 
 ## 这里都有什么
 
-十四个插件、三个应用、一份目录清单。
+十三个插件、三个应用、一份目录清单。
 
 ### 模式——中间那一列是什么
 
@@ -41,14 +41,13 @@ DeepSeek 这条路只承载文字，别的都不行。这两个插件把人桌�
 
 | 包 | 它提供什么 |
 |---|---|
-| [omdsh-remdev](https://github.com/omdsh-plugins/omdsh-remdev) | 把工作区接到一台 SSH 服务器上，在那边装好一个 `.dsh-server`，文件、终端和智能体都在那台机器上跑。 |
 | [omdsh-remctrl](https://github.com/omdsh-plugins/omdsh-remctrl) | 独立端口上的第二扇前门，前面挡着设备配对和分级方法白名单，好让 tailnet 上的一部手机能看进度、能批准它要做的事。**Status: M0**——只有门和锁。 |
 
 ### 底座
 
 | 包 | 它提供什么 |
 |---|---|
-| [omdsh-plughub](https://github.com/omdsh-plugins/omdsh-plughub) | 插件中心：设置里的一个页签，负责装上和卸掉这些插件，并用每个插件自己已经注册好的 settings schema 去配置它。 |
+| [omdsh-plughub](https://github.com/omdsh-plugins/omdsh-plughub) | 插件中心：设置里的一个页签，负责装上、停用并配置这些插件，用每个插件自己已经注册好的 settings schema。插件中心和模式系统都留在栈上。 |
 | [omdsh-shortcuts](https://github.com/omdsh-plugins/omdsh-shortcuts) | 为每个命令绑定一个快捷键，桌面菜单与网页端共用一份配置——一份文档，两个界面。它是这套约定的参考实现。 |
 
 ### 应用
@@ -74,7 +73,7 @@ DeepSeek 这条路只承载文字，别的都不行。这两个插件把人桌�
 
 ```
                     ┌──────────────── omdsh-plughub ────────────────┐
-                    │        装上 · 卸掉 · 配置其余全部              │
+                    │        装上 · 停用 · 配置其余全部              │
                     └───────────────────────────────────────────────┘
 
   omdsh-basemode ──── 模式注册表、模式开关、侧栏圆点，以及 Work
@@ -165,7 +164,7 @@ cd omdsh-tui && pnpm install && pnpm run install:profile
 
 有东西要配的插件会注册**一个** settings 命名空间，带一份 [schemastery] schema，然后 `omdsh-plughub` 拿这份 schema 渲染出表单——标签、说明、校验、密钥脱敏、base/user 分层，全都是 harness 现成的。**没有任何插件需要教插件中心关于自己的事**，正是这一点让今天装上的插件在两种语言下都能拿到正确的标签，而中心一行都不用改。
 
-有七个插件拥有自己的命名空间：`omdsh-plughub`、`omdsh-shortcuts`、`omdsh-remdev`、`omdsh-remctrl`、`omdsh-usage`、`omdsh-document`、`omdsh-vision`。其余的——在它们可配的范围内——是在 profile 自己的 `cordis.patch.yml` 里配的，每个 README 都会说清楚自己是哪一种。
+有六个插件拥有自己的命名空间：`omdsh-plughub`、`omdsh-shortcuts`、`omdsh-remctrl`、`omdsh-usage`、`omdsh-document`、`omdsh-vision`。其余的——在它们可配的范围内——是在 profile 自己的 `cordis.patch.yml` 里配的，每个 README 都会说清楚自己是哪一种。
 
 存放凭据的字段会声明 `.role('secret')`，在每一次响应里被剥掉，并渲染成只写控件。
 

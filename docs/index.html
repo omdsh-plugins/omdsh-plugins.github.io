@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="omdsh-plugins — DeepSeek Harness 的插件集合：14 个插件、3 个应用、1 份注册表，全部在 harness 之外，全部只用它已经开好的接缝。">
+<meta name="description" content="omdsh-plugins — DeepSeek Harness 的插件集合：13 个插件、3 个应用、1 份注册表，全部在 harness 之外，全部只用它已经开好的接缝。">
 <meta name="color-scheme" content="light dark">
 <title>omdsh-plugins</title>
 
@@ -19,7 +19,7 @@
     <nav class="topnav">
       <a href="#idea"><span class="zh">理念</span><span class="en">Idea</span></a>
       <a href="#compose"><span class="zh">组成</span><span class="en">Compose</span></a>
-      <a href="#catalog"><span class="zh">插件 14</span><span class="en">Plugins 14</span></a>
+      <a href="#catalog"><span class="zh">插件 13</span><span class="en">Plugins 13</span></a>
       <a href="#apps"><span class="zh">应用 3</span><span class="en">Apps 3</span></a>
       <a href="#registry"><span class="zh">注册表</span><span class="en">Registry</span></a>
       <a href="#conventions"><span class="zh">公约</span><span class="en">Conventions</span></a>
@@ -52,8 +52,8 @@
         <h1>omdsh<span class="slash">-</span>plugins</h1>
 
         <p class="thesis">
-          <span class="zh">14 个插件、3 个应用、1 份注册表 —— 全部在 harness 之外，全部只用它已经开好的接缝。</span>
-          <span class="en">Fourteen plugins, three applications, one registry — all outside the harness, all built on seams it already publishes.</span>
+          <span class="zh">13 个插件、3 个应用、1 份注册表 —— 全部在 harness 之外，全部只用它已经开好的接缝。</span>
+          <span class="en">Thirteen plugins, three applications, one registry — all outside the harness, all built on seams it already publishes.</span>
         </p>
 
         <p class="lede">
@@ -77,7 +77,7 @@
         </div>
 
         <div class="stats">
-          <div class="stat"><b>14</b><span class="cap"><span class="zh">插件</span><span class="en">plugins</span></span></div>
+          <div class="stat"><b>13</b><span class="cap"><span class="zh">插件</span><span class="en">plugins</span></span></div>
           <div class="stat"><b>3</b><span class="cap"><span class="zh">应用（桌面 · 终端 · 网页）</span><span class="en">applications</span></span></div>
           <div class="stat"><b>4</b><span class="cap"><span class="zh">分类</span><span class="en">categories</span></span></div>
           <div class="stat"><b>0</b><span class="cap"><span class="zh">处 harness 改动</span><span class="en">harness edits</span></span></div>
@@ -256,7 +256,7 @@
     <!-- ── catalog ────────────────────────────────────────────────────── -->
     <section id="catalog">
       <div class="sec-head">
-        <div class="eyebrow"><span class="zh">插件目录 · 14 个仓库</span><span class="en">Catalog · 14 repositories</span></div>
+        <div class="eyebrow"><span class="zh">插件目录 · 13 个仓库</span><span class="en">Catalog · 13 repositories</span></div>
         <h2><span class="zh">装上就有，卸掉就没</span><span class="en">Add it and it is there; remove it and it is gone</span></h2>
         <p class="intro">
           <span class="zh">卡片上的标题、摘要、分类和文档链接，都是插件自己 <code>package.json</code> 里的 <code>dsh.plughub</code> 声明的 —— 和插件中心真正读的是同一份。</span>
@@ -265,9 +265,9 @@
       </div>
 
       <div class="filters" role="group" aria-label="Filter by category">
-        <button type="button" data-cat="all" aria-pressed="true"><span class="zh">全部</span><span class="en">All</span> <span class="n">14</span></button>
+        <button type="button" data-cat="all" aria-pressed="true"><span class="zh">全部</span><span class="en">All</span> <span class="n">13</span></button>
         <button type="button" data-cat="system" aria-pressed="false" style="--t: var(--tone-system)"><span class="dot"></span><span class="zh">系统</span><span class="en">System</span> <span class="n">3</span></button>
-        <button type="button" data-cat="workspace" aria-pressed="false" style="--t: var(--tone-workspace)"><span class="dot"></span><span class="zh">工作区</span><span class="en">Workspace</span> <span class="n">5</span></button>
+        <button type="button" data-cat="workspace" aria-pressed="false" style="--t: var(--tone-workspace)"><span class="dot"></span><span class="zh">工作区</span><span class="en">Workspace</span> <span class="n">4</span></button>
         <button type="button" data-cat="input" aria-pressed="false" style="--t: var(--tone-input)"><span class="dot"></span><span class="zh">输入</span><span class="en">Input</span> <span class="n">4</span></button>
         <button type="button" data-cat="insight" aria-pressed="false" style="--t: var(--tone-insight)"><span class="dot"></span><span class="zh">洞察</span><span class="en">Insight</span> <span class="n">2</span></button>
       </div>
@@ -276,7 +276,7 @@
 
         <!-- plughub -->
         <article class="card" data-cat="system" style="--t: var(--tone-system)">
-          <div class="card-top"><span class="dot"></span>system<span class="ver">0.2.3</span></div>
+          <div class="card-top"><span class="dot"></span>system<span class="ver">0.2.4</span></div>
           <h3><span class="zh">插件中心</span><span class="en">Plugin Hub</span><span class="en-name zh">Plugin Hub</span></h3>
           <p class="pkg">@omdsh-plugins/omdsh-plughub</p>
           <p class="sum"><span class="zh">在设置里安装、停用并配置 omdsh 插件。</span><span class="en">Install, disable, and configure omdsh plugins from inside Settings.</span></p>
@@ -305,22 +305,6 @@
             <span class="chip">settings: omdsh-shortcuts</span>
             <span class="chip"><span class="zh">参考实现</span><span class="en">reference impl</span></span>
             <a href="https://github.com/omdsh-plugins/omdsh-shortcuts" target="_blank" rel="noopener">repo ↗</a>
-          </div>
-        </article>
-
-        <!-- remdev -->
-        <article class="card" data-cat="workspace" style="--t: var(--tone-workspace)">
-          <div class="card-top"><span class="dot"></span>workspace<span class="ver">0.2.1</span></div>
-          <h3><span class="zh">远程开发</span><span class="en">Remote Development</span><span class="en-name zh">Remote Development</span></h3>
-          <p class="pkg">@omdsh-plugins/omdsh-remdev</p>
-          <p class="sum"><span class="zh">把工作区接到一台 SSH 服务器上，文件、终端、项目技能和 Work 会话都在那台机器上跑——进入服务器之后，整个界面就是它上面那个 dsh。</span><span class="en">Attach a workspace to an SSH server: its files, terminals, project skills and Work conversations all run there — enter a server and the screen is the dsh on it.</span></p>
-          <p class="detail">
-            <span class="zh">侧栏 Workspaces 那一行末尾多一个 <strong>Remote Connect</strong>：先选主机，再连接（机器上没有 harness 就这一下装好），再打开文件夹 —— 回来的是一个普通工作区，只是文件夹上带个地球。编辑、重装、同步会话收在 <strong>更多</strong> 里。插件中心里那张卡片按安装 / Code / 远程窗口 / 会话分组画出可调项，服务器仍然只在那个窗口里写。<code>workspaces.create</code> 要求目录真实存在，所以这个插件在 <code>$DSH_HOME/remotes/</code> 下给它一个真的镜像目录；于是会话分组、注册表、投影、用量汇总全都一行不用改。</span>
-            <span class="en">A <strong>Remote Connect</strong> button at the trailing end of the sidebar's Workspaces bar: pick a host, connect (the harness is installed if the machine does not have one), open a folder. What comes back is an ordinary workspace with a globe on its folder. Edit, reinstall and conversation sync wait behind <strong>More</strong>. The Plugin hub card groups the drawable tunables by install / Code / remote window / conversations; servers are still only written in that window. <code>workspaces.create</code> requires a real directory, so this plugin gives it one — a mirror under <code>$DSH_HOME/remotes/</code> — and everything downstream works untouched.</span>
-          </p>
-          <div class="card-foot">
-            <span class="chip">settings: omdsh-remdev</span>
-            <a href="https://github.com/omdsh-plugins/omdsh-remdev" target="_blank" rel="noopener">repo ↗</a>
           </div>
         </article>
 

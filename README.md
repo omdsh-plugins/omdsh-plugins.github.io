@@ -8,7 +8,7 @@ A collection of plugins for the [DeepSeek Harness](https://github.com/deepseek-a
 
 ## What is in here
 
-Fourteen plugins, three applications, and one catalog.
+Thirteen plugins, three applications, and one catalog.
 
 ### Modes — what the middle column is
 
@@ -41,14 +41,13 @@ A DeepSeek route carries text and nothing else. These two hand it the rest of wh
 
 | Package | What it adds |
 |---|---|
-| [omdsh-remdev](https://github.com/omdsh-plugins/omdsh-remdev) | Attach a workspace to an SSH server, provision a `.dsh-server` there, and run its files, terminals, and agents on that machine. |
 | [omdsh-remctrl](https://github.com/omdsh-plugins/omdsh-remctrl) | A second front door on its own port, behind device pairing and a tiered method allowlist, so a phone on your tailnet can watch a session and approve what it asks for. **Status: M0** — the door and the lock. |
 
 ### Plumbing
 
 | Package | What it adds |
 |---|---|
-| [omdsh-plughub](https://github.com/omdsh-plugins/omdsh-plughub) | The plugin hub: a Settings tab that installs and removes these plugins, and configures every installed one from the settings schema it already registers. |
+| [omdsh-plughub](https://github.com/omdsh-plugins/omdsh-plughub) | The plugin hub: a Settings tab that installs, disables and configures these plugins from the settings schema each already registers. The hub and the mode system stay on. |
 | [omdsh-shortcuts](https://github.com/omdsh-plugins/omdsh-shortcuts) | One chord per command, on the desktop menu and in the page alike — one document, two surfaces. The reference implementation for the conventions. |
 
 ### Applications
@@ -74,7 +73,7 @@ Each carries a pnpm workspace of its own, which is why none of them is a member 
 
 ```
                     ┌──────────────── omdsh-plughub ────────────────┐
-                    │  installs · removes · configures everything   │
+                    │  installs · disables · configures everything  │
                     └───────────────────────────────────────────────┘
 
   omdsh-basemode ──── the mode registry, the switch, the dots, and Work
@@ -166,7 +165,7 @@ A profile composes exactly one surface bundle over `dsh-base`. `@deepseek-ai/dsh
 
 A plugin with anything to configure registers one settings namespace with a [schemastery] schema, and `omdsh-plughub` renders a form from that schema — labels, descriptions, validation, secret redaction, and the base/user layering all come from the harness. **No plugin teaches the hub anything about itself**, which is what lets a plugin installed today get correct labels in both languages without the hub being edited.
 
-Seven plugins own a namespace: `omdsh-plughub`, `omdsh-shortcuts`, `omdsh-remdev`, `omdsh-remctrl`, `omdsh-usage`, `omdsh-document`, `omdsh-vision`. The rest are configured, where they are configurable at all, in the profile's own `cordis.patch.yml` — each README says which it is.
+Six plugins own a namespace: `omdsh-plughub`, `omdsh-shortcuts`, `omdsh-remctrl`, `omdsh-usage`, `omdsh-document`, `omdsh-vision`. The rest are configured, where they are configurable at all, in the profile's own `cordis.patch.yml` — each README says which it is.
 
 A field holding a credential is declared `.role('secret')`, stripped from every response, and rendered as a write-only control.
 
