@@ -35,7 +35,7 @@ A DeepSeek route carries text and nothing else. These two hand it the rest of wh
 | Package | What it adds |
 |---|---|
 | [omdsh-document](https://github.com/omdsh-plugins/omdsh-document) | Attach a Word file, a deck, a spreadsheet, a PDF or any text file — from **Document** under the Attachments heading these two put in the composer's plus menu, by dropping it on the window, or by pasting it into the message box — and the host puts its text in front of the message, without a mark in the message box. |
-| [omdsh-vision](https://github.com/omdsh-plugins/omdsh-vision) | Sight, from a vision model you configure. Add a picture or a video from **Multimedia** in the same menu, by dropping it on the window, or by pasting it — and the agent gets `see_image`, `ask_image` and `watch_video` for the ones already on disk. |
+| [omdsh-vision](https://github.com/omdsh-plugins/omdsh-vision) | Sight, from a vision model you configure. Add a picture or a video from **Multimedia** in the same menu; drop or paste a video the same way. Pictures pasted or dropped stay in the harness's own composer rail — and the agent gets `see_image`, `ask_image` and `watch_video` for the ones already on disk. |
 
 ### Reach — other machines
 
@@ -121,29 +121,23 @@ npx @omdsh-plugins/omdsh-plughub remove omdsh-codemode
 
 That is the Settings tab's installer with argv where the button was — the same catalog, the same specifier, the same `dsh plugin` underneath — so a plugin added this way is the same dependency and the same bundle row. It writes into the `web` profile unless `--profile` says otherwise, and that profile has to exist first: `dsh --profile web` writes one.
 
-Ten of the twelve are why it exists. They are not on npm, so `dsh plugin --profile web add @omdsh-plugins/omdsh-chatmode` answers `ERR_PNPM_FETCH_404` and changes nothing — the profile is left exactly as it was. The git specifier that would work needs a pnpm build-allowlist key carrying the commit pnpm resolved, which can be copied out of a failure and never written down in advance; the command writes it for you.
-
-`omdsh-basemode` and `omdsh-plughub` are on npm, so those two also install the plain way:
-
-```sh
-dsh plugin --profile web add @omdsh-plugins/omdsh-basemode
-```
+Every plugin but the hub is why it exists. Only `omdsh-plughub` installs from npm — the bootstrap in the section above. The rest install from their GitHub repositories, so `dsh plugin --profile web add @omdsh-plugins/omdsh-chatmode` answers `ERR_PNPM_FETCH_404` and changes nothing — the profile is left exactly as it was. The git specifier that would work needs a pnpm build-allowlist key carrying the commit pnpm resolved, which can be copied out of a failure and never written down in advance; the command writes it for you.
 
 Order is a readability preference, not a requirement: a plugin composed before the service it wants waits on a restricted fiber rather than failing.
 
-**A version published in the last 24 hours does not install by name — through `dsh plugin`.** That is pnpm's caution and not npm's, so the `npx` line above is unaffected. pnpm holds a fresh release at arm's length — `minimumReleaseAge` defaults to a day — so an `add` run the morning after a release quietly records the version *before* it, and the hub then offers an update to the one you thought you asked for. Name the version, or waive the delay for that one command:
+**A version of the hub published in the last 24 hours does not install by name — through `dsh plugin`.** That is pnpm's caution and not npm's, so the `npx` line above is unaffected. pnpm holds a fresh release at arm's length — `minimumReleaseAge` defaults to a day — so an `add` run the morning after a release quietly records the version *before* it, and the hub then offers an update to the one you thought you asked for. Name the version, or waive the delay for that one command:
 
 ```sh
-dsh plugin --profile web add @omdsh-plugins/omdsh-basemode@<version>
-dsh plugin --profile web add @omdsh-plugins/omdsh-basemode --config.minimumReleaseAge=0
+dsh plugin --profile web add @omdsh-plugins/omdsh-plughub@<version>
+dsh plugin --profile web add @omdsh-plugins/omdsh-plughub --config.minimumReleaseAge=0
 ```
 
 The `minimumReleaseAge: 0` in this workspace's `pnpm-workspace.yaml` does not reach that install: the profile directory is its own pnpm root and inherits nothing from here.
 
-Remove one the same way:
+Remove the hub the same way:
 
 ```sh
-dsh plugin --profile web remove @omdsh-plugins/omdsh-basemode
+dsh plugin --profile web remove @omdsh-plugins/omdsh-plughub
 ```
 
 ### From this checkout
@@ -243,7 +237,7 @@ Because `pnpm -r` stops at the first failing member, a root `pnpm run test` on a
 
 ## Known limitations
 
-- **Ten of the twelve are not on npm yet.** `omdsh-basemode` and `omdsh-plughub` are published and install by name; every other `@omdsh-plugins/…` name in this document answers `ERR_PNPM_FETCH_404` when `dsh plugin add` is given it. Those ten install through the hub — its command or its button, which resolve each from the registry and install it from its GitHub repository — or from a checkout, and the hub reports a checkout install as `linked` rather than up to date, because there was never anything to fetch.
+- **Only the hub installs from npm.** `omdsh-plughub` is published and installs by name; every other plugin in this document installs through the hub — its command or its button, which resolve each from the registry and install it from its GitHub repository — or from a checkout, and the hub reports a checkout install as `linked` rather than up to date, because there was never anything to fetch.
 - **Installs need a restart.** The loader composes a profile at boot; nothing here hot-swaps a bundle.
 - **The hub's write routes are loopback-only.** A `dsh web` served to another host can browse the catalog but cannot install from it.
 - **Some surfaces are borrowed, not owned.** The mode switch anchors itself to a published attribute on the conversation column, the sidebar dots are painted onto the harness's own rows, and two plugins portal into DOM anchors. Each degrades to nothing rather than to something wrong when the markup underneath changes — but each is a selector this collection has to follow.

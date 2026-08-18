@@ -631,6 +631,9 @@ importers:
       '@deepseek-ai/schemastery':
         specifier: 3.18.1
         version: 3.18.1
+      '@omdsh-plugins/omdsh-plughub':
+        specifier: ^0.2.3
+        version: link:../omdsh-plughub
       '@testing-library/dom':
         specifier: ^10.4.1
         version: 10.4.1

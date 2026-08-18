@@ -118,14 +118,15 @@ dsh plugin --profile web remove @omdsh-plugins/omdsh-shortcuts
 ​```
 ```
 
-**The form that works today comes first.** For a plugin already on npm that is
-its registry name, `dsh plugin --profile web add @omdsh-plugins/omdsh-basemode`; for
-one that is not published yet it is the hub's own command, which resolves the
-name through the registry and writes the pnpm build-allowlist entry a git
-install needs. A first line that fails is worse than a longer one that works,
-and `dsh plugin add` on an unpublished package answers `ERR_PNPM_FETCH_404`.
-The checkout form follows either way, for anyone building it. `add` and
-`remove` always name the package the same way, whichever form installed it.
+**The form that works today comes first.** For every plugin except the hub
+itself that is the hub's own command, which resolves the name through the
+registry and writes the pnpm build-allowlist entry a git install needs. Only
+`omdsh-plughub` installs from npm (`dsh plugin --profile web add
+@omdsh-plugins/omdsh-plughub`). A first line that fails is worse than a longer
+one that works, and `dsh plugin add` on any other `@omdsh-plugins/…` name is
+not the path this collection uses. The checkout form follows either way, for
+anyone building it. `add` and `remove` always name the package the same way,
+whichever form installed it.
 
 The section also states the **off state** — what a profile does when a companion
 plugin this one reaches for is not composed (CONVENTIONS rule 9), and what is
