@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="omdsh 插件约定 —— 一个插件在这个集合里答应的九条规则，以及新插件自查表。让 omdsh-plughub 在完全不认识某个插件的前提下也能列出、安装并配置它。">
+<meta name="description" content="omdsh 插件约定 —— 这个集合里的每个插件都要遵守的九条规则，以及一份新插件自查表。让 omdsh-plughub 在完全不认识某个插件的前提下，也能列出、安装并配置它。">
 <meta name="color-scheme" content="light dark">
 <title>omdsh 插件约定</title>
 <link rel="stylesheet" href="/assets/site.css">
@@ -140,7 +140,7 @@
         <span class="en">What a plugin in this collection agrees to, so that <a href="https://github.com/omdsh-plugins/omdsh-plughub">omdsh-plughub</a> can list it, install it, and configure it <strong>without knowing anything about it in particular</strong>.</span>
       </p>
       <p class="intro">
-        <span class="zh">规则很短，因为它们几乎全都是"用 harness 已经有的那个缝"。如果插件中心需要每个插件教它一点东西，那每来一个新插件就得改一次插件中心；而现在它什么都不用改 —— 它渲染的每一样东西，都是从插件自己已经声明的内容里读出来的。</span>
+        <span class="zh">规则之所以短，是因为它们几乎全是"用 harness 已经有的那条缝"。要是插件中心需要每个插件教它一点东西，那每来一个新插件就得改它一次；而现在它什么都不用改 —— 它渲染的每一样东西，都读自插件自己已经声明的内容。</span>
         <span class="en">The rules are short because they are almost all "use the seam the harness already has". A plugin hub that needed each plugin to teach it something would need editing before every new plugin could appear; this one needs nothing, because everything it renders is read from what the plugin already declares.</span>
       </p>
     </div>
@@ -192,11 +192,11 @@ ctx.inject?.(['settings'], (sctx) =&gt; {
       <p><span class="zh">有三处细节是承重的：</span><span class="en">Three details are load-bearing:</span></p>
       <ul>
         <li><span><strong><code>base: config</code>。</strong><span class="zh"> cordis patch 里的配置成为用户改动之下的一层，于是"在 profile 里配置过的插件"仍然按那份配置跑，面板也能显示哪些字段是人真正动过的。</span><span class="en"> The cordis patch entry becomes the layer under the user's edits, so a profile that configures a plugin keeps configuring it and the panel shows which fields a person has actually changed.</span></span></li>
-        <li><span><strong><code>ctx.inject(['settings'], …)</code>。</strong><span class="zh"> 这段注册挂在一个受限 fiber 上，因此一个没有 settings provider 的组装（headless、测试台）照旧按 entry config 运行。可配置性是加法，不是前提。</span><span class="en"> The registration rides a scoped fiber, so a composition with no settings provider — headless, a test bench — runs on the entry config exactly as before. Configurability is additive, never required.</span></span></li>
+        <li><span><strong><code>ctx.inject(['settings'], …)</code>。</strong><span class="zh"> 这段注册挂在一个受限 fiber 上，所以没有 settings provider 的组装（headless、测试台）也照旧按 entry config 运行。可配置性是加法，不是前提。</span><span class="en"> The registration rides a scoped fiber, so a composition with no settings provider — headless, a test bench — runs on the entry config exactly as before. Configurability is additive, never required.</span></span></li>
         <li><span><strong><span class="zh">按名字解析服务。</span><span class="en">Resolve the service by NAME.</span></strong><span class="zh"> 在 harness 之外编译的包，会把浏览器半边和 host 半边当成同一个程序来类型检查，于是 <code>ctx.settings</code> 是编译器先看到的那份 <code>Context</code> 声明。要用 <code>ctx.get('settings')</code> 加一个结构化类型。</span><span class="en"> A package compiled outside the harness typechecks its browser and host halves as one program, so <code>ctx.settings</code> is whichever <code>Context</code> declaration the compiler saw first. Use <code>ctx.get('settings')</code> and a structural type.</span></span></li>
       </ul>
       <p>
-        <span class="zh">除此之外不需要任何东西。<code>omdsh-plughub</code> 的 host 半边用 <code>ctx.settings.describe({ redactSecrets: true })</code> 读到这个命名空间，转运给自己的面板，按 schema 渲染表单，再用 <code>ctx.settings.mutate</code> 写回去。校验、持久化、base/user 分层、密钥脱敏、并发冲突、热生效 —— 全是 harness 的，已经写好了。</span>
+        <span class="zh">除此之外不需要任何东西。<code>omdsh-plughub</code> 的 host 半边用 <code>ctx.settings.describe({ redactSecrets: true })</code> 读到这个命名空间，交给自己的面板，按 schema 渲染表单，再用 <code>ctx.settings.mutate</code> 写回去。校验、持久化、base/user 分层、密钥脱敏、并发冲突、热生效 —— 全是 harness 的，已经写好了。</span>
         <span class="en">Nothing else is needed. <code>omdsh-plughub</code>'s host half reads the namespace with <code>ctx.settings.describe({ redactSecrets: true })</code>, carries it to its panel, renders a form from the schema, and writes back with <code>ctx.settings.mutate</code>. Validation, persistence, the base/user layering, secret redaction, revision conflicts, and hot commits are all the harness's, already written.</span>
       </p>
       <div class="aside">
@@ -226,7 +226,7 @@ ctx.inject?.(['settings'], (sctx) =&gt; {
         <span class="en"><code>.i18n()</code> serializes a description as a locale map with <code>''</code> for the default, and the hub resolves it against the active locale. <strong>No plugin registers a dictionary with the hub</strong>, and no dictionary in the hub grows an entry per plugin — which is the property that lets a plugin written next year get correct labels in both languages on the day it is installed.</span>
       </p>
       <p>
-        <span class="zh">description 请写成<strong>完整的句子</strong>。插件中心会用属性名生成控件标题（<code>maxRepos</code> → <code>Max repos</code>），把 description 放在它下面，和 harness 自带的设置行读起来一样。</span>
+        <span class="zh">description 请写成<strong>完整的句子</strong>。插件中心会用属性名生成控件标题（<code>maxRepos</code> → <code>Max repos</code>），把 description 放在标题下面，读起来和 harness 自带的设置行一样。</span>
         <span class="en">Write descriptions as <strong>sentences</strong>. The hub titles each control from its property name (<code>maxRepos</code> → <code>Max repos</code>) and puts the description underneath, the way the harness's own settings rows read.</span>
       </p>
       <p>
@@ -240,7 +240,7 @@ ctx.inject?.(['settings'], (sctx) =&gt; {
       <div class="rule-no">rule 3</div>
       <h2><span class="zh">密钥要声明，不能指望</span><span class="en">Secrets are declared, not hoped for</span></h2>
       <p>
-        <span class="zh">存放凭据的字段加 <code>.role('secret')</code>。线上会把它从每一个响应里剥掉，只报告"有没有存过值"，插件中心据此渲染成只写控件。<strong>没有声明的密钥，会以明文发给每一个打开面板的浏览器。</strong></span>
+        <span class="zh">存放凭据的字段加 <code>.role('secret')</code>。线上会把它从每一个响应里剥掉，只报告"有没有存过值"，插件中心据此把它渲染成只写控件。<strong>没有声明的密钥，会以明文发给每一个打开面板的浏览器。</strong></span>
         <span class="en">A field holding a credential gets <code>.role('secret')</code>. The wire strips it from every response and reports only whether a value is stored, and the hub renders a write-only control. <strong>A secret that is not declared travels in plaintext to every browser that opens the panel.</strong></span>
       </p>
     </section>
@@ -254,7 +254,7 @@ ctx.inject?.(['settings'], (sctx) =&gt; {
         <span class="en"><code>applies: 'live'</code> (the default) means a change is acted on as it commits; <code>applies: 'restart'</code> means it is not. The hub marks a restart-only plugin on its card, so a person is not left wondering why nothing happened.</span>
       </p>
       <p>
-        <span class="zh">尽量用 <code>live</code>。它通常只是多一个 <code>watch</code> 回调，把从配置推导出来的东西重算一遍 —— <code>omdsh-shortcuts</code> 就是重建菜单文档，然后推给已经开着的那几条流 —— 而这正是"一个设置项"和"一个改完要重启的东西"之间的区别。</span>
+        <span class="zh">尽量用 <code>live</code>。代价通常只是多一个 <code>watch</code> 回调，把配置推导出来的东西重算一遍：<code>omdsh-shortcuts</code> 就是重建菜单文档，再推给已经开着的那几条流。这正是"一个设置项"和"一个改完要重启的东西"之间的区别。</span>
         <span class="en">Prefer <code>live</code>. It usually costs one <code>watch</code> callback that recomputes whatever the config derived — <code>omdsh-shortcuts</code> rebuilds its menu document and pushes it down the streams that are already open — and it is the difference between a setting and a thing you have to restart for.</span>
       </p>
     </section>
@@ -279,19 +279,19 @@ ctx.inject?.(['settings'], (sctx) =&gt; {
         <span class="en">Every field is optional. A plugin that declares nothing still appears, under its package name, and <code>settings</code> falls back to the unscoped package name — so <strong>following rule 1 alone is enough to be configurable</strong>.</span>
       </p>
       <p>
-        <span class="zh"><strong>这个仓库里每个插件都声明 <code>displayName</code>，而且写法统一。</strong>英文一律 Title Case，每个词首字母大写：<code>Remote Control</code>、<code>Side Panels</code>、<code>Usage</code>。词要写全，不用包名里的缩写 —— 包名是拿来敲的，所以会缩（<code>omdsh-remctrl</code>）；标题是拿来读的，所以不缩（<code>Remote Control</code>）。写它<strong>是什么</strong>，而不是把归档用的代号再念一遍：叫 <code>Chat Mode</code>，不叫 <code>Chatmode</code>。中文照着旁边 <code>summary</code> 的规矩一起翻。插件中心不再把标题折成小写了，所以 manifest 里写的就是面板上显示的。</span>
+        <span class="zh"><strong>这个仓库里每个插件都声明 <code>displayName</code>，而且写法统一。</strong>英文一律 Title Case，每个词首字母大写：<code>Remote Control</code>、<code>Side Panels</code>、<code>Usage</code>。词要写全，不用包名里的缩写 —— 包名是拿来敲的，所以会缩（<code>omdsh-remctrl</code>）；标题是拿来读的，所以不缩（<code>Remote Control</code>）。写它<strong>是什么</strong>，而不是把归档用的代号再念一遍：叫 <code>Chat Mode</code>，不叫 <code>Chatmode</code>。中文照着旁边 <code>summary</code> 的规矩一起翻。插件中心不再把标题统一改成小写，所以 manifest 里写的就是面板上显示的。</span>
         <span class="en"><strong>Every plugin here declares a <code>displayName</code>, and they are all written the same way.</strong> Title Case, every word capitalized: <code>Remote Control</code>, <code>Side Panels</code>, <code>Usage</code>. Spelled out rather than abbreviated — a package name is typed, so it contracts (<code>omdsh-remctrl</code>); a title is read, so it does not (<code>Remote Control</code>). Say what the plugin <strong>is</strong> rather than repeating what it is filed under: <code>Chat Mode</code>, not <code>Chatmode</code>. Translate it the way the summary beside it is translated. The hub no longer folds the case, so what the manifest says is what the panel shows.</span>
       </p>
       <p>
-        <span class="zh">回落仍然留着，给这个仓库之外的插件和 harness 自带的 bundle 用：什么都没声明，卡片就用 npm 里的那个包名当标题（<code>dsh-web-app</code>）。这才是老实的渲染 —— 没人给它们起过标题，标识符就该长成标识符的样子。</span>
+        <span class="zh">回落仍然留着，给这个仓库之外的插件和 harness 自带的 bundle 用：什么都没声明，卡片就按 npm 上的拼法拿包名当标题（<code>dsh-web-app</code>）。这样渲染才老实 —— 没人给它们起过标题，标识符就该有标识符的样子。</span>
         <span class="en">The fallback is still there, for plugins from outside this repo and for the harness's own bundles: nothing declared, so the card is titled with the package name as npm spells it (<code>dsh-web-app</code>). That is the honest rendering — nobody wrote those a title, and an identifier should look like one.</span>
       </p>
       <p>
-        <span class="zh">只有当插件持有的命名空间不叫自己的名字、或者持有不止一个时，才需要显式写 <code>settings</code>。</span>
+        <span class="zh">只有当插件持有的命名空间不是自己的名字、或者持有不止一个时，才需要显式写 <code>settings</code>。</span>
         <span class="en">Declare <code>settings</code> explicitly when a plugin owns a namespace that is not its own name, or owns more than one.</span>
       </p>
       <p>
-        <span class="zh"><code>dsh.bundle.patch</code> 是一个包能被安装的前提：<code>dsh plugin</code> 只在依赖的 manifest 声明了它的时候，才把这个依赖加进 profile 的层栈。</span>
+        <span class="zh"><code>dsh.bundle.patch</code> 是一个包能被安装的前提：只有依赖的 manifest 声明了它，<code>dsh plugin</code> 才会把这个依赖加进 profile 的层栈。</span>
         <span class="en"><code>dsh.bundle.patch</code> is what makes a package installable at all: <code>dsh plugin</code> adds a dependency to the profile's layer stack exactly when its manifest declares one.</span>
       </p>
     </section>
@@ -301,7 +301,7 @@ ctx.inject?.(['settings'], (sctx) =&gt; {
       <div class="rule-no">rule 6</div>
       <h2><span class="zh">表单画不出来的控件，用卡片</span><span class="en">A control the form cannot draw gets a card</span></h2>
       <p>
-        <span class="zh">通用表单能画字符串、数字、布尔、闭合枚举、字符串列表、字符串字典和嵌套对象。除此之外它<strong>拒绝渲染</strong>而不是去猜 —— 猜出来的控件会写进错误的形状，还能通过校验，但含义已经变了。</span>
+        <span class="zh">通用表单能画字符串、数字、布尔、闭合枚举、字符串列表、字符串字典和嵌套对象。除此之外它<strong>拒绝渲染</strong>，而不是去猜 —— 猜出来的控件写进的是错误的形状，校验照样能过，含义却已经变了。</span>
         <span class="en">The generic form draws strings, numbers, booleans, closed unions, string lists, string dictionaries, and nested objects. It <strong>refuses</strong> anything else rather than guessing — a guessed control writes the wrong shape and passes validation while meaning something else.</span>
       </p>
       <p>
@@ -329,10 +329,10 @@ ctx.inject?.(['settings'], (sctx) =&gt; {
       </p>
       <p><span class="zh">由此有三件事。</span><span class="en">Three things follow.</span></p>
       <ul>
-        <li><span><strong><span class="zh">发布时要升。</span><span class="en">Bump it when you publish.</span></strong><span class="zh"> 同一个版本号推新代码，等于每个已安装的副本都报"已是最新"，没有人会被提示这次改动。</span><span class="en"> Pushing new code at the same version means every installed copy reports "up to date" and nobody is offered the change.</span></span></li>
+        <li><span><strong><span class="zh">发布时要升。</span><span class="en">Bump it when you publish.</span></strong><span class="zh"> 同一个版本号推新代码，等于让每个已安装的副本都报"已是最新"，这次改动谁也不会收到提示。</span><span class="en"> Pushing new code at the same version means every installed copy reports "up to date" and nobody is offered the change.</span></span></li>
         <li><span><strong><span class="zh">要能解析。</span><span class="en">Keep it parseable.</span></strong><span class="zh"> <code>2024.03</code>、<code>latest</code>、<code>1.2</code> 都不是 semver，比较因此没有答案，插件中心会报 <code>unknown</code> 而不是猜一个方向。预发布版没问题，而且顺序是对的：<code>1.0.0-rc.2</code> 在 <code>1.0.0-rc.10</code> 之前，两者都在 <code>1.0.0</code> 之前。</span><span class="en"> <code>2024.03</code>, <code>latest</code>, and <code>1.2</code> are not semver, so the comparison has no answer and the hub reports <code>unknown</code> rather than guessing a direction. A prerelease is fine and ordered correctly: <code>1.0.0-rc.2</code> is behind <code>1.0.0-rc.10</code>, and both are behind <code>1.0.0</code>.</span></span></li>
         <li><span><strong><span class="zh">别指望它对签出目录安装有用。</span><span class="en">Do not expect it to matter for a checkout install.</span></strong><span class="zh"> <code>dsh plugin add &lt;路径&gt;</code> 记的是 <code>link:</code> 依赖，装进去的文件<strong>就是</strong>那个签出目录，两个版本号是同一个文件。插件中心会把这种情况报成 <code>linked</code> 而不是"已是最新"，因为从来就没有什么可拉的。</span><span class="en"> <code>dsh plugin add &lt;path&gt;</code> records a <code>link:</code> dependency, so the installed files ARE the checkout and the two versions are the same file. The hub reports that as <code>linked</code> instead of "up to date", because there was never anything to fetch.</span></span></li>
-        <li><span><strong><span class="zh">别忘了同步目录里的那一行。</span><span class="en">Move the catalog row with it.</span></strong><span class="zh"> 插件中心的默认目录是 <a href="https://github.com/omdsh-plugins/registry">omdsh-plugins/registry</a> 里的策展清单 —— 所以别人拿来比较的版本是<strong>那个文件</strong>声明的版本，不是你默认分支上的。清单由这些 <code>package.json</code> 生成，所以一次发布是两次推送：先推插件，再 <code>node registry/build.mjs</code> 后推 registry。</span><span class="en"> The hub's default catalog is the curated manifest in <a href="https://github.com/omdsh-plugins/registry">omdsh-plugins/registry</a> — so the version an installation compares against is the one THAT file advertises, not the one on your default branch. The manifest is generated from these <code>package.json</code> files, so a release is two pushes: the plugin, then <code>node registry/build.mjs</code> and the registry.</span></span></li>
+        <li><span><strong><span class="zh">别忘了同步目录里的那一行。</span><span class="en">Move the catalog row with it.</span></strong><span class="zh"> 插件中心的默认目录是 <a href="https://github.com/omdsh-plugins/registry">omdsh-plugins/registry</a> 里的策展清单 —— 所以别人拿来比较的版本是<strong>那个文件</strong>声明的版本，不是你默认分支上的。清单由这些 <code>package.json</code> 生成，所以一次发布是两次推送：先推插件，再跑 <code>node registry/build.mjs</code>，然后推 registry。</span><span class="en"> The hub's default catalog is the curated manifest in <a href="https://github.com/omdsh-plugins/registry">omdsh-plugins/registry</a> — so the version an installation compares against is the one THAT file advertises, not the one on your default branch. The manifest is generated from these <code>package.json</code> files, so a release is two pushes: the plugin, then <code>node registry/build.mjs</code> and the registry.</span></span></li>
       </ul>
     </section>
 
@@ -341,9 +341,9 @@ ctx.inject?.(['settings'], (sctx) =&gt; {
       <div class="rule-no">rule 8</div>
       <h2><span class="zh">三件不能做的事</span><span class="en">Three things a plugin here never does</span></h2>
       <ul>
-        <li><span><strong><span class="zh">改 <code>deepseek-harness</code>。</span><span class="en">Edit <code>deepseek-harness</code>.</span></strong><span class="zh"> 它是一份保持干净、以便跟随上游的 fork；在那里打的补丁下次同步时会丢失或冲突。所有功能都以 out-of-tree bundle 交付。如果缺一个缝，就从这个目录里的某个插件上取。</span><span class="en"> It is a tracked fork kept clean so it can follow upstream; a local patch there is lost or conflicts on the next sync. Every feature ships as an out-of-tree bundle. If a seam is missing, take it from a plugin in this directory instead.</span></span></li>
-        <li><span><strong><span class="zh">提交 <code>link:</code> 依赖。</span><span class="en">Commit a <code>link:</code> specifier.</span></strong><span class="zh"> pnpm 会相对声明它的 manifest 解析，于是把某一台机器的目录结构写死了 —— 而且它<strong>静默失败</strong>：悬空软链、"安装成功"，然后每一个 harness import 都 TS2307。提交的应该是 registry 版本号，再用 <code>harness:local &lt;path&gt;</code> / <code>harness:npm</code> 脚本切换，外加一个只要还链着就失败的 <code>check:harness-pin</code>。</span><span class="en"> pnpm resolves it against the declaring manifest, so it hard-codes one machine's layout — and it fails <strong>SILENTLY</strong>: dangling symlink, "successful" install, then <code>tsc</code> TS2307 on every harness import. Commit the registry pin and switch with a <code>harness:local &lt;path&gt;</code> / <code>harness:npm</code> script, plus a <code>check:harness-pin</code> that fails while anything is linked.</span></span></li>
-        <li><span><strong><span class="zh">在浏览器半边 value-import 另一个插件。</span><span class="en">Import another plugin's values in the browser half.</span></strong><span class="zh"> client bundle 的纯度栅栏禁止这件事：跨插件的 value import 要么内联了另一个插件运行时的第二份副本，要么向冻结的模块表要一个它答不上来的 specifier。协作要走 cordis 服务和 slot；type-only import 会被擦除，没有问题。至于怎么依赖一个服务，见第 9 条。</span><span class="en"> The client bundle purity gate forbids it: a cross-plugin value import either inlines a second copy of that plugin's runtime or asks the frozen module table for a specifier it cannot answer. Collaborate through cordis services and slots; type-only imports are erased and are fine. Rule 9 is how you depend on one.</span></span></li>
+        <li><span><strong><span class="zh">改 <code>deepseek-harness</code>。</span><span class="en">Edit <code>deepseek-harness</code>.</span></strong><span class="zh"> 它是一份刻意保持干净、用来跟随上游的 fork；在那里打的补丁，下次同步时要么丢失要么冲突。所有功能都以 out-of-tree bundle 交付。如果缺一条缝，就从这个目录里的某个插件上取。</span><span class="en"> It is a tracked fork kept clean so it can follow upstream; a local patch there is lost or conflicts on the next sync. Every feature ships as an out-of-tree bundle. If a seam is missing, take it from a plugin in this directory instead.</span></span></li>
+        <li><span><strong><span class="zh">提交 <code>link:</code> 依赖。</span><span class="en">Commit a <code>link:</code> specifier.</span></strong><span class="zh"> pnpm 会相对于声明它的 manifest 来解析，于是把某一台机器的目录结构写死了 —— 而且它<strong>静默失败</strong>：悬空软链、"安装成功"，然后 tsc 对每一个 harness import 都报 TS2307。提交的应该是 registry 版本号，再用 <code>harness:local &lt;path&gt;</code> / <code>harness:npm</code> 脚本切换，外加一个只要还链着就失败的 <code>check:harness-pin</code>。</span><span class="en"> pnpm resolves it against the declaring manifest, so it hard-codes one machine's layout — and it fails <strong>SILENTLY</strong>: dangling symlink, "successful" install, then <code>tsc</code> TS2307 on every harness import. Commit the registry pin and switch with a <code>harness:local &lt;path&gt;</code> / <code>harness:npm</code> script, plus a <code>check:harness-pin</code> that fails while anything is linked.</span></span></li>
+        <li><span><strong><span class="zh">在浏览器半边 value-import 另一个插件。</span><span class="en">Import another plugin's values in the browser half.</span></strong><span class="zh"> client bundle 的纯度栅栏禁止这件事：跨插件的 value import，要么把另一个插件的运行时内联出第二份副本，要么向冻结的模块表要一个它答不上来的 specifier。协作要走 cordis 服务和 slot；type-only import 会被擦除，没有问题。至于怎么依赖一个服务，见第 9 条。</span><span class="en"> The client bundle purity gate forbids it: a cross-plugin value import either inlines a second copy of that plugin's runtime or asks the frozen module table for a specifier it cannot answer. Collaborate through cordis services and slots; type-only imports are erased and are fine. Rule 9 is how you depend on one.</span></span></li>
       </ul>
     </section>
 
@@ -357,7 +357,7 @@ ctx.inject?.(['settings'], (sctx) =&gt; {
       </p>
       <div class="aside">
         <p>
-          <span class="zh">判据是这个名字由谁组装，而不是它在不在上面这份名单里：<code>webRuntime</code> 来自 web-app 这个 surface bundle，所以写它的插件是在声明自己需要那个界面 —— 对一个有浏览器半边的插件来说，这是诚实的说法。</span>
+          <span class="zh">判据是这个名字在哪里组装，而不是它在不在上面这份名单里：<code>webRuntime</code> 来自 web-app 这个 surface bundle，所以写它的插件是在声明自己需要那个界面 —— 对一个有浏览器半边的插件来说，这是诚实的说法。</span>
           <span class="en">The test is where a name is composed, not whether it appears in this list: <code>webRuntime</code> comes from the web-app surface bundle, so a plugin that names it is declaring it needs that surface — which is the honest thing for a plugin that has a browser half.</span>
         </p>
       </div>
@@ -368,7 +368,7 @@ ctx.inject?.(['settings'], (sctx) =&gt; {
       <div class="callout">
         <span class="tag"><span class="zh">代价</span><span class="en">the cost</span></span>
         <p>
-          <span class="zh">cordis 对被注入的服务会无限期等待，于是一个声明了"没人组装的服务"的 entry 会永远停在 <code>pending</code> —— 而两侧的启动审计都会因为任何非 active 的 entry 让整个应用失败（host 侧的 <code>assertEntriesActivated</code>，浏览器侧 <code>dsh-client-web</code> 在插件树静默后的那一遍扫描）：</span>
+          <span class="zh">cordis 等待被注入的服务时没有超时，所以声明了"没人组装的服务"的 entry 会永远停在 <code>pending</code>。而两侧的启动审计，都会因为任何一个非 active 的 entry 让整个应用失败（host 侧的 <code>assertEntriesActivated</code>；浏览器侧 <code>dsh-client-web</code> 在插件树静默后的那一遍扫描）：</span>
           <span class="en">cordis's inject wait has no timeout, so an entry naming a service nobody composed sits at <code>pending</code> forever — and both boot audits fail the whole app for any entry that is not active (the host's <code>assertEntriesActivated</code>, and the browser's post-settle sweep in <code>dsh-client-web</code>):</span>
         </p>
 <pre><code>web boot: 1 entry did not activate
@@ -397,7 +397,7 @@ export function apply(ctx: ClientContext): void {
   })
 }</code></pre>
       <p>
-        <span class="zh">在 <code>apply</code> 里起的 fiber 不是 loader entry，所以永远等下去也没有代价。effect 要挂在 <code>mctx</code> 而不是 <code>ctx</code> 上，这样提供方在运行时卸载，会把你的注册一并带走。</span>
+        <span class="zh">在 <code>apply</code> 里起的 fiber 不是 loader entry，所以永远等下去也没有代价。effect 要挂在 <code>mctx</code> 而不是 <code>ctx</code> 上，这样提供方在运行时卸载时，会把你的注册一并带走。</span>
         <span class="en">A fiber started inside <code>apply</code> is not a loader entry, so waiting forever costs nothing. Hang the effects on <code>mctx</code> rather than <code>ctx</code>, and a provider that unloads at runtime withdraws your registrations with it.</span>
       </p>
       <p>
@@ -441,7 +441,7 @@ export function apply(ctx: ClientContext): void {
         <li><span><strong><code>bindings</code></strong><span class="zh"> —— 哪个键触发哪个命令。属于人的事实，一张扁平的 <code>dict(string)</code>，在插件中心里改。</span><span class="en"> — which key reaches which command. A person's fact, a flat <code>dict(string)</code>, edited in the hub.</span></span></li>
       </ul>
       <p>
-        <span class="zh">读一遍 <code>src/bindings.ts</code> 和 <code>src/index.ts</code> 末尾那段 settings 注册，是给另一个插件写出同样东西的最短路径。</span>
+        <span class="zh">想给另一个插件写出同样的东西，最短路径就是读一遍 <code>src/bindings.ts</code> 和 <code>src/index.ts</code> 末尾那段 settings 注册。</span>
         <span class="en">Reading <code>src/bindings.ts</code> and the settings block at the end of <code>src/index.ts</code> is the shortest route to writing the same thing for another plugin.</span>
       </p>
     </section>

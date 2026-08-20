@@ -57,14 +57,14 @@
         </p>
 
         <p class="lede">
-          <span class="zh">DeepSeek Harness 是一个编码智能体。这套集合把它变成一台可以按自己的方式组装的工作台：聊天模式、代码模式、侧边面板、快捷键、远程开发、用量统计、项目状态。每一项都是一个独立仓库、一个 profile 图层 —— 装上就有，卸掉就没，harness 本身一行不改。</span>
+          <span class="zh">DeepSeek Harness 是一个编码智能体。这套集合把它变成一张自己组装的工作台：聊天模式、代码模式、侧边面板、快捷键、远程开发、用量统计、项目状态。每一项都是一个独立仓库、一个 profile 图层 —— 装上就有，卸掉就没，harness 本身一行不改。</span>
           <span class="en">The harness is a coding agent. This collection turns it into a workbench you assemble yourself: chat mode, code mode, side panels, chords, remote development, spend at a glance, project status. Each is its own repository and its own profile layer — add it and it is there, remove it and it is gone, with nothing in the harness edited.</span>
         </p>
 
         <div class="dl">
           <a class="primary" href="https://github.com/omdsh-plugins/omdsh-desktop/releases/download/v0.1.0-rc.8/DeepSeek-Harness-0.1.0-rc.8-arm64.dmg">
             <span class="os"><span class="zh">下载 macOS 版</span><span class="en">Download for macOS</span></span>
-            <span class="meta">Apple silicon · 213 MB</span>
+            <span class="meta">Apple silicon · 212 MB</span>
           </a>
           <a href="https://github.com/omdsh-plugins/omdsh-desktop/releases/download/v0.1.0-rc.8/DeepSeek-Harness-0.1.0-rc.8-x64-setup.exe">
             <span class="os"><span class="zh">下载 Windows 版</span><span class="en">Download for Windows</span></span>
@@ -121,7 +121,7 @@
         </div>
         <figcaption class="stack-note">
           <b>dsh plugin --profile web add &lt;pkg&gt;</b><br>
-          <span class="zh">→ 往这摞栈顶追加一层。每一层就是一个包，和它的 <code>cordis.patch.yml</code>。</span>
+          <span class="zh">→ 往这个栈顶加一层。每一层就是一个包，连同它的 <code>cordis.patch.yml</code>。</span>
           <span class="en">→ appends one layer to this stack. Each layer is a package and its <code>cordis.patch.yml</code>.</span>
         </figcaption>
       </figure>
@@ -136,7 +136,7 @@
         <div class="eyebrow"><span class="zh">理念</span><span class="en">The idea</span></div>
         <h2><span class="zh">四条决定了其余一切的取舍</span><span class="en">Four choices that decide everything else</span></h2>
         <p class="intro">
-          <span class="zh">这套集合的规矩很短，因为它们几乎都是同一句话：用 harness 已经有的接缝。</span>
+          <span class="zh">这套集合的规矩没几条，因为它们几乎都是同一条：用 harness 已经开好的接缝。</span>
           <span class="en">The rules are short because they are almost all the same rule: use the seam the harness already has.</span>
         </p>
       </div>
@@ -146,7 +146,7 @@
           <span class="num">OUT-OF-TREE</span>
           <h3><span class="zh">不动 harness 一行代码</span><span class="en">Never edit the harness</span></h3>
           <p>
-            <span class="zh">每个功能都是一个 out-of-tree bundle：一个 npm 包，声明 <code>dsh.bundle.patch</code>，被 <code>dsh plugin add</code> 追加到 profile 的图层栈上。harness 是一个保持干净、可以跟随上游的 fork —— 打在那里的本地补丁，会在下一次同步时丢失或冲突。</span>
+            <span class="zh">每个功能都是一个 out-of-tree bundle：一个 npm 包，声明 <code>dsh.bundle.patch</code>，用 <code>dsh plugin add</code> 追加到 profile 的图层栈上。harness 是一个保持干净、跟得住上游的 fork —— 打在里面的本地补丁，下次同步就会丢失或冲突。</span>
             <span class="en">Every feature ships as an out-of-tree bundle: an npm package declaring <code>dsh.bundle.patch</code>, appended to a profile's layer stack by <code>dsh plugin add</code>. The harness is a tracked fork kept clean so it can follow upstream; a local patch there is lost or conflicts on the next sync.</span>
           </p>
         </div>
@@ -154,7 +154,7 @@
           <span class="num">SEAMS</span>
           <h3><span class="zh">缺接缝就从邻居那里取</span><span class="en">A missing seam comes from a neighbour</span></h3>
           <p>
-            <span class="zh">slot、service、settings、workspaces —— 能用现成的就用现成的。真的缺一个，就去这个目录里的另一个插件里拿，而不是绕回去改 harness。<code>omdsh-editor</code> 就是这么长出 host 那一半的。</span>
+            <span class="zh">slot、service、settings、workspaces —— 能用现成的就用现成的。真缺一个，就从同目录的另一个插件那里拿，而不是绕回去改 harness。<code>omdsh-editor</code> 就是这么长出 host 那一半的。</span>
             <span class="en">Slots, services, settings, workspaces — take what is published. When a seam is genuinely missing, take it from another plugin in this directory rather than reaching around the harness. That is how <code>omdsh-editor</code> grew a host half of its own.</span>
           </p>
         </div>
@@ -162,7 +162,7 @@
           <span class="num">SETTINGS</span>
           <h3><span class="zh">配置就是一个命名空间</span><span class="en">Configuration is a namespace</span></h3>
           <p>
-            <span class="zh">一个 schemastery schema 注册进 <code>settings</code>，插件中心就能把它渲染成表单。校验、分层、密钥遮蔽、修订冲突、热提交，全是 harness 的，早就写好了 —— 明年写的插件，装上当天就有配置页。</span>
+            <span class="zh">往 <code>settings</code> 注册一个 schemastery schema，插件中心就能把它渲染成表单。校验、分层、密钥遮蔽、修订冲突、热提交，全是 harness 早就写好的 —— 明年写的插件，装上当天就有配置页。</span>
             <span class="en">Register one schemastery schema with <code>settings</code> and the hub renders a form from it. Validation, layering, secret redaction, revision conflicts and hot commits are all the harness's, already written — so a plugin written next year gets a configuration page the day it is installed.</span>
           </p>
         </div>
@@ -170,7 +170,7 @@
           <span class="num">ONE REPO EACH</span>
           <h3><span class="zh">一个插件一个仓库</span><span class="en">One repository per plugin</span></h3>
           <p>
-            <span class="zh">每个包都能被单独 clone、单独安装、单独发版，各带自己的 workspace 文件和锁文件。这个 monorepo 只是把它们放在一起开发的地方，不是它们运行的前提。</span>
+            <span class="zh">每个包都能单独 clone、单独安装、单独发版，各带自己的 workspace 文件和锁文件。这个 monorepo 只是把它们放在一起开发的地方，不是它们运行的前提。</span>
             <span class="en">Every package is set up to be cloned, installed and released on its own, each with its own workspace file and lockfile. This monorepo is only where they are developed together — never a precondition for running one.</span>
           </p>
         </div>
@@ -193,7 +193,7 @@
           <h3><span class="zh">一个包，两半，同时编译</span><span class="en">One package, two halves, compiled together</span></h3>
           <div class="body">
             <p>
-              <span class="zh">大多数插件有两个半边：host 半边跑在 Node 运行时里，browser 半边跑在页面里。同一个包同时把两边编译成一个程序，所以类型是共享的 —— 也正因为如此，service 必须按名字取（<code>ctx.get('settings')</code>），不能靠 <code>ctx.settings</code>，否则编译器看到的是哪个 <code>Context</code> 声明先到就算哪个。</span>
+              <span class="zh">大多数插件有两个半边：host 半边跑在 Node 运行时里，browser 半边跑在页面里。同一个包把两半当成一个程序一起编译，类型因此是共享的 —— 也正因为如此，service 必须按名字取（<code>ctx.get('settings')</code>），不能靠 <code>ctx.settings</code>：它的类型取决于编译器先看到哪个 <code>Context</code> 声明，赶上哪个算哪个。</span>
               <span class="en">Most plugins have two halves: a host half in the Node runtime, a browser half in the page. One package typechecks both as a single program, which is exactly why a service must be resolved by name — <code>ctx.get('settings')</code>, never <code>ctx.settings</code>, whose type is whichever <code>Context</code> declaration the compiler saw first.</span>
             </p>
           </div>
@@ -216,7 +216,7 @@
           <h3><span class="zh">依赖是加法，不是前提</span><span class="en">Depending on a plugin is additive, never a precondition</span></h3>
           <div class="body">
             <p>
-              <span class="zh">另一个插件是否存在，是 <em>profile</em> 的属性 —— 而 profile 是一个人一次 <code>dsh plugin add</code> 攒出来的。cordis 的 inject 等待没有超时，所以顶层 <code>inject</code> 里写上别人的 service，只要那个插件没装，这一项就永远停在 <code>pending</code>。</span>
+              <span class="zh">另一个插件是否存在，是 <em>profile</em> 的属性 —— 而 profile 是人靠一次次 <code>dsh plugin add</code> 攒出来的。cordis 的 inject 等待没有超时：在顶层 <code>inject</code> 里写了别人的 service，只要那个插件没装，这一项就永远停在 <code>pending</code>。</span>
               <span class="en">Whether another plugin exists is a property of the <em>profile</em>, and a profile is assembled by a person one <code>dsh plugin add</code> at a time. cordis's inject wait has no timeout, so a top-level <code>inject</code> naming another plugin's service sits at <code>pending</code> forever when that plugin is absent.</span>
             </p>
           </div>
@@ -225,7 +225,7 @@
 <pre><code>web boot: 1 entry did not activate
 @omdsh-plugins/omdsh-codemode: pending (waiting for service: sessionModes)</code></pre>
             <p>
-              <span class="zh">两个启动审计都会因为任何一项没激活而判整个应用失败 —— 这是一整页死掉的 UI，不是一个被禁用的功能，连跟它毫无关系的插件一起陪葬。所以：别人的 service 只在 <code>apply</code> 里面取，永远不进 <code>inject</code>。</span>
+              <span class="zh">任何一项没激活，两个启动审计都会判整个应用失败 —— 那是一整页死掉的 UI，不是一个被禁用的功能，跟它毫无关系的插件也得一起陪葬。所以：别人的 service 只在 <code>apply</code> 里面取，永远不进 <code>inject</code>。</span>
               <span class="en">Both boot audits fail the whole app for any entry that is not active. That is a dead UI, not a disabled feature — and it takes down every plugin that had nothing to do with it. So: reach for another plugin's service from inside <code>apply</code>, never from <code>inject</code>.</span>
             </p>
           </div>
@@ -240,11 +240,11 @@
         </div>
         <div class="dep">
           <span class="who">omdsh-codemode <span class="arrow">→</span> omdsh-tui</span>
-          <span class="what"><span class="zh">Code 模式那一列跑的就是这个终端本身 —— 不是重新实现的一个。</span><span class="en">The column in Code mode <em>is</em> that terminal, running as a process; nothing of it is reimplemented.</span></span>
+          <span class="what"><span class="zh">Code 模式那一列跑的就是这个终端本身 —— 一行都没有重新实现。</span><span class="en">The column in Code mode <em>is</em> that terminal, running as a process; nothing of it is reimplemented.</span></span>
         </div>
         <div class="dep">
           <span class="who">omdsh-sidepanel · omdsh-sidechat <span class="arrow">⇢</span> omdsh-shortcuts</span>
-          <span class="what"><span class="zh">可选：把命令交出去换一个和弦。没装快捷键插件，就只是没有那个键，面板照常在头部开关那里。</span><span class="en">Optional: hand a command over in exchange for a chord. With no keybinding layer composed, the panels simply cost no key — the header switches are still the whole entry point.</span></span>
+          <span class="what"><span class="zh">可选：把命令交出去换一个和弦。没装快捷键插件，面板也不占任何键 —— 头部那个开关照样是全部入口。</span><span class="en">Optional: hand a command over in exchange for a chord. With no keybinding layer composed, the panels simply cost no key — the header switches are still the whole entry point.</span></span>
         </div>
         <div class="dep">
           <span class="who">omdsh-remdev <span class="arrow">⇢</span> <span class="zh">任何读文件、起进程的插件</span><span class="en">anything reading files or starting processes</span></span>
@@ -281,7 +281,7 @@
           <p class="pkg">@omdsh-plugins/omdsh-plughub</p>
           <p class="sum"><span class="zh">在设置里安装、停用并配置 omdsh 插件。</span><span class="en">Install, disable, and configure omdsh plugins from inside Settings.</span></p>
           <p class="detail">
-            <span class="zh">设置页里多出来的一个标签页：上半是可以装的目录，一张卡片一个按钮——没装是安装，装了是更新，有新版本才点亮。下半是这个 profile 里有的插件，装上的和停用的都在；停用只把图层从组装栈拿掉，文件还在，再启用不用再装一遍。模板自带的 bundle、插件中心和模式系统都留在栈上——中心是把插件装回去的唯一界面，模式系统是那个没人会自动装上的 peer。表单直接由插件注册的 schema 生成，所以这个中心不认识任何一个具体插件 —— 这正是它存在的意义。装、卸、启、停都给一条重启横幅，因为插件图层是在启动时组合的。</span>
+            <span class="zh">设置页里多出来的一个标签页：上半是可以装的插件目录，一张卡片一个按钮 —— 没装是安装，装了是更新，有新版本才点亮。下半是这个 profile 里已有的插件，装上的和停用的都在；停用只把图层从组装栈拿掉，文件还在，再启用不用再装一遍。模板自带的 bundle、插件中心和模式系统都留在栈上 —— 中心是唯一能把插件装回去的界面，模式系统则是没有谁会自动带上的 peer。表单直接按插件注册的 schema 生成，所以这个中心不认识任何一个具体插件 —— 这正是它存在的意义。装、卸、启、停都会弹出一条重启横幅，因为插件图层是在启动时组合的。</span>
             <span class="en">One more tab beside the shipped Plugins pages: a catalog on top, one button per card — Install when it is missing, Update when it is there, lit only when a newer version exists. Below, every plugin this profile has, composed or parked. Disable takes a layer off the stack without touching <code>node_modules</code>, so Enable is not another install. Template bundles, the hub, and the mode system stay on: the hub is the only UI that puts plugins back, and the mode system is the peer nothing auto-installs. The form is generated from the schema the plugin already registered, so the hub knows nothing about any plugin in particular — which is the whole point. Install, remove, enable and disable all raise a restart banner, because plugin layers are composed at boot.</span>
           </p>
           <div class="card-foot">
@@ -297,7 +297,7 @@
           <p class="pkg">@omdsh-plugins/omdsh-shortcuts</p>
           <p class="sum"><span class="zh">为每个命令绑定一个快捷键，桌面菜单与网页端共用一份配置。</span><span class="en">One chord per command, on the desktop menu and in the page alike.</span></p>
           <p class="detail">
-            <span class="zh">一份文档，两个界面：<code>shell</code> 类命令由 Electron 主进程通过原生菜单加速键执行，<code>runtime</code> 类走这个插件的交换机，<code>browser</code> 类由页内监听器接住。插件只声明"我能做什么"，哪个键到达它是这里的事 —— 改绑当场生效，不重启外壳，也不是一次 harness 改动。</span>
+            <span class="zh">一份文档，两个界面：<code>shell</code> 类命令由 Electron 主进程通过原生菜单加速键执行，<code>runtime</code> 类走这个插件的交换机，<code>browser</code> 类由页内监听器接住。插件只声明"我能做什么"，哪个键找到它由这里决定 —— 改绑当场生效，外壳不用重启，harness 一行不动。</span>
             <span class="en">One document, two surfaces: a <code>shell</code> command is performed by the Electron main process through a native accelerator, a <code>runtime</code> command through this plugin's switchboard, a <code>browser</code> command by its in-page listener. A plugin says only what it can do; which chord reaches it is decided here — and editing that rebuilds both in place, with no shell restart and no harness edit.</span>
           </p>
           <div class="strip">CmdOrCtrl+Shift+E → panel.files    Ctrl+` → panel.terminal</div>
@@ -315,7 +315,7 @@
           <p class="pkg">@omdsh-plugins/omdsh-remctrl</p>
           <p class="sum"><span class="zh">把你的 dsh 界面开放到公网地址，前面挡一道通行码。</span><span class="en">Your dsh window, on a public address, behind a passcode.</span></p>
           <p class="detail">
-            <span class="zh">只有一扇门，它是一个反向代理：请求打到本插件绑定的端口上，通行码决定它能不能往里走，能的那些被原样交给 harness 自己的回环端口——HTTP 和两条 WebSocket 下行，一字不改。所以手机上不是一个功能子集，<strong>就是</strong> dsh。代价写在明处：代理把 <code>Host</code> 改写成回环地址，这正是 harness 信任围栏放行的原因，也意味着一个已登录的浏览器能触达桌面端能触达的一切。于是通行码周围那几样不是功能，是设计本身——默认关；Cookie 没落定之前一个字节都不转发；每个地址每分钟六次尝试，这才是十个字符够用的原因；来源围栏在公网这一侧照着浏览器真正用的地址重问一遍；走隧道时非 HTTPS 的请求在读取凭证<strong>之前</strong>就以 <code>421</code> 挡回。默认出口是一条 <code>cloudflared</code> quick tunnel，所以一台没有公网地址的笔记本不用映射端口、不用开防火墙、不用配证书。</span>
+            <span class="zh">只有一扇门 —— 一个反向代理：请求打到这个插件绑定的端口上，通行码决定它能不能往里走，能走的原样交给 harness 自己的回环端口 —— HTTP 和两条 WebSocket 下行，一字不改。所以手机上不是一个功能子集，<strong>就是</strong> dsh。代价写在明处：代理把 <code>Host</code> 改写成回环地址，这正是 harness 信任围栏放行的原因，也意味着一个已登录的浏览器能拿到桌面端能拿到的一切。于是通行码周围那几样不是功能，是设计本身 —— 默认关；Cookie 落定前，一个字节都不转发；每个地址每分钟只能试六次，所以十个字符就够用；来源围栏在公网这一侧，按浏览器真正用的地址再问一遍；走隧道时，非 HTTPS 的请求在读取凭证<strong>之前</strong>就以 <code>421</code> 挡回。默认出口是一条 <code>cloudflared</code> quick tunnel，所以没有公网地址的笔记本也能用：不用映射端口，不用开防火墙，不用配证书。</span>
             <span class="en">One door, and it is a reverse proxy: requests arrive on a port this plugin binds, the passcode decides whether they go further, and the ones that do are handed to the harness's own loopback port — HTTP and both WebSocket downlinks, verbatim. So a phone gets no subset of anything; it <strong>is</strong> dsh. The cost is stated rather than hidden: the proxy rewrites <code>Host</code> to loopback, which is what makes the harness's trust fence pass, and which means a signed-in browser reaches everything the desktop can. The controls around the passcode are therefore the design and not features — off by default; nothing forwarded before the cookie resolves; six tries a minute per address, which is what makes ten characters enough; the provenance fence re-imposed at the public boundary, about the address the browser actually used; and under the tunnel a non-HTTPS request refused with <code>421</code> <strong>before</strong> a credential is read off it. The default way out is a supervised <code>cloudflared</code> quick tunnel, so a laptop with no public address forwards no port, opens no firewall, and arranges no certificate.</span>
           </p>
           <div class="card-foot">
@@ -331,7 +331,7 @@
           <p class="pkg">@omdsh-plugins/omdsh-usage</p>
           <p class="sum"><span class="zh">在会话顶栏显示本次会话花费、本项目花费与账户余额。</span><span class="en">Session spend, project spend, and account balance, in the conversation's top row.</span></p>
           <p class="detail">
-            <span class="zh">三个数字放进你本来就在看的那一行。Chat 和 Work 里它坐在模式芯片右边；Code 模式整列是终端、根本没有头部，它就挪到对角去。低于一个可配置的下限（默认 10，按账户计价货币）三个图标全部转红 —— 在那之上，一点颜色都不加。</span>
+            <span class="zh">三个数字放进你本来就在看的那一行。Chat 和 Work 里，它坐在模式芯片右边；Code 模式整列是终端，根本没有头部，它就挪到对角去。低于一个可配置的下限（默认 10，按账户计价货币），三个图标全部转红 —— 在那之上，一点颜色都不加。</span>
             <span class="en">Three figures in the row you are already reading. In Chat and Work the badge sits right of the mode chip; in Code the whole column is a terminal with no header to sit in, so it moves to the opposite corner. Under a configurable floor — 10 by default, in the account's own currency — all three icons turn red. Above it, nothing is tinted at all.</span>
           </p>
           <div class="strip"> Help   ⚙ Code mode   💬 0.023 ¥   📁 1.03 ¥   👛 964.15 ¥</div>
@@ -346,9 +346,9 @@
           <div class="card-top"><span class="dot"></span>insight<span class="ver">0.2.3</span></div>
           <h3><span class="zh">状态</span><span class="en">Status</span><span class="en-name zh">Status</span></h3>
           <p class="pkg">@omdsh-plugins/omdsh-status</p>
-          <p class="sum"><span class="zh">在会话顶栏的 Session log 按钮左边显示当前项目名称与 git 分支和变更计数。</span><span class="en">Project name and git branch with change counts, in the conversation header left of the Session log button.</span></p>
+          <p class="sum"><span class="zh">在会话顶栏的 Session log 按钮左边，显示当前项目名、git 分支和变更计数。</span><span class="en">Project name and git branch with change counts, in the conversation header left of the Session log button.</span></p>
           <p class="detail">
-            <span class="zh">哪个项目、哪个分支、动了多少 —— 一眼的事。项目名取自已注册的 workspace；旁边是当前分支，和领先/落后、已暂存、已修改、未跟踪、冲突里非零的那几个计数 —— 有冲突时只有它一个数字是红的，一行里每个符号都喊叫的读数等于什么都没说。host 半边按会话解出工作目录跑一次 <code>git status</code>，浏览器只收到要画的那几个数字，没有路径清单、没有 diff；目录不在 git 仓库里时就只显示项目名。聊天不是项目：装了模式系统时，被判成 chat 的那条对话既不出读数，也不轮询 —— 它的工作区是 harness 自己留的那个目录，不是谁挑的，把它摆在分支旁边等于报告一个读者根本没有的项目。这条规则是从 <code>sessionModes</code> 读来的，不是自己再推一遍，所以读数和模式开关不会各说各的。</span>
+            <span class="zh">哪个项目、哪个分支、动了多少 —— 一眼的事。项目名取自已注册的 workspace；旁边是当前分支，加上领先/落后、已暂存、已修改、未跟踪、冲突里非零的那几项计数 —— 有冲突时只有它一个数字是红的，因为一行里每个符号都喊，等于什么都没说。host 半边按会话解出工作目录，跑一次 <code>git status</code>；浏览器只收到要画的那几个数字，没有路径清单、没有 diff；目录不在 git 仓库里，就只显示项目名。聊天不是项目：装了模式系统时，被判成 chat 的那条对话既不出读数，也不轮询 —— 它的工作区是 harness 自己留的目录，不是谁挑的；把它摆在分支旁边，等于报告一个读者根本没有的项目。这条规则是从 <code>sessionModes</code> 读来的，不是自己再推一遍，所以读数和模式开关不会各说各的。</span>
             <span class="en">Which project, which branch, how much has moved — at a glance. The name comes from the workspace you registered; beside it the branch, and whichever of ahead/behind, staged, modified, untracked and conflicts are non-zero — conflicts are the one count drawn in the alarm colour, because a row where every glyph shouts says nothing. The host half resolves the session's directory and runs one <code>git status</code>; the browser receives only the counts it draws, with no path list and no diff, and a directory outside any repository shows the name alone. A chat is not a project: where a mode system is composed, a conversation it classifies as a chat gets no readout and no poll — its workspace is the one the harness keeps rather than one anybody chose, so naming it beside a branch would report a project the reader does not have. That rule is read from <code>sessionModes</code> rather than derived a second time, which is what keeps the readout and the mode switch from disagreeing on screen.</span>
           </p>
           <div class="strip"> ⬇ 导出   omdsh-plugins   ⎇ main ↑1 +2 ~3 ?1</div>
@@ -364,7 +364,7 @@
           <p class="pkg">@omdsh-plugins/omdsh-basemode</p>
           <p class="sum"><span class="zh">所有模式插件共用的模式开关，以及按模式给侧栏会话上色的圆点。</span><span class="en">The switch every mode plugin registers into, and the sidebar dots that colour their conversations.</span></p>
           <p class="detail">
-            <span class="zh"><strong>它自己不发明任何模式 —— 这正是重点。</strong>只装它的 profile 能正常启动，并且完全看不到那个开关，因为没有东西可切的控件不是控件。它提供 <code>sessionModes</code> 注册表、悬浮在对话列上方的开关、每一行侧栏前面那颗按模式着色的圆点，以及把 <strong>New Session</strong> 先递给"正占着这一列的那个模式"的那次覆盖。它唯一贡献的那个姿态是本来就在屏幕上的那个 —— <strong>Work</strong>，harness 自己的那根列 —— 好让开关永远有地方可以切回去；装了 chatmode 之后，由它那个会记事的 Work 顶替。</span>
+            <span class="zh"><strong>它自己不发明任何模式 —— 这正是重点。</strong>只装了它一个的 profile 能正常启动，也完全看不到那个开关 —— 没有东西可切的控件不是控件。它提供 <code>sessionModes</code> 注册表、悬浮在对话列上方的开关、每一行侧栏前面那颗按模式着色的圆点，以及那次覆盖：把 <strong>New Session</strong> 先递给正占着这一列的模式。它唯一贡献的姿态，是本来就在屏幕上的那个 —— <strong>Work</strong>，harness 自己的那一列 —— 好让开关永远有地方切回去；装了 chatmode 之后，由它那个会记事的 Work 顶替。</span>
             <span class="en"><strong>It invents no mode of its own — that is the point.</strong> A profile with this plugin and nothing else composes, boots, and shows no switch at all, because a control with nothing to switch between is not a control. It provides the <code>sessionModes</code> registry, the floating switch above the conversation, the coloured leading dot on every sidebar row, and the override that offers <strong>New Session</strong> to whichever segment is holding the column. The one posture it does contribute is the one already on screen — <strong>Work</strong>, the harness's own column — so a switch always has somewhere to switch back to; chatmode's Work, which remembers where you were, replaces it.</span>
           </p>
           <div class="card-foot">
@@ -380,7 +380,7 @@
           <p class="pkg">@omdsh-plugins/omdsh-chatmode</p>
           <p class="sum"><span class="zh">不用选项目目录就能开始对话，这些对话统一放在侧栏的 Chat 下面。</span><span class="en">Start a conversation without picking a project directory, kept together under Chat.</span></p>
           <p class="detail">
-            <span class="zh">harness 是编码智能体，新建会话前先问你要哪个工作区 —— 合理，因为编码总要发生在某处。但不是每个问题都是活儿。这个插件在旁边补上另一种姿势：对话上方一个 <strong>Chat / Work</strong> 开关，加上一个受管的 Chat 工作区（真实目录 <code>&lt;dshHome&gt;/chat</code>）。<strong>会话跑在哪里</strong>就是它的全部 —— 用哪套 agent 仍由部署的默认预设和 harness 自己的芯片决定。模式是<strong>推导</strong>出来的而不是存下来的：一个会话是不是 chat，取决于它算在哪个工作区名下 —— 存一个标志位，迟早会和屏幕上的事实打架。</span>
+            <span class="zh">harness 是编码智能体，新建会话前先问你要哪个工作区 —— 合理，因为编码总要发生在某处。但不是每个问题都是活儿。这个插件在旁边补上另一种姿势：对话上方一个 <strong>Chat / Work</strong> 开关，加上一个受管的 Chat 工作区（真实目录 <code>&lt;dshHome&gt;/chat</code>）。<strong>会话跑在哪里</strong>就是它的全部 —— 用哪套 agent，仍由部署的默认预设和 harness 自己的芯片决定。模式是<strong>推导</strong>出来的而不是存下来的：一个会话是不是 chat，取决于它算在哪个工作区名下 —— 存一个标志位，迟早会和屏幕上的事实打架。</span>
             <span class="en">The harness is a coding agent, and its New Session screen asks for a workspace first — reasonably, because a coding agent works somewhere. But not every question is work. This adds the other posture beside it: a <strong>Chat / Work</strong> switch above the conversation, and a managed Chat workspace (a real directory at <code>&lt;dshHome&gt;/chat</code>). <strong>Where the conversation lives is the whole of it</strong> — a chat runs the deployment's default preset, and the harness's own chip is where a reader picks another. The mode is <strong>derived, not stored</strong>: a session is a chat exactly when it is accounted under that workspace — a stored flag would eventually disagree with the screen.</span>
           </p>
           <div class="card-foot">
@@ -396,7 +396,7 @@
           <p class="pkg">@omdsh-plugins/omdsh-codemode</p>
           <p class="sum"><span class="zh">在对话所属的工作区里开一个 harness 终端，与 Chat、Work 并列。</span><span class="en">A harness terminal in the conversation's workspace, beside Chat and Work.</span></p>
           <p class="detail">
-            <span class="zh">网页界面和终端是同一个 harness 的两道前门。这个插件是让其中一道显示在另一道里的那条缝：按下 <strong>Code</strong>，整个对话列换成一个真的 <code>dsh --profile omdsh-tui</code>，banner 都在，跑在这个对话本来就算在的目录里。终端不是重新实现的 —— 屏幕上是 omdsh-tui 自己的前门，这个插件只负责起进程、转发字节。在终端里 <code>/rename</code> 一下，侧栏那一行跟着改。</span>
+            <span class="zh">网页界面和终端是同一个 harness 的两道前门，这个插件就是让其中一道开进另一道里的那条缝：按下 <strong>Code</strong>，整个对话列换成一个真的 <code>dsh --profile omdsh-tui</code>，banner 都在，跑在这个对话本来就归属的目录里。终端不是重新实现的 —— 屏幕上是 omdsh-tui 自己的前门，这个插件只负责起进程、转发字节。在终端里 <code>/rename</code> 一下，侧栏那一行跟着改。</span>
             <span class="en">The web GUI and the terminal are two front doors onto the same harness; this is the seam that lets one be shown inside the other. Pressing <strong>Code</strong> replaces the conversation column with a real <code>dsh --profile omdsh-tui</code>, banner and all, in the directory the conversation is already accounted under. Nothing of the terminal is reimplemented — this plugin starts that program and relays bytes. A <code>/rename</code> typed inside it moves the sidebar row.</span>
           </p>
           <div class="card-foot">
@@ -412,7 +412,7 @@
           <p class="pkg">@omdsh-plugins/omdsh-editor</p>
           <p class="sum"><span class="zh">用你真正在用的编辑器、终端或文件管理器打开当前会话的目录。</span><span class="en">Open the conversation's directory in the editor, terminal, or file manager you actually use.</span></p>
           <p class="detail">
-            <span class="zh">会话头部的一个分裂控件：按左半边，当前对话的目录用你上次选的编辑器打开；点箭头，换一个。harness 既没有这个能力，也没有能绕到它外面去实现的接缝 —— 所以这个包两半都自己写：host 那半负责找出机器上装了哪些应用并把它拉起来，browser 那半负责把它们摆出来。</span>
+            <span class="zh">会话头部的一个分裂控件：按左半边，当前对话的目录用你上次选的编辑器打开；点箭头，换一个。harness 既没有这个能力，也没有哪条接缝能让人绕到它外面去实现 —— 所以这个包两半都自己写：host 那半找出机器上装了哪些应用、把它拉起来，browser 那半负责把它们摆出来。</span>
             <span class="en">A split control in the session header: press the left half and the conversation's directory opens in the editor you chose last time; press the chevron and pick a different one. The harness has no such capability and no seam that would let one be reached around it, so this package adds both halves — the host side that finds the applications and starts one, and the browser side that offers them.</span>
           </p>
           <div class="strip">◧ VS Code   ◧ Cursor   ▤ Finder   ▸ Terminal   ▸ iTerm2</div>
@@ -428,7 +428,7 @@
           <p class="pkg">@omdsh-plugins/omdsh-sidechat</p>
           <p class="sum"><span class="zh">在任何位置召唤一条独立的对话，带上你正看着的东西作为锚点。</span><span class="en">Summon a conversation of its own anywhere, anchored to whatever you were looking at.</span></p>
           <p class="detail">
-            <span class="zh">harness 只有一个输入框，在对话列的底部，而它属于你正在跑的那件事。于是每一句"等等，这个函数是干嘛的"都要付两次钱：手离开你正在读的地方，<strong>问题挤进那条对话的上下文</strong>，然后就一直待在那儿，占着窗口、影响之后每一轮。按 <kbd>⌘L</kbd>，就地开一条属于它自己的会话 —— 多轮、有历史、存在 Chat 工作区里；保存之前不占侧边栏，面板右下角的保存按钮才会把它放进相应的工作区。界面上只有一个问题、一个答案，和工作时的一行字。</span>
+            <span class="zh">harness 只有一个输入框，在对话列的底部，而它属于你正在跑的那件事。于是每一句"等等，这个函数是干嘛的"都要付两次钱：手离开你正在读的地方，<strong>问题挤进那条对话的上下文</strong>，然后就一直待在那儿，占着窗口、影响之后每一轮。按 <kbd>⌘L</kbd>，就地开一条属于它自己的会话 —— 多轮、有历史、存在 Chat 工作区里；保存之前不占侧边栏，点了面板右下角的保存按钮，它才归进自己的工作区。界面上只有一个问题、一个答案，和它干活时的一行字。</span>
             <span class="en">The harness has one input, at the bottom of the conversation column, and it belongs to the thing you are running. So every "wait, what does this function do?" costs you twice: your hands leave what you were reading, and <strong>the question moves into that conversation's context</strong>, where it stays — taking up window, shaping every turn after it. Press <kbd>⌘L</kbd> and a conversation of its own opens right where you are: multi-turn, with history, kept out of the sidebar until the Save control in its corner files it under its workspace. It shows a question, an answer, and one line while it works.</span>
           </p>
           <div class="card-foot">
@@ -444,7 +444,7 @@
           <p class="pkg">@omdsh-plugins/omdsh-document</p>
           <p class="sum"><span class="zh">把 Word、PPT、Excel、PDF 和文本文件添加到消息里，模型直接读到它们的内容。</span><span class="en">Attach Word, PowerPoint, Excel, PDF and text files to a message; the agent reads their text.</span></p>
           <p class="detail">
-            <span class="zh">输入框里什么也不会出现。附件是宿主端为这个对话维护的<strong>队列</strong>——输入框卡片里那条轨道就是它，紧挨 harness 自己的图片缩略图——而宿主在 <code>agent/pre-step</code> 把队列放到消息正下方，作为一条 context 消息：模型紧接着问题读到文档，聊天记录在这条消息底下画一行可折叠的 <code>Context injection</code>。浏览器插件唯一的发送时钩子是草稿里的一枚 chip，而 chip 是输入框里一个看得见的格子，代表的却不是用户写下的内容；换成宿主端这条缝，输入框就还是输入框。队列归宿主所有，于是它不随刷新消失，而<strong>轨道清空就是回执</strong>：队列只会被真正带着用户话语的那一步认领，还留着的一行就是没送出去的文件。</span>
+            <span class="zh">输入框里什么也不会出现。附件是宿主端为这个对话维护的<strong>队列</strong> —— 输入框卡片里那条轨道就是它，紧挨 harness 自己的图片缩略图 —— 宿主在 <code>agent/pre-step</code> 把队列插到消息正下方，作为一条 context 消息：模型紧接着问题读到文档，聊天记录在这条消息底下画一行可折叠的 <code>Context injection</code>。浏览器插件唯一的发送时钩子，是草稿里的一枚 chip；而 chip 是输入框里一个看得见的格子，代表的却不是用户写下的内容。换成宿主端这条缝，输入框就还是输入框。队列归宿主所有，所以它熬得过刷新；<strong>轨道清空就是回执</strong> —— 只有真正带着用户话语的那一步才能认领队列，还留着的一行就是没送出去的文件。</span>
             <span class="en">Nothing appears in the message box. An attachment is a <strong>queue</strong> the host keeps for the conversation — the rail inside the composer card is that queue, next to the harness's own image thumbnails — and the host splices it in directly under the message at <code>agent/pre-step</code>, as a context message: the model reads the documents right after the question, and the transcript draws one collapsed <code>Context injection</code> row beneath it. A browser plugin's only send-time hook is a chip in the draft, and a chip is a visible cell in the textarea standing for something the user did not write; the host's seam leaves the message box a message box. The queue being the host's is also why it survives a reload — and why <strong>the rail emptying is the receipt</strong>: only a step actually carrying the user's words may claim it, so a row that stays is a file that did not go.</span>
           </p>
           <div class="card-foot">
@@ -460,7 +460,7 @@
           <p class="pkg">@omdsh-plugins/omdsh-vision</p>
           <p class="sum"><span class="zh">让只能读文字的模型看懂图片和视频：出厂接 Qwen VL，也可以换成你配的视觉模型。</span><span class="en">Let a text-only model read images and videos: Qwen VL as shipped, or a vision model you configure.</span></p>
           <p class="detail">
-            <span class="zh">出厂默认是 DashScope 上的 <strong>Qwen3-VL Flash</strong>，凭据名 <code>DASHSCOPE_API_KEY</code>；填一个 harness 模型路由就能换掉它，不必先清掉那个地址。图片的粘贴和拖入走 harness 自己的输入框轨道——它现在自己画缩略图——这个插件只把<strong>视频</strong>从那条轨道上拿走，因为 harness 没有任何视频模态。另外三个工具补齐磁盘上的其余场景：<code>see_image</code> 看文件，<code>ask_image</code> 拿 id 追问细节，<code>watch_video</code> 用 ffmpeg 沿时间线抽帧逐帧描述。描述按图片自己的 sha256 归档，所以同一张图只花一次钱。图片在 harness 里本来就是一等公民；缺的只有一个声明——DeepSeek 的模型报告 <code>inputModalities: ['text']</code>。于是这个插件再注册一条<strong>镜像模型路由</strong>：把每个只认文字的模型再登记一遍并声明接受图片，请求发出前把图换成 <code>&lt;image-description&gt;</code>，日志里存的仍然是图片，只有线上那一份是文字。</span>
+            <span class="zh">出厂默认是 DashScope 上的 <strong>Qwen3-VL Flash</strong>，凭据名 <code>DASHSCOPE_API_KEY</code>；在 harness 里配一个具名模型路由就能盖过它，那个地址不用清。图片的粘贴和拖入走 harness 自己的输入框轨道 —— harness 现在自己会画缩略图 —— 这个插件只从那条轨道上拿走<strong>视频</strong>，因为 harness 没有任何视频模态。已经在磁盘上的文件，由另外三个工具兜底：<code>see_image</code> 看文件，<code>ask_image</code> 拿 id 追问细节，<code>watch_video</code> 用 ffmpeg 沿时间线抽帧逐帧描述。描述按图片自己的 sha256 归档，所以同一张图只花一次钱。图片在 harness 里本来就是一等公民，缺的只有一项声明 —— DeepSeek 的模型报告 <code>inputModalities: ['text']</code>。于是这个插件再注册一条<strong>镜像模型路由</strong>：把每个只认文字的模型再登记一遍，声明接受图片；请求发出前，把图换成 <code>&lt;image-description&gt;</code>。日志里存的仍然是图片，只有线上那一份是文字。</span>
             <span class="en">As shipped, <strong>Qwen3-VL Flash</strong> on DashScope, under a credential named <code>DASHSCOPE_API_KEY</code>; a named harness route wins over that endpoint without clearing it. Pasted and dropped pictures stay in the harness's own composer rail — it draws those thumbnails itself now — and this plugin claims only <strong>video</strong>, because there is no video modality anywhere in the harness. Three tools cover files already on disk: <code>see_image</code>, <code>ask_image</code> for a closer look by id, and <code>watch_video</code>, which cuts frames off a timeline with ffmpeg and describes each. Descriptions are filed under the image's own sha256, so one picture is paid for once. Images are already first class in the harness; one declaration is missing: DeepSeek's models report <code>inputModalities: ['text']</code>. So this also registers a <strong>mirrored model route</strong> — every text-only model advertised again under a provider that accepts images, swapping each picture for an <code>&lt;image-description&gt;</code> just before the request goes out. The log keeps the picture; only the copy on the wire is text.</span>
           </p>
           <div class="card-foot">
@@ -476,7 +476,7 @@
           <p class="pkg">@omdsh-plugins/omdsh-sidepanel</p>
           <p class="sum"><span class="zh">右边一列文件树，下边一条终端，只在 Work 模式下出现。</span><span class="en">A file tree down the right edge and a terminal along the bottom, in Work mode.</span></p>
           <p class="detail">
-            <span class="zh">harness 出厂是三列 —— 会话列表、对话、详情 —— 没有任何地方可以看一个文件或者跑一条命令。这个插件补上这两样，然后就停手：右边列出这个对话自己的目录、一次预览一个文件，下边是同一个目录里的 shell。没有编辑器、没有 git 面板、没有浏览器、没有标签栏 —— 在这里，一个容易被忽略的面板比一个第二应用值钱。</span>
+            <span class="zh">harness 出厂是三列 —— 会话列表、对话、详情 —— 没有任何地方可以看一个文件或者跑一条命令。这个插件补上这两样，然后就停手：右边列出这个对话自己的目录，一次预览一个文件；下边是同一个目录里的 shell。没有编辑器、没有 git 面板、没有浏览器、没有标签栏 —— 在这里，一个容易被忽略的面板，胜过一个想当第二个应用的面板。</span>
             <span class="en">The harness ships a three-column frame — session list, conversation, details — and no place to look at a file or run a command. This adds the two, and stops there. The right panel lists the conversation's own directory and shows one file at a time; the bottom panel is a shell in that same directory. There is no editor, no git surface, no browser, no tab strip: a panel that is easy to ignore is worth more here than one that is a second application.</span>
           </p>
           <div class="card-foot">
@@ -504,16 +504,16 @@
           <span class="kind"><span class="zh">Electron 桌面外壳</span><span class="en">Electron desktop shell</span></span>
           <h3>omdsh-desktop</h3>
           <p>
-            <span class="zh">把 harness 运行时当作<strong>子进程</strong>监督起来，通过 loopback HTTP 说话。运行时崩了，或者堆爆了，按外壳自己的策略重启 —— 窗口不跟着走。窗口、菜单、活动指示、重启策略，还有那块"运行时正在启动"的开机屏，都归它。交付进去的插件中心卸不掉、停不了：下次启动会把它放回组装栈；通过中心做的 Update 写成 profile 的真实依赖，外壳不再去覆盖那份副本。</span>
+            <span class="zh">把 harness 运行时当作<strong>子进程</strong>监督起来，通过 loopback HTTP 说话。运行时崩了，或者堆爆了，按外壳自己的策略重启 —— 窗口不跟着走。窗口、菜单、活动指示、重启策略，还有那块"运行时正在启动"的开机屏，都归它。随外壳交付的插件中心卸不掉、停不了：下次启动会把它放回组装栈；通过中心做的 Update 会写成 profile 里的真实依赖，外壳不再去覆盖那份副本。</span>
             <span class="en">An Electron shell that supervises a harness runtime as a <strong>child process</strong> and talks to it over loopback HTTP. A runtime that crashes or exhausts its heap is restarted under a policy the shell owns, without taking the window with it. Windows, menus, activity, restart policy, and the boot screen a starting runtime is watched from all live here. The shipped hub cannot be uninstalled or disabled: the next launch puts it back on the stack. An Update through the hub writes a real profile dependency, and this shell then leaves that copy alone.</span>
           </p>
           <p>
-            <span class="zh"><code>runtime/package.json</code> 是记录它所搭载的 harness 版本的唯一一处 —— 从源码跑和打包出来的 <code>.app</code> 因此监督的是同一个运行时。它绑的那些和弦不在这儿，在 <code>omdsh-shortcuts</code>；这个仓库只拥有那些和弦<em>做什么</em>。</span>
+            <span class="zh"><code>runtime/package.json</code> 是唯一一处记录它所搭载 harness 版本的地方 —— 从源码跑和打包出来的 <code>.app</code> 因此监督的是同一个运行时。外壳绑的那些和弦不在这儿，在 <code>omdsh-shortcuts</code>；这个仓库只拥有那些和弦<em>做什么</em>。</span>
             <span class="en"><code>runtime/package.json</code> is the one place recording the release it ships, which is what makes running from source representative of a packaged build. Which chords the shell claims lives in <code>omdsh-shortcuts</code>; this repository owns what those chords run.</span>
           </p>
           <div class="dl" style="margin-top:6px">
             <a class="primary" href="https://github.com/omdsh-plugins/omdsh-desktop/releases/download/v0.1.0-rc.8/DeepSeek-Harness-0.1.0-rc.8-arm64.dmg">
-              <span class="os">macOS</span><span class="meta">.dmg · 213 MB</span>
+              <span class="os">macOS</span><span class="meta">.dmg · 212 MB</span>
             </a>
             <a href="https://github.com/omdsh-plugins/omdsh-desktop/releases/download/v0.1.0-rc.8/DeepSeek-Harness-0.1.0-rc.8-x64-setup.exe">
               <span class="os">Windows</span><span class="meta">.exe · 132 MB</span>
@@ -533,11 +533,11 @@
           <span class="kind"><span class="zh">终端界面 · profile bundle</span><span class="en">Interactive terminal · profile bundle</span></span>
           <h3>omdsh-tui</h3>
           <p>
-            <span class="zh">上游把 TUI 包删掉了，这个仓库自己带一个 —— 而且是<strong>构建在已发布的 harness release 上</strong>，不是构建在它的 fork 上。这就是为什么这个终端跟随 harness 发版只需要改一个版本号，而不是合并一整个 monorepo。<code>omdsh-codemode</code> 在网页里显示的就是它。</span>
+            <span class="zh">上游把 TUI 包删掉了，这个仓库自己带一个 —— 而且<strong>构建在已发布的 harness release 上</strong>，不是构建在它的 fork 上。所以这个终端跟随 harness 发版，只需要改一个版本号，而不是合并一整个 monorepo。<code>omdsh-codemode</code> 在网页里显示的就是它。</span>
             <span class="en">Upstream removed its TUI package; this repository carries one, <strong>built against a published harness release</strong> rather than a fork of it — which is what lets the terminal follow harness releases by changing a version number instead of merging a monorepo. It is what <code>omdsh-codemode</code> shows inside the web GUI.</span>
           </p>
           <p>
-            <span class="zh">每个会话由一个 <strong>agent preset</strong> 组合出来 —— 决定模型有哪些工具、人设说什么、看得到哪些 prompt 段落 —— <code>/mode</code> 就是这四个 preset 的界面。bundle 的 patch 关掉了 base 的 host 面工具行，所以"少一个工具"是真的少一个，不只是个标签。</span>
+            <span class="zh">每个会话由一个 <strong>agent preset</strong> 组合出来 —— 决定模型有哪些工具、人设说什么、看得到哪些 prompt 段落 —— <code>/mode</code> 就是这四个 preset 的界面。bundle 的 patch 关掉了 base 在 host 半边的工具行，所以"少一个工具"是真的少一个，不只是个标签。</span>
             <span class="en">Each session is composed from one <strong>agent preset</strong> — the composition deciding which tools the model has, what its persona says, which prompt sections it sees — and <code>/mode</code> is the surface over the four <code>dsh</code> ships. The bundle patch disables the base's host-plane tool rows, so a preset that removes a tool actually removes it.</span>
           </p>
           <div class="tablewrap">
@@ -563,11 +563,11 @@
           <span class="kind"><span class="zh">macOS 应用打包器</span><span class="en">macOS application packager</span></span>
           <h3>omdsh-webapp</h3>
           <p>
-            <span class="zh"><code>dsh web</code> 从终端启动、打印一个 URL —— 于是用网页界面就意味着：服务活多久，终端就得开多久，还得去点那行地址。这个仓库把它写成一个可双击的 <strong>DSH Web.app</strong>：点 Dock 图标启动服务并打开页面，此后每一次触及它，都是把<strong>已经显示着它的那个标签页</strong>调到前台，而不是再开一个；退出时，停掉它自己启动的那个服务。</span>
+            <span class="zh"><code>dsh web</code> 从终端启动，打印一个 URL —— 于是用网页界面就意味着：服务活多久，终端就得开多久，还得去点那行地址。这个仓库把它写成一个可双击的 <strong>DSH Web.app</strong>：点 Dock 图标启动服务并打开页面，之后每次唤起它，都是把<strong>已经显示着它的那个标签页</strong>提到前台，而不是再开一个；退出时，停掉它自己启动的那个服务。</span>
             <span class="en"><code>dsh web</code> starts from a terminal and prints a URL, so using the browser UI means keeping a terminal open for the server's lifetime and clicking a printed line. This repository writes a double-clickable <strong>DSH Web.app</strong> instead: the Dock icon starts the server and opens the page, and every activation afterwards raises <strong>the tab already showing it</strong> rather than opening another. Quitting stops the server it started.</span>
           </p>
           <p>
-            <span class="zh">它是一个启动器，不是 harness 的副本：烘焙进去的只有构建时解析到的 <code>dsh</code> 路径和一条 <code>PATH</code>——Finder 启动不继承任何环境，连登录 shell 的 <code>PATH</code> 都不继承。profile、它的插件、harness 版本，全都在启动时读取，所以升级 harness 不需要重新打包。它也因此不是 profile 图层：它包装的，就是你已经组好的那个 profile。</span>
+            <span class="zh">它是一个启动器，不是 harness 的副本：烘焙进去的只有构建时解析到的 <code>dsh</code> 路径和一条 <code>PATH</code> —— Finder 启动不继承任何环境，连登录 shell 的 <code>PATH</code> 都不继承。profile、它的插件、harness 版本，全都在启动时读取，所以升级 harness 不需要重新打包。它也因此不是 profile 图层：它包装的，就是你已经组好的那个 profile。</span>
             <span class="en">It is a launcher, not a copy of the harness: all that is baked in is the <code>dsh</code> resolved at build time and a <code>PATH</code>, because a Finder launch inherits no environment at all — not even the login shell's. The profile, its plugins, and the harness release are read at launch, so upgrading the harness needs no rebuild. Which is also why it is no profile layer: what it wraps is the profile you already assembled.</span>
           </p>
           <div class="tablewrap">
@@ -598,9 +598,9 @@
     <section id="registry">
       <div class="sec-head">
         <div class="eyebrow"><span class="zh">注册表</span><span class="en">Registry</span></div>
-        <h2><span class="zh">一份文件，一次请求，一次说清推荐什么</span><span class="en">One file, one request, and a chance to say what is recommended</span></h2>
+        <h2><span class="zh">一份文件，一次请求，一个说清推荐什么的机会</span><span class="en">One file, one request, and a chance to say what is recommended</span></h2>
         <p class="intro">
-          <span class="zh">插件中心默认读的目录就是它。<code>registryUrl</code> 默认指向这份清单的 CDN 地址，GitHub 枚举默认关闭，所以刚装好、还没配置过的一份安装也能直接看到整个集合。</span>
+          <span class="zh">插件中心默认读的目录就是它。<code>registryUrl</code> 默认指向这份清单的 CDN 地址，GitHub 枚举默认关闭，所以一个刚装好、还没配置过的安装，也能直接看到整个集合。</span>
           <span class="en">The curated catalog every hub installation reads by default. <code>registryUrl</code> points at this file on a CDN, and GitHub enumeration stays off, so a fresh install lists the whole collection without being configured.</span>
         </p>
       </div>
@@ -612,14 +612,14 @@
           <h3><span class="zh">枚举本来就能用，为什么还要它</span><span class="en">Why it exists when enumeration already works</span></h3>
           <div class="body" style="color:var(--muted);font-size:15px;margin-top:14px">
             <p>
-              <span class="zh">插件中心还有第二个远程源，一个文件都不需要：直接问 GitHub 这个账号有哪些仓库，再读每个仓库的 <code>package.json</code>。那个源永远不会过期，也一直保留 —— 推上去的东西不管列没列在这儿都装得上。它做不到的是下面三件：</span>
+              <span class="zh">插件中心还有第二个远程源，一个文件都不需要：直接问 GitHub 这个账号有哪些仓库，再读每个仓库的 <code>package.json</code>。那个源永远不会过期，也一直保留 —— 推上去的东西，不管列没列在这儿，都装得上。但它有三件事做不到：</span>
               <span class="en">The hub has a second remote source that needs no file at all: it asks GitHub what the account owns and reads each repository's <code>package.json</code>. That source never goes stale, and it stays. What it cannot do is any of the following:</span>
             </p>
           </div>
           <ul class="plain" style="margin-top:18px">
             <li><span><b><span class="zh">一次请求，而不是一个仓库一次。</span><span class="en">One request instead of one per repository.</span></b> <span class="zh">未认证的枚举一小时只有 60 次，光这个集合就要十几次。</span><span class="en">Enumeration is rate-limited to 60 requests an hour unauthenticated, and the collection alone costs a dozen.</span></span></li>
             <li><span><b><span class="zh">说出推荐什么。</span><span class="en">Say what is recommended.</span></b> <span class="zh">枚举报告的是"存在什么"。一个草稿仓库和一个正式发布的插件，在它眼里一模一样。</span><span class="en">Enumeration reports what exists. A scratch repository and a released plugin look identical to it.</span></span></li>
-            <li><span><b><span class="zh">钉住版本。</span><span class="en">Pin a version.</span></b> <span class="zh">枚举读的是默认分支，也就是 <code>HEAD</code> 上的任何东西；这里的一行广告的是一次发布。</span><span class="en">Enumeration reads the default branch, so it advertises whatever is on <code>HEAD</code>; a row here advertises a release.</span></span></li>
+            <li><span><b><span class="zh">钉住版本。</span><span class="en">Pin a version.</span></b> <span class="zh">枚举读的是默认分支，<code>HEAD</code> 上有什么就广告什么；这里的一行，对应一次正式发布。</span><span class="en">Enumeration reads the default branch, so it advertises whatever is on <code>HEAD</code>; a row here advertises a release.</span></span></li>
           </ul>
 
           <p style="font-size:14.5px;color:var(--muted);margin-top:18px">
@@ -630,7 +630,7 @@
           <div class="note" style="border-left-color: var(--tone-warn)">
             <span class="tag" style="color:var(--tone-warn)"><span class="zh">远程内容当作远程内容对待</span><span class="en">remote content is treated as remote content</span></span>
             <p style="margin-top:10px">
-              <span class="zh"><code>spec</code> 是要交给 <code>pnpm</code> 的参数，所以每一个都先过白名单：registry 规格、<code>github:owner/repo</code>、或 https 的 git / tarball 地址。开头是 <code>-</code>、含空白、以及<strong>任何文件系统路径</strong>一律拒绝 —— 一份远程清单里的路径，装的会是读到它的那台机器上碰巧存在的东西。</span>
+              <span class="zh"><code>spec</code> 是要交给 <code>pnpm</code> 的参数，所以每一个都先过白名单：registry 规格、<code>github:owner/repo</code>，或 https 的 git / tarball 地址。开头是 <code>-</code> 的、含空白的，以及<strong>任何文件系统路径</strong>，一律拒绝 —— 一份远程清单里的路径，装上的会是读到它的那台机器上碰巧存在的东西。</span>
               <span class="en"><code>spec</code> is an argument to <code>pnpm</code>, so every specifier is validated against an allowlist first: a registry specifier, <code>github:owner/repo</code>, or an <code>https</code> git or tarball URL. A leading <code>-</code>, whitespace, and <strong>any filesystem path</strong> are refused — a path from a remote manifest would install whatever the reader's machine happens to have at it.</span>
             </p>
           </div>
@@ -640,7 +640,7 @@
           <h3><span class="zh">它是生成的，不是手写的</span><span class="en">It is generated, not written</span></h3>
           <div class="body" style="color:var(--muted);font-size:15px;margin-top:14px">
             <p>
-              <span class="zh"><code>build.mjs</code> 读旁边那些插件检出的 <code>package.json</code> 把清单打印出来。上面每个字段本来就住在那里，手工维护的副本在有人第一次改摘要的时候就开始漂移。</span>
+              <span class="zh"><code>build.mjs</code> 读旁边那些插件检出的 <code>package.json</code>，把清单打印出来。每个字段本来就住在那里；手工维护的副本，在有人第一次改摘要时就开始漂移。</span>
               <span class="en"><code>build.mjs</code> reads the plugin checkouts beside it and prints the manifest from their <code>package.json</code> files. Every field already lives there, and a hand-kept copy would drift the first time somebody edited a summary.</span>
             </p>
           </div>
@@ -650,7 +650,7 @@ node registry/build.mjs
 node registry/build.mjs --check</code></pre>
 
           <p style="font-size:14.5px;color:var(--muted);margin-top:18px">
-            <span class="zh">哪些包会出现由包自己决定：一个目录当且仅当声明了 <code>dsh.bundle.patch</code> 才被收进来 —— 这和插件中心判断"这东西装得上"用的是同一个事实。所以一次发布是两次推送：先发插件，再跑一遍生成器、推注册表。</span>
+            <span class="zh">哪些包会出现，由包自己决定：一个目录当且仅当声明了 <code>dsh.bundle.patch</code> 才被收进来 —— 这和插件中心判断"这东西装得上"用的是同一个事实。所以一次发布是两次推送：先发插件，再跑一遍生成器，推注册表。</span>
             <span class="en">Which packages appear is decided by the packages themselves: a directory is included exactly when it declares <code>dsh.bundle.patch</code>, the same fact the hub reads to decide something is installable at all. So a release is two pushes: the plugin, then the generator and this repository.</span>
           </p>
 
@@ -682,7 +682,7 @@ node registry/build.mjs --check</code></pre>
         <div class="eyebrow"><span class="zh">公约 · 九条规则</span><span class="en">Conventions · the nine rules</span></div>
         <h2><span class="zh">一个插件在这里答应的事</span><span class="en">What a plugin here agrees to</span></h2>
         <p class="intro">
-          <span class="zh">这些是插件中心能在<strong>完全不认识某个插件</strong>的前提下把它列出来、装上、配好的全部前提。一个需要每个插件教它点什么的中心，每来一个新插件就得改一次代码；这个不用，因为它渲染的每样东西都是插件本来就声明了的。</span>
+          <span class="zh">这些是插件中心能在<strong>完全不认识某个插件</strong>的前提下，把它列出来、装上、配好的全部前提。一个需要每个插件教它点什么的中心，每来一个新插件就得改一次代码；这个不用 —— 它渲染的每一样东西，插件本来就声明过。</span>
           <span class="en">This is all it takes for the hub to list, install and configure a plugin <strong>without knowing anything about it in particular</strong>. A hub that needed each plugin to teach it something would need editing before every new plugin could appear; this one needs nothing.</span>
         </p>
       </div>
@@ -694,7 +694,7 @@ node registry/build.mjs --check</code></pre>
         </div>
         <div class="rule">
           <h4><span class="zh">schema 自带它的措辞</span><span class="en">The schema carries its own words</span></h4>
-          <p><span class="zh">每个字段用 <code>.description()</code> 写成<strong>句子</strong>，再用 <code>.i18n({ zh: … })</code> 本地化。没有任何插件向中心注册字典，中心也不会为每个插件长出一条词条 —— 这才是"明年写的插件今天装上就有两种语言的正确标签"的那条性质。</span><span class="en">Label every field with <code>.description()</code>, written as a <strong>sentence</strong>, and localize with <code>.i18n({ zh: … })</code>. No plugin registers a dictionary with the hub, and no dictionary in the hub grows an entry per plugin.</span></p>
+          <p><span class="zh">每个字段用 <code>.description()</code> 写成<strong>句子</strong>，再用 <code>.i18n({ zh: … })</code> 本地化。没有任何插件向中心注册字典，中心也不会为每个插件长出一条词条 —— 正是这条性质，让明年写的插件装上当天就有两种语言的正确标签。</span><span class="en">Label every field with <code>.description()</code>, written as a <strong>sentence</strong>, and localize with <code>.i18n({ zh: … })</code>. No plugin registers a dictionary with the hub, and no dictionary in the hub grows an entry per plugin.</span></p>
         </div>
         <div class="rule">
           <h4><span class="zh">密钥要声明，不能指望</span><span class="en">Secrets are declared, not hoped for</span></h4>
@@ -702,7 +702,7 @@ node registry/build.mjs --check</code></pre>
         </div>
         <div class="rule">
           <h4><span class="zh">说清楚改动什么时候生效</span><span class="en">Say when a change takes effect</span></h4>
-          <p><span class="zh"><code>applies: 'live'</code>（默认）是提交即生效，<code>'restart'</code> 是不生效。中心会在卡片上标出"要重启"，免得有人改完了坐在那里等。优先选 live —— 通常只是多一个 <code>watch</code> 回调。</span><span class="en"><code>applies: 'live'</code> (the default) means a change is acted on as it commits; <code>'restart'</code> means it is not, and the hub marks that on the card so nobody is left wondering. Prefer live — it usually costs one <code>watch</code> callback.</span></p>
+          <p><span class="zh"><code>applies: 'live'</code>（默认）是提交即生效，<code>'restart'</code> 则不是。中心会在卡片上标出"要重启"，免得有人改完了坐在那里干等。优先选 live —— 通常只是多一个 <code>watch</code> 回调。</span><span class="en"><code>applies: 'live'</code> (the default) means a change is acted on as it commits; <code>'restart'</code> means it is not, and the hub marks that on the card so nobody is left wondering. Prefer live — it usually costs one <code>watch</code> callback.</span></p>
         </div>
         <div class="rule">
           <h4><span class="zh">展示信息写在 package.json 里</span><span class="en">Declare display metadata in package.json</span></h4>
@@ -714,15 +714,15 @@ node registry/build.mjs --check</code></pre>
         </div>
         <div class="rule">
           <h4><span class="zh">version 保持 semver，发版就 bump</span><span class="en">Keep version semver, and bump it on release</span></h4>
-          <p><span class="zh">更新按钮是被<strong>唯一一次</strong>比较点亮的：目录源广告的版本 对 磁盘上的版本，按 semver 排序。所以 <code>version</code> 不是记账，它是任何人能收到"有新版本了"的唯一信号。</span><span class="en">The Update button is lit by one comparison: the version the catalog advertises against the version on disk, ordered by semver. So <code>version</code> is not bookkeeping — it is the only signal anybody gets that a new release exists.</span></p>
+          <p><span class="zh">点亮更新按钮的比较只有<strong>一次</strong>：目录源广告的版本 对 磁盘上的版本，按 semver 排序。所以 <code>version</code> 不是记账 —— 它是任何人收到"有新版本了"的唯一信号。</span><span class="en">The Update button is lit by one comparison: the version the catalog advertises against the version on disk, ordered by semver. So <code>version</code> is not bookkeeping — it is the only signal anybody gets that a new release exists.</span></p>
         </div>
         <div class="rule">
           <h4><span class="zh">三件永远不做的事</span><span class="en">Three things a plugin here never does</span></h4>
-          <p><span class="zh">不改 <code>deepseek-harness</code>；不提交 <code>link:</code> 规格（pnpm 按声明它的清单来解析，等于把某一台机器的目录结构写死，而且是<strong>静默</strong>失败：悬空符号链接、"安装成功"，然后每一个 harness import 都 TS2307）；浏览器那半绝不 import 另一个插件的值 —— 要么内联出第二份运行时，要么向冻结的模块表要一个它答不上来的规格。</span><span class="en">Never edit <code>deepseek-harness</code>. Never commit a <code>link:</code> specifier — pnpm resolves it against the declaring manifest, so it hard-codes one machine's layout, and it fails <strong>silently</strong>: dangling symlink, "successful" install, then TS2307 on every harness import. And never import another plugin's values in the browser half — it either inlines a second copy of that runtime or asks the frozen module table for a specifier it cannot answer.</span></p>
+          <p><span class="zh">不改 <code>deepseek-harness</code>；不提交 <code>link:</code> 规格（pnpm 按声明它的那份清单解析，等于把某一台机器的目录结构写死，而且是<strong>静默</strong>失败：悬空符号链接、"安装成功"，然后每一个 harness import 都 TS2307）；浏览器那半绝不 import 另一个插件的值 —— 要么内联出第二份运行时，要么向冻结的模块表要一个它答不上来的规格。</span><span class="en">Never edit <code>deepseek-harness</code>. Never commit a <code>link:</code> specifier — pnpm resolves it against the declaring manifest, so it hard-codes one machine's layout, and it fails <strong>silently</strong>: dangling symlink, "successful" install, then TS2307 on every harness import. And never import another plugin's values in the browser half — it either inlines a second copy of that runtime or asks the frozen module table for a specifier it cannot answer.</span></p>
         </div>
         <div class="rule">
           <h4><span class="zh">别人的 service 永远不进你的 inject</span><span class="en">Another plugin's service never goes in your inject</span></h4>
-          <p><span class="zh">harness 自己的 service（<code>slots</code>、<code>sessions</code>、<code>workspaces</code>、<code>settings</code>…）由 base 和 surface bundle 组合，写在顶层 <code>inject</code> 里总能解析。另一个<em>插件</em>发布的 service 不是同一类事实 —— 它在不在，取决于这个 profile。所以在 <code>apply</code> 里面拿：受限 fiber（依赖有生命周期时）或者惰性读取（只在被调用那一刻需要时）。</span><span class="en">The harness's own services — <code>slots</code>, <code>sessions</code>, <code>workspaces</code>, <code>settings</code> — are composed by base and the surface bundle, so naming them at the top level always resolves. A service published by another <em>plugin</em> is a different kind of fact: whether it exists is a property of the profile. So reach for it inside <code>apply</code> — a restricted fiber when the dependency has a lifetime, a lazy read when you only need it at the moment something is called.</span></p>
+          <p><span class="zh">harness 自己的 service（<code>slots</code>、<code>sessions</code>、<code>workspaces</code>、<code>settings</code>…）由 base 和 surface bundle 组合，写在顶层 <code>inject</code> 里总能解析。另一个<em>插件</em>发布的 service 不是同一类事实 —— 它在不在，取决于这个 profile。所以在 <code>apply</code> 里面拿：依赖有生命周期就用受限 fiber，只在调用那一刻需要就惰性读取。</span><span class="en">The harness's own services — <code>slots</code>, <code>sessions</code>, <code>workspaces</code>, <code>settings</code> — are composed by base and the surface bundle, so naming them at the top level always resolves. A service published by another <em>plugin</em> is a different kind of fact: whether it exists is a property of the profile. So reach for it inside <code>apply</code> — a restricted fiber when the dependency has a lifetime, a lazy read when you only need it at the moment something is called.</span></p>
         </div>
       </div>
 
