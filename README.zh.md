@@ -164,7 +164,7 @@ cd omdsh-tui && pnpm install && pnpm run install:profile
 
 有东西要配的插件会注册**一个** settings 命名空间，带一份 [schemastery] schema，然后 `omdsh-plughub` 拿这份 schema 渲染出表单——标签、说明、校验、密钥脱敏、base/user 分层，全都是 harness 现成的。**没有任何插件需要教插件中心认识自己**，所以今天装上的插件在两种语言下都能拿到正确的标签，而插件中心一行都不用改。
 
-有六个插件拥有自己的命名空间：`omdsh-plughub`、`omdsh-shortcuts`、`omdsh-remctrl`、`omdsh-usage`、`omdsh-document`、`omdsh-vision`。其余的，凡是能配的，都在 profile 自己的 `cordis.patch.yml` 里配，每个 README 都会说清楚自己是哪一种。
+有七个插件拥有自己的命名空间：`omdsh-plughub`、`omdsh-shortcuts`、`omdsh-remctrl`、`omdsh-usage`、`omdsh-document`、`omdsh-vision`、`omdsh-sidepanel`。其余的，凡是能配的，都在 profile 自己的 `cordis.patch.yml` 里配，每个 README 都会说清楚自己是哪一种。
 
 存放凭据的字段会声明 `.role('secret')`，在每一次响应里被剥掉，并渲染成只写控件。
 

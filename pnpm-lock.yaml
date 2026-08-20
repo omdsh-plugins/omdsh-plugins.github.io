@@ -806,6 +806,9 @@ importers:
       '@deepseek-ai/dsh-session':
         specifier: 0.1.0-rc.8
         version: 0.1.0-rc.8(c49ade3f5770a6729132e278869ab1a9)
+      '@deepseek-ai/schemastery':
+        specifier: 3.18.1
+        version: 3.18.1
       '@testing-library/dom':
         specifier: ^10.4.1
         version: 10.4.1

@@ -165,7 +165,7 @@ A profile composes exactly one surface bundle over `dsh-base`. `@deepseek-ai/dsh
 
 A plugin with anything to configure registers one settings namespace with a [schemastery] schema, and `omdsh-plughub` renders a form from that schema — labels, descriptions, validation, secret redaction, and the base/user layering all come from the harness. **No plugin teaches the hub anything about itself**, which is what lets a plugin installed today get correct labels in both languages without the hub being edited.
 
-Six plugins own a namespace: `omdsh-plughub`, `omdsh-shortcuts`, `omdsh-remctrl`, `omdsh-usage`, `omdsh-document`, `omdsh-vision`. The rest are configured, where they are configurable at all, in the profile's own `cordis.patch.yml` — each README says which it is.
+Seven plugins own a namespace: `omdsh-plughub`, `omdsh-shortcuts`, `omdsh-remctrl`, `omdsh-usage`, `omdsh-document`, `omdsh-vision`, `omdsh-sidepanel`. The rest are configured, where they are configurable at all, in the profile's own `cordis.patch.yml` — each README says which it is.
 
 A field holding a credential is declared `.role('secret')`, stripped from every response, and rendered as a write-only control.
 
