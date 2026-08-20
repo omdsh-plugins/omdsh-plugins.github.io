@@ -375,13 +375,13 @@
 
         <!-- chatmode -->
         <article class="card" data-cat="workspace" style="--t: var(--tone-workspace)">
-          <div class="card-top"><span class="dot"></span>workspace<span class="ver">0.2.2</span></div>
+          <div class="card-top"><span class="dot"></span>workspace<span class="ver">0.2.3</span></div>
           <h3><span class="zh">聊天模式</span><span class="en">Chat Mode</span><span class="en-name zh">Chat Mode</span></h3>
           <p class="pkg">@omdsh-plugins/omdsh-chatmode</p>
           <p class="sum"><span class="zh">不用选项目目录就能开始对话，这些对话统一放在侧栏的 Chat 下面。</span><span class="en">Start a conversation without picking a project directory, kept together under Chat.</span></p>
           <p class="detail">
-            <span class="zh">harness 是编码智能体，新建会话前先问你要哪个工作区 —— 合理，因为编码总要发生在某处。但不是每个问题都是活儿。这个插件在旁边补上另一种姿势：对话上方一个 <strong>Chat / Work</strong> 开关，加上一个受管的 Chat 工作区（真实目录 <code>&lt;dshHome&gt;/chat</code>）。<strong>会话跑在哪里</strong>就是它的全部 —— 用哪套 agent，仍由部署的默认预设和 harness 自己的芯片决定。模式是<strong>推导</strong>出来的而不是存下来的：一个会话是不是 chat，取决于它算在哪个工作区名下 —— 存一个标志位，迟早会和屏幕上的事实打架。</span>
-            <span class="en">The harness is a coding agent, and its New Session screen asks for a workspace first — reasonably, because a coding agent works somewhere. But not every question is work. This adds the other posture beside it: a <strong>Chat / Work</strong> switch above the conversation, and a managed Chat workspace (a real directory at <code>&lt;dshHome&gt;/chat</code>). <strong>Where the conversation lives is the whole of it</strong> — a chat runs the deployment's default preset, and the harness's own chip is where a reader picks another. The mode is <strong>derived, not stored</strong>: a session is a chat exactly when it is accounted under that workspace — a stored flag would eventually disagree with the screen.</span>
+            <span class="zh">harness 是编码智能体，新建会话前先问你要哪个工作区 —— 合理，因为编码总要发生在某处。但不是每个问题都是活儿。这个插件在旁边补上另一种姿势：对话上方一个 <strong>Chat / Work</strong> 开关，加上一个受管的 Chat 工作区（真实目录 <code>&lt;dshHome&gt;/chat</code>）。<strong>会话跑在哪里</strong>就是它的全部 —— 用哪套 agent，仍由部署的默认预设和 harness 自己的芯片决定。Chat 里那枚工作区 chip 会从新建会话那一行拿掉，只留下预设选择。模式是<strong>推导</strong>出来的而不是存下来的：一个会话是不是 chat，取决于它算在哪个工作区名下 —— 存一个标志位，迟早会和屏幕上的事实打架。</span>
+            <span class="en">The harness is a coding agent, and its New Session screen asks for a workspace first — reasonably, because a coding agent works somewhere. But not every question is work. This adds the other posture beside it: a <strong>Chat / Work</strong> switch above the conversation, and a managed Chat workspace (a real directory at <code>&lt;dshHome&gt;/chat</code>). <strong>Where the conversation lives is the whole of it</strong> — a chat runs the deployment's default preset, and the harness's own chip is where a reader picks another. In Chat the workspace chip comes off that row, leaving the preset picker. The mode is <strong>derived, not stored</strong>: a session is a chat exactly when it is accounted under that workspace — a stored flag would eventually disagree with the screen.</span>
           </p>
           <div class="card-foot">
             <span class="chip"><span class="zh">需要 omdsh-basemode</span><span class="en">needs omdsh-basemode</span></span>
